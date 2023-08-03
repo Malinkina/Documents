@@ -1,4 +1,4 @@
-package ru.julia;
+package ru.julia.documents;
 
 public class IncomingDocument extends Document {
     String sender;

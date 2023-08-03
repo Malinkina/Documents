@@ -1,15 +1,18 @@
-package ru.julia;
+package ru.julia.builders;
+import ru.julia.representatives.InternalRepresentatives;
+import ru.julia.documents.Document;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.stream.Collectors;
  public abstract class DocumentBuilder {
-    int id;
-    String name;
-    String text;
-    int regNumber;
-    String regDate;
-    String author;
+    protected int id;
+    protected String name;
+    protected String text;
+    protected int regNumber;
+    protected String regDate;
+    protected String author;
     DocumentBuilder buildId() {
         this.id = (int) (Math.random() * 700);
         return this;

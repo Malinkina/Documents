@@ -1,4 +1,4 @@
-package ru.julia;
+package ru.julia.representatives;
 
 import java.util.Arrays;
 import java.util.List;

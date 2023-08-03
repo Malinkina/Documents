@@ -1,4 +1,8 @@
-package ru.julia;
+package ru.julia.builders;
+
+import ru.julia.DeliveryTypes;
+import ru.julia.representatives.ExternalRepresentatives;
+import ru.julia.documents.OutgoingDocument;
 
 public class OutgoingDocumentBuilder extends DocumentBuilder {
     String recipient;

@@ -1,4 +1,6 @@
-package ru.julia;
+package ru.julia.documents;
+
+import ru.julia.documents.Document;
 
 public class OutgoingDocument extends Document {
     String recipient;

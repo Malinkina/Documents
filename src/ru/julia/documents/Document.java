@@ -1,4 +1,4 @@
-package ru.julia;
+package ru.julia.documents;
 
 public abstract class Document implements Comparable<Document> {
     int id;
@@ -6,7 +6,7 @@ public abstract class Document implements Comparable<Document> {
     String text;
     int regNumber;
     String regDate;
-    String author;
+    public String author;
 
     public Document(int id, String name, String text, int regNumber, String regDate, String author) {
         this.id = id;

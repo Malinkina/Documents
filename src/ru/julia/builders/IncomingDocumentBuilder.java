@@ -1,4 +1,8 @@
-package ru.julia;
+package ru.julia.builders;
+
+import ru.julia.representatives.ExternalRepresentatives;
+import ru.julia.representatives.InternalRepresentatives;
+import ru.julia.documents.IncomingDocument;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,5 +1,7 @@
 package ru.julia;
 
+import ru.julia.documents.Document;
+
 import java.util.*;
 
 public class DocumentGeneration {
