@@ -5,7 +5,7 @@ import ru.julia.documents.Document;
 import java.util.*;
 
 public class DocumentGeneration {
-    DocumentFactory documentFactory = new DocumentFactory();
+    ru.julia.DocumentFactory documentFactory = new ru.julia.DocumentFactory();
     public List<Document> documents = new ArrayList<>();
     private final List<String> AUTHORS = new ArrayList<>();
     public Map<String, List<Document>> authorAndDocument = new HashMap<>();
