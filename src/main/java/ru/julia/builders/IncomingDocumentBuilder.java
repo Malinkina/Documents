@@ -7,7 +7,7 @@ import ru.julia.documents.IncomingDocument;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class IncomingDocumentBuilder extends DocumentBuilder {
+public class IncomingDocumentBuilder extends ru.julia.builders.DocumentBuilder {
     String sender;
     String recipient;
     int outgoingNumber;

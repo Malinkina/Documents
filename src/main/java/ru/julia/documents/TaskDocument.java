@@ -1,7 +1,5 @@
 package ru.julia.documents;
 
-import ru.julia.documents.Document;
-
 public class TaskDocument extends Document {
     String issueDate;
     String executionTerm;
