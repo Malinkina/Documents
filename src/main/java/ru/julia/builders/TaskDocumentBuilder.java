@@ -1,7 +1,7 @@
 package ru.julia.builders;
 
 import ru.julia.documents.TaskDocument;
-import ru.julia.factories.TaskDocumentFactory;
+import ru.julia.infogenerators.TaskDocumentInfoGenerator;
 import ru.julia.representatives.InternalRepresentatives;
 
 import java.util.Random;
@@ -14,12 +14,12 @@ public class TaskDocumentBuilder extends DocumentBuilder {
     String controller;
 
     private TaskDocumentBuilder issueDate() {
-        this.issueDate = TaskDocumentFactory.generateIssueDate();
+        this.issueDate = TaskDocumentInfoGenerator.generateIssueDate();
         return this;
     }
 
     private TaskDocumentBuilder executionTerm() {
-        this.executionTerm = TaskDocumentFactory.generateExecutionTerm();
+        this.executionTerm = TaskDocumentInfoGenerator.generateExecutionTerm();
         return this;
     }
 

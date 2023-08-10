@@ -1,8 +1,8 @@
 package ru.julia.builders;
 
 
-import ru.julia.factories.IncomingDocumentFactory;
 import ru.julia.documents.IncomingDocument;
+import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
 
 public class IncomingDocumentBuilder extends DocumentBuilder {
     String sender;
@@ -10,27 +10,24 @@ public class IncomingDocumentBuilder extends DocumentBuilder {
     int outgoingNumber;
     String outgoingRegDate;
     private IncomingDocumentBuilder sender() {
-        this.sender = IncomingDocumentFactory.generateSender();
+        this.sender = IncomingDocumentInfoGenerator.generateSender();
         return this;
     }
     private IncomingDocumentBuilder recipient() {
-        this.recipient = IncomingDocumentFactory.generateRecipient();
+        this.recipient = IncomingDocumentInfoGenerator.generateRecipient();
         return this;
     }
     private IncomingDocumentBuilder outgoingNumber() {
-        this.outgoingNumber = IncomingDocumentFactory.generateOutgoingNumber();
+        this.outgoingNumber = IncomingDocumentInfoGenerator.generateOutgoingNumber();
         return this;
     }
     private IncomingDocumentBuilder outgoingRegDate() {
-        this.outgoingRegDate = IncomingDocumentFactory.generateRegDate();
+        this.outgoingRegDate = IncomingDocumentInfoGenerator.generateRegDate();
         return this;
     }
     public void build(IncomingDocument document) {
         super.build(document);
-        sender();
-        recipient();
-        outgoingNumber();
-        outgoingRegDate();
+        sender().recipient().outgoingNumber().outgoingRegDate();
         document.setSender(this.sender);
         document.setRecipient(this.recipient);
         document.setOutgoingNumber(this.outgoingNumber);

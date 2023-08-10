@@ -1,11 +1,11 @@
 package ru.julia;
 
-import ru.julia.documents.TaskDocument;
-import ru.julia.factories.TaskDocumentFactory;
+import ru.julia.documents.OutgoingDocument;
+import ru.julia.factories.OutgoingDocumentFactory;
 
 public class Main {
     public static void main(String[] args) {
-        TaskDocument taskDocument = new TaskDocumentFactory().create();
-        System.out.println(taskDocument);
+        OutgoingDocument outgoingDocument = new OutgoingDocumentFactory().create();
+        System.out.println(outgoingDocument);
     }
 }

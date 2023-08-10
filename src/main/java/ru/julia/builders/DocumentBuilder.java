@@ -1,41 +1,42 @@
 package ru.julia.builders;
-import ru.julia.factories.DocumentFactory;
-import ru.julia.documents.Document;
 
- public class DocumentBuilder {
+import ru.julia.documents.Document;
+import ru.julia.infogenerators.DocumentInfoGenerator;
+
+public class DocumentBuilder {
     int id;
     String name;
     String text;
     int regNumber;
     String regDate;
     String author;
-    DocumentBuilder id() {
-        this.id = DocumentFactory.generateId();
+    private DocumentBuilder id() {
+        this.id = DocumentInfoGenerator.generateId();
         return this;
     }
 
-    DocumentBuilder name() {
-        this.name = DocumentFactory.generateName();
+    private DocumentBuilder name() {
+        this.name = DocumentInfoGenerator.generateName();
         return this;
     }
 
-    DocumentBuilder text() {
-        this.text = DocumentFactory.generateText();
+    private DocumentBuilder text() {
+        this.text = DocumentInfoGenerator.generateText();
         return this;
     }
 
-    DocumentBuilder regNumber() {
-        this.regNumber = DocumentFactory.generateRegNumber();
+    private DocumentBuilder regNumber() {
+        this.regNumber = DocumentInfoGenerator.generateRegNumber();
         return this;
     }
 
-    DocumentBuilder regDate() {
-        this.regDate = DocumentFactory.generateRegDate();
+    private DocumentBuilder regDate() {
+        this.regDate = DocumentInfoGenerator.generateRegDate();
         return this;
     }
 
-    DocumentBuilder author() {
-        this.author = DocumentFactory.generateAuthor();
+    private DocumentBuilder author() {
+        this.author = DocumentInfoGenerator.generateAuthor();
         return this;
     }
 
