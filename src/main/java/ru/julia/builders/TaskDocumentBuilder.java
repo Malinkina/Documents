@@ -1,10 +1,9 @@
 package ru.julia.builders;
 
 import ru.julia.documents.TaskDocument;
+import ru.julia.factories.TaskDocumentFactory;
 import ru.julia.representatives.InternalRepresentatives;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class TaskDocumentBuilder extends DocumentBuilder {
@@ -14,50 +13,37 @@ public class TaskDocumentBuilder extends DocumentBuilder {
     boolean controlMark;
     String controller;
 
-    private TaskDocumentBuilder buildIssueDate() {
-        LocalDate localDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        this.issueDate = localDate.format(formatter);
+    private TaskDocumentBuilder issueDate() {
+        this.issueDate = TaskDocumentFactory.generateIssueDate();
         return this;
     }
 
-    private TaskDocumentBuilder buildExecutionTerm() {
-        LocalDate localDate = LocalDate.now().plusDays(31);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        this.executionTerm = localDate.format(formatter);
+    private TaskDocumentBuilder executionTerm() {
+        this.executionTerm = TaskDocumentFactory.generateExecutionTerm();
         return this;
     }
 
-    private TaskDocumentBuilder buildResponsibleExecutive() {
-        this.responsibleExecutive = new InternalRepresentatives().randomRepresentative();
+    private TaskDocumentBuilder responsibleExecutive() {
+        this.responsibleExecutive = InternalRepresentatives.randomRepresentative();
         return this;
     }
 
-    private TaskDocumentBuilder buildControlMark() {
+    private TaskDocumentBuilder controlMark() {
         this.controlMark = new Random().nextBoolean();
         return this;
     }
 
-    private TaskDocumentBuilder buildController() {
-        this.controller = new InternalRepresentatives().randomRepresentative();
-        return null;
+    private TaskDocumentBuilder controller() {
+        this.controller = InternalRepresentatives.randomRepresentative();
+        return this;
     }
-
-    @Override
-    public TaskDocument build() {
-        TaskDocumentBuilder.super.buildId().buildName().buildText().buildRegNumber().buildRegDate().buildAuthor();
-        buildIssueDate();
-        buildExecutionTerm();
-        buildResponsibleExecutive();
-        buildControlMark();
-        if (controlMark) {
-            buildController();
-        } else {
-            this.controller = "Без контролера";
-        }
-        while (controller.equals(responsibleExecutive))
-            buildController();
-        return new TaskDocument(super.id, super.name, super.text, super.regNumber, super.regDate, super.author,
-                                    issueDate, executionTerm, responsibleExecutive, controlMark, controller);
+    public void build(TaskDocument document) {
+        super.build(document);
+        issueDate().executionTerm().responsibleExecutive().controlMark().controller();
+        document.setIssueDate(this.issueDate);
+        document.setExecutionTerm(this.executionTerm);
+        document.setResponsibleExecutive(this.responsibleExecutive);
+        document.setControlMark(this.controlMark);
+        document.setController(this.controller);
     }
 }

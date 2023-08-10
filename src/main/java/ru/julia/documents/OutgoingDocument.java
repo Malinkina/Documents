@@ -4,9 +4,11 @@ public class OutgoingDocument extends Document {
     String recipient;
     String deliveryType;
 
-    public OutgoingDocument(int id, String name, String text, int regNumber, String regDate, String author, String recipient, String deliveryType) {
-        super(id, name, text, regNumber, regDate, author);
+    public void setRecipient(String recipient) {
         this.recipient = recipient;
+    }
+
+    public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
 

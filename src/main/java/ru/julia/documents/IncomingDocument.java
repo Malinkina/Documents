@@ -6,12 +6,19 @@ public class IncomingDocument extends Document {
     int outgoingNumber;
     String outgoingRegDate;
 
-    public IncomingDocument(int id, String name, String text, int regNumber, String regDate, String author,
-                            String sender, String recipient, int outgoingNumber, String outgoingRegDate) {
-        super(id, name, text, regNumber, regDate, author);
+    public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public void setRecipient(String recipient) {
         this.recipient = recipient;
+    }
+
+    public void setOutgoingNumber(int outgoingNumber) {
         this.outgoingNumber = outgoingNumber;
+    }
+
+    public void setOutgoingRegDate(String outgoingRegDate) {
         this.outgoingRegDate = outgoingRegDate;
     }
 

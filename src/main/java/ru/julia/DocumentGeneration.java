@@ -5,21 +5,13 @@ import ru.julia.documents.Document;
 import java.util.*;
 
 public class DocumentGeneration {
-    ru.julia.DocumentFactory documentFactory = new ru.julia.DocumentFactory();
+
     public List<Document> documents = new ArrayList<>();
     private final List<String> AUTHORS = new ArrayList<>();
     public Map<String, List<Document>> authorAndDocument = new HashMap<>();
 
     public void generateDocuments() {
-        for (int i = 0; i < (int) (Math.random() * 10); i++) {
-            if (i < 5) {
-                documents.add(documentFactory.createOutgoingDocument());
-            } else if (i > 5) {
-                documents.add(documentFactory.createTaskDocument());
-            } else {
-                documents.add(documentFactory.createIncomingDocument());
-            }
-        }
+
     }
 
     public void convertListToMap(List<Document> documents) {

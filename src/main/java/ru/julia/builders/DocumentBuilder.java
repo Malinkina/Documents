@@ -1,57 +1,51 @@
 package ru.julia.builders;
-import ru.julia.representatives.InternalRepresentatives;
+import ru.julia.factories.DocumentFactory;
 import ru.julia.documents.Document;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
-import java.util.stream.Collectors;
- public abstract class DocumentBuilder {
-    protected int id;
-    protected String name;
-    protected String text;
-    protected int regNumber;
-    protected String regDate;
-    protected String author;
-    DocumentBuilder buildId() {
-        this.id = (int) (Math.random() * 700);
+ public class DocumentBuilder {
+    int id;
+    String name;
+    String text;
+    int regNumber;
+    String regDate;
+    String author;
+    DocumentBuilder id() {
+        this.id = DocumentFactory.generateId();
         return this;
     }
 
-    DocumentBuilder buildName() {
-        this.name = randomString();
+    DocumentBuilder name() {
+        this.name = DocumentFactory.generateName();
         return this;
     }
 
-    DocumentBuilder buildText() {
-        this.text = randomString();
+    DocumentBuilder text() {
+        this.text = DocumentFactory.generateText();
         return this;
     }
 
-    DocumentBuilder buildRegNumber() {
-        this.regNumber = (int) (Math.random() * 100);
+    DocumentBuilder regNumber() {
+        this.regNumber = DocumentFactory.generateRegNumber();
         return this;
     }
 
-    DocumentBuilder buildRegDate() {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        this.regDate = localDate.format(formatter);
+    DocumentBuilder regDate() {
+        this.regDate = DocumentFactory.generateRegDate();
         return this;
     }
 
-    DocumentBuilder buildAuthor() {
-        this.author = new InternalRepresentatives().randomRepresentative();
+    DocumentBuilder author() {
+        this.author = DocumentFactory.generateAuthor();
         return this;
     }
 
-     public abstract Document build();
-
-     String randomString() {
-        String symbols = "abcdefghijklmnopqrstuvwxyz";
-        return new Random().ints(7, 0, symbols.length())
-                .mapToObj(symbols::charAt)
-                .map(Object::toString)
-                .collect(Collectors.joining());
-    }
+     public void build(Document document) {
+        id().name().text().regNumber().regDate().author();
+        document.setId(this.id);
+        document.setName(this.name);
+        document.setText(this.text);
+        document.setRegNumber(this.regNumber);
+        document.setRegDate(this.regDate);
+        document.setAuthor(this.author);
+     }
 }
