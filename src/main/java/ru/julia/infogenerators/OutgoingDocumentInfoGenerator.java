@@ -5,7 +5,7 @@ import ru.julia.representatives.ExternalRepresentatives;
 
 public class OutgoingDocumentInfoGenerator {
     public static String generateRecipient() {
-        return ExternalRepresentatives.randomRepresentative();
+        return ExternalRepresentatives.representatives.get((int) (Math.random() * 3));
     }
 
     public static String generateDeliveryType() {

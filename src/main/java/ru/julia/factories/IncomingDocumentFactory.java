@@ -1,13 +1,22 @@
 package ru.julia.factories;
 
-import ru.julia.builders.IncomingDocumentBuilder;
 import ru.julia.documents.IncomingDocument;
+import ru.julia.infogenerators.DocumentInfoGenerator;
+import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
 
 public class IncomingDocumentFactory implements DocumentFactory {
-    IncomingDocumentBuilder incomingDocumentBuilder = new IncomingDocumentBuilder();
     public IncomingDocument create() {
-        IncomingDocument incomingDocument = new IncomingDocument();
-        incomingDocumentBuilder.build(incomingDocument);
-        return incomingDocument;
+        return IncomingDocument.newBuilder()
+                .id(DocumentInfoGenerator.generateId())
+                .name(DocumentInfoGenerator.generateName())
+                .text(DocumentInfoGenerator.generateText())
+                .regNumber(DocumentInfoGenerator.generateRegNumber())
+                .regDate(DocumentInfoGenerator.generateRegDate())
+                .author(DocumentInfoGenerator.generateAuthor())
+                .sender(IncomingDocumentInfoGenerator.generateSender())
+                .recipient(IncomingDocumentInfoGenerator.generateRecipient())
+                .outgoingNumber(IncomingDocumentInfoGenerator.generateOutgoingNumber())
+                .outgoingRegDate(IncomingDocumentInfoGenerator.generateRegDate())
+                .build();
     }
 }

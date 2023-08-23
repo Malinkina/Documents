@@ -20,7 +20,7 @@ public class DocumentInfoGenerator {
     }
 
     public static int generateRegNumber() {
-        return ((int) (Math.random() * 10));
+        return ((int) (Math.random() * 100 + 1));
     }
 
     public static String generateRegDate() {
@@ -30,6 +30,6 @@ public class DocumentInfoGenerator {
     }
 
     public static String generateAuthor() {
-        return InternalRepresentatives.randomRepresentative();
+        return InternalRepresentatives.representatives.get((int) (Math.random() * 4));
     }
 }

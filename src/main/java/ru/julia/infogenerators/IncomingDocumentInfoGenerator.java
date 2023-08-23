@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
 
 public class IncomingDocumentInfoGenerator {
     public static String generateSender() {
-        return InternalRepresentatives.randomRepresentative();
+        return InternalRepresentatives.representatives.get((int) (Math.random() * 4));
     }
     public static String generateRecipient() {
-        return ExternalRepresentatives.randomRepresentative();
+        return ExternalRepresentatives.representatives.get((int) (Math.random() * 3));
     }
     public static int generateOutgoingNumber() {
         return ((int) (Math.random() * 20));

@@ -1,18 +1,64 @@
 package ru.julia.documents;
 
 public class OutgoingDocument extends Document {
-    String recipient;
-    String deliveryType;
+    private String recipient;
+    private String deliveryType;
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public void setDeliveryType(String deliveryType) {
-        this.deliveryType = deliveryType;
+    private OutgoingDocument() {}
+    public static OutgoingDocumentBuilder newBuilder() {
+        return new OutgoingDocument().new OutgoingDocumentBuilder();
     }
 
     public String toString() {
-        return "Исходящий " + "№ " + "Акт_" + regNumber + " от " + regDate + ". " + name;
+        return "Исходящий № " + super.getRegNumber() +
+                " от " + super.getRegDate() + ". " + super.getName();
     }
+
+    public class OutgoingDocumentBuilder {
+        private OutgoingDocumentBuilder() {}
+        public OutgoingDocumentBuilder id(int id) {
+            setId(id);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder name(String name) {
+            setName(name);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder text(String text) {
+            setText(text);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder regNumber(int regNumber) {
+            setRegNumber(regNumber);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder regDate(String regDate) {
+            setRegDate(regDate);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder author(String author) {
+            setAuthor(author);
+            return this;
+        }
+
+        public OutgoingDocumentBuilder recipient(String recipient) {
+            OutgoingDocument.this.recipient = recipient;
+            return this;
+        }
+
+        public OutgoingDocumentBuilder deliveryType(String deliveryType) {
+            OutgoingDocument.this.deliveryType = deliveryType;
+            return this;
+        }
+
+        public OutgoingDocument build() {
+            return OutgoingDocument.this;
+        }
+    }
+
 }

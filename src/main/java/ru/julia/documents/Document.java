@@ -1,12 +1,36 @@
 package ru.julia.documents;
 
-public abstract class Document implements Comparable<Document> {
-    int id;
-    String name;
-    String text;
-    int regNumber;
-    String regDate;
-    public String author;
+public abstract class Document {
+    private int id;
+    private String name;
+    private String text;
+    private int regNumber;
+    private String regDate;
+    private String author;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getRegNumber() {
+        return regNumber;
+    }
+
+    public String getRegDate() {
+        return regDate;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -32,8 +56,44 @@ public abstract class Document implements Comparable<Document> {
         this.author = author;
     }
 
-    @Override
-    public int compareTo(Document o) {
-        return Integer.compare(regNumber, o.regNumber);
-    }
+
+
+
+    /*public static class DocumentBuilder {
+        Document document;
+
+        public DocumentBuilder setId(int id) {
+            document.id = id;
+            return this;
+        }
+
+        public DocumentBuilder setName(String name) {
+            document.name = name;
+            return this;
+        }
+
+        public DocumentBuilder setText(String text) {
+            document.text = text;
+            return this;
+        }
+
+        public DocumentBuilder setRegNumber(int regNumber) {
+            document.regNumber = regNumber;
+            return this;
+        }
+
+        public DocumentBuilder setRegDate(String regDate) {
+            document.regDate = regDate;
+            return this;
+        }
+
+        public DocumentBuilder setAuthor(String author) {
+            document.author = author;
+            return this;
+        }
+        public Document build() {
+            return document;
+        }
+    }*/
 }
+
