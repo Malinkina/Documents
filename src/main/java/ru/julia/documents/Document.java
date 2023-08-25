@@ -1,11 +1,13 @@
 package ru.julia.documents;
 
-public abstract class Document {
+import java.time.LocalDate;
+
+public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;
     private String text;
-    private int regNumber;
-    private String regDate;
+    private String regNumber;
+    private LocalDate regDate;
     private String author;
 
     public int getId() {
@@ -20,11 +22,11 @@ public abstract class Document {
         return text;
     }
 
-    public int getRegNumber() {
+    public String getRegNumber() {
         return regNumber;
     }
 
-    public String getRegDate() {
+    public LocalDate getRegDate() {
         return regDate;
     }
 
@@ -44,11 +46,11 @@ public abstract class Document {
         this.text = text;
     }
 
-    public void setRegNumber(int regNumber) {
+    public void setRegNumber(String regNumber) {
         this.regNumber = regNumber;
     }
 
-    public void setRegDate(String regDate) {
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
@@ -56,11 +58,15 @@ public abstract class Document {
         this.author = author;
     }
 
-
+    @Override
+    public int compareTo(Document document) {
+        int regDateComparison = this.regDate.compareTo(document.getRegDate());
+        return regDateComparison != 0 ?
+                regDateComparison : this.regNumber.compareTo(document.getRegNumber());
+    }
 
 
     /*public static class DocumentBuilder {
-        Document document;
 
         public DocumentBuilder setId(int id) {
             document.id = id;

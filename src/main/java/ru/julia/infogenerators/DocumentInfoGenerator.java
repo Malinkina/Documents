@@ -4,7 +4,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import ru.julia.representatives.InternalRepresentatives;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class DocumentInfoGenerator {
     public static int generateId() {
@@ -19,15 +18,13 @@ public class DocumentInfoGenerator {
         return RandomStringUtils.randomAlphabetic(20);
     }
 
-    public static int generateRegNumber() {
-        return ((int) (Math.random() * 100 + 1));
+    public static String generateRegNumber() {
+        return RandomStringUtils.randomAlphabetic(3).toLowerCase();
     }
 
-    public static String generateRegDate() {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return localDate.format(formatter);
-    }
+    public static LocalDate generateRegDate() {
+        return LocalDate.now();
+    } // .getTime()
 
     public static String generateAuthor() {
         return InternalRepresentatives.representatives.get((int) (Math.random() * 4));

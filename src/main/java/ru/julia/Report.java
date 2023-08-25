@@ -3,17 +3,19 @@ package ru.julia;
 import ru.julia.documents.Document;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 public final class Report {
     private static Report instance;
     DocumentsGeneration documentGeneration = new DocumentsGeneration();
-    private final Map<String, List<Document>> authorAndDocument = new HashMap<>();
+    private final TreeMap<String, List<Document>> authorAndDocument = new TreeMap<>();
     private final List<String> authors = new ArrayList<>();
 
-    private Report() {}
+    private Report() {
+    }
+
     public static Report getInstance() {
         Report localInstance = instance;
         if (localInstance == null) {
@@ -34,6 +36,7 @@ public final class Report {
             e.printStackTrace();
         }
         convertListToMap(documentGeneration.documents);
+        sortLists();
         print();
     }
 
@@ -54,11 +57,10 @@ public final class Report {
         }
     }
 
-    public void print() {
+    private void print() {
         String author;
         List<Document> docs;
-        for (String key: authorAndDocument.keySet())
-        {
+        for (String key : authorAndDocument.keySet()) {
             author = key;
             System.out.println(author);
             docs = authorAndDocument.get(key);
@@ -67,6 +69,11 @@ public final class Report {
                 document = doc;
                 System.out.println("\t" + document.toString());
             }
+        }
+    }
+    private void sortLists() {
+        for (List<Document> list : authorAndDocument.values()) {
+            Collections.sort(list);
         }
     }
 }

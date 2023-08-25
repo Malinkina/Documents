@@ -1,5 +1,8 @@
 package ru.julia.documents;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
@@ -7,18 +10,23 @@ public class TaskDocument extends Document {
     private boolean controlMark;
     private String controller;
 
-    private TaskDocument() {}
+    private TaskDocument() {
+    }
+
     public static TaskDocumentBuilder newBuilder() {
         return new TaskDocument().new TaskDocumentBuilder();
     }
 
     public String toString() {
-        return "Поручение № " + super.getRegNumber() +
-                " от " + super.getRegDate() + ". " + super.getName();
+        return "Поручение № " + super.getRegNumber()
+                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + super.getName();
     }
 
     public class TaskDocumentBuilder {
-        private TaskDocumentBuilder() {}
+        private TaskDocumentBuilder() {
+        }
+
         public TaskDocumentBuilder id(int id) {
             setId(id);
             return this;
@@ -34,12 +42,12 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder regNumber(int regNumber) {
+        public TaskDocumentBuilder regNumber(String regNumber) {
             setRegNumber(regNumber);
             return this;
         }
 
-        public TaskDocumentBuilder regDate(String regDate) {
+        public TaskDocumentBuilder regDate(LocalDate regDate) {
             setRegDate(regDate);
             return this;
         }

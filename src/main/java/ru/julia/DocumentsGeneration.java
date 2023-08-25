@@ -24,7 +24,7 @@ public class DocumentsGeneration {
             if (GeneratedDocumentCheck.checkIfDocumentExists(document, documents)) {
                 documents.add(document);
             } else {
-                throw new DocumentExistsException();
+                throw new DocumentExistsException("Документ с номером " + document.getRegNumber() + " уже существует");
             }
         }
     }

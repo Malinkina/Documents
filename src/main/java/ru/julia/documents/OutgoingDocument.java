@@ -1,21 +1,29 @@
 package ru.julia.documents;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class OutgoingDocument extends Document {
     private String recipient;
     private String deliveryType;
 
-    private OutgoingDocument() {}
+    private OutgoingDocument() {
+    }
+
     public static OutgoingDocumentBuilder newBuilder() {
         return new OutgoingDocument().new OutgoingDocumentBuilder();
     }
 
     public String toString() {
-        return "Исходящий № " + super.getRegNumber() +
-                " от " + super.getRegDate() + ". " + super.getName();
+        return "Исходящий № " + super.getRegNumber()
+                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + super.getName();
     }
 
     public class OutgoingDocumentBuilder {
-        private OutgoingDocumentBuilder() {}
+        private OutgoingDocumentBuilder() {
+        }
+
         public OutgoingDocumentBuilder id(int id) {
             setId(id);
             return this;
@@ -31,12 +39,12 @@ public class OutgoingDocument extends Document {
             return this;
         }
 
-        public OutgoingDocumentBuilder regNumber(int regNumber) {
+        public OutgoingDocumentBuilder regNumber(String regNumber) {
             setRegNumber(regNumber);
             return this;
         }
 
-        public OutgoingDocumentBuilder regDate(String regDate) {
+        public OutgoingDocumentBuilder regDate(LocalDate regDate) {
             setRegDate(regDate);
             return this;
         }

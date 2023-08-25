@@ -1,24 +1,33 @@
 package ru.julia.documents;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class IncomingDocument extends Document {
     private String sender;
     private String recipient;
     private int outgoingNumber;
     private String outgoingRegDate;
-    private IncomingDocument() {}
+
+    private IncomingDocument() {
+    }
+
     public static IncomingDocumentBuilder newBuilder() {
         return new IncomingDocument().new IncomingDocumentBuilder();
     }
 
     @Override
     public String toString() {
-        return "Входящий № " + super.getRegNumber() +
-                " от " + super.getRegDate() + ". " + super.getName();
+        return "Входящий № " + super.getRegNumber()
+                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + super.getName();
     }
 
 
     public class IncomingDocumentBuilder {
-        private IncomingDocumentBuilder() {}
+        private IncomingDocumentBuilder() {
+        }
+
         public IncomingDocumentBuilder id(int id) {
             setId(id);
             return this;
@@ -34,12 +43,12 @@ public class IncomingDocument extends Document {
             return this;
         }
 
-        public IncomingDocumentBuilder regNumber(int regNumber) {
+        public IncomingDocumentBuilder regNumber(String regNumber) {
             setRegNumber(regNumber);
             return this;
         }
 
-        public IncomingDocumentBuilder regDate(String regDate) {
+        public IncomingDocumentBuilder regDate(LocalDate regDate) {
             setRegDate(regDate);
             return this;
         }
@@ -48,6 +57,7 @@ public class IncomingDocument extends Document {
             setAuthor(author);
             return this;
         }
+
         public IncomingDocumentBuilder sender(String sender) {
             IncomingDocument.this.sender = sender;
             return this;
@@ -67,6 +77,7 @@ public class IncomingDocument extends Document {
             IncomingDocument.this.outgoingRegDate = outgoingRegDate;
             return this;
         }
+
         public IncomingDocument build() {
             return IncomingDocument.this;
         }
