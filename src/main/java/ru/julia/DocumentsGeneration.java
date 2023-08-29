@@ -10,23 +10,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Класс генерирует документы
+ */
 public class DocumentsGeneration {
-    private final List<DocumentFactory> factories = Arrays.asList(
+    private final static List<DocumentFactory> FACTORIES = Arrays.asList(
             new OutgoingDocumentFactory(),
             new TaskDocumentFactory(),
             new IncomingDocumentFactory());
-    public List<Document> documents = new ArrayList<>();
 
-    public void generateDocuments() throws DocumentExistsException {
+    /**
+     * Метод генерирует документы и передает в хранилище {@link RegNumbersStorage}
+     */
+    public List<Document> generateDocuments() throws DocumentExistsException {
+        List<Document> documents = new ArrayList<>();
         for (int i = 0; i < (int) (Math.random() * 20 + 1); i++) {
-            DocumentFactory factory = factories.get((int) (Math.random() * 3));
+            DocumentFactory factory = FACTORIES.get((int) (Math.random() * 3));
             Document document = factory.create();
-            if (GeneratedDocumentCheck.checkIfDocumentExists(document, documents)) {
+            if (!RegNumbersStorage.getRegNumbers().contains(document.getRegNumber())) {
+                RegNumbersStorage.getRegNumbers().add(document.getRegNumber());
                 documents.add(document);
             } else {
-                throw new DocumentExistsException("Документ с номером " + document.getRegNumber() + " уже существует");
+                throw new DocumentExistsException();
             }
         }
+        return documents;
     }
 }
 
