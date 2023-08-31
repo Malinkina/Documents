@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<person>
+    <surname>Сычев</surname>
+    <name>Никита</name>
+    <patronymic>Андреевич</patronymic>
+    <position>Разработчик</position>
+    <photo>Классное фото</photo>
+    <dateOfBirth>28.06.1994</dateOfBirth>
+    <phoneNumber>+79373078701</phoneNumber>
+</person>
