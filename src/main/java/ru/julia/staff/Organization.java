@@ -12,10 +12,14 @@ public class Organization extends Staff {
     @XmlElement
     private String shortName;
     @XmlElement
-    private String manager;
+    private Person manager;
     @XmlElementWrapper(name = "contactPhoneNumbers")
     @XmlElement(name = "contactPhoneNumber")
     private List<String> contactPhoneNumbers;
+
+    public void setManager(Person manager) {
+        this.manager = manager;
+    }
 
     @Override
     public String toString() {

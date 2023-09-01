@@ -13,10 +13,14 @@ public class Department extends Staff {
     @XmlElement
     private String shortName;
     @XmlElement
-    private String manager;
-    @XmlElementWrapper(name = "contactPhoneNumbers")
+    private Person manager;
+    @XmlElementWrapper
     @XmlElement(name = "contactPhoneNumber")
     private final List<String> contactPhoneNumbers = new ArrayList<>();
+
+    public void setManager(Person manager) {
+        this.manager = manager;
+    }
 
     @Override
     public String toString() {
