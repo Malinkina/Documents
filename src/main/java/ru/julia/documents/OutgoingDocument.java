@@ -1,10 +1,12 @@
 package ru.julia.documents;
 
+import ru.julia.staff.Person;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class OutgoingDocument extends Document {
-    private String recipient;
+    private Person recipient;
     private String deliveryType;
 
     private OutgoingDocument() {
@@ -49,12 +51,12 @@ public class OutgoingDocument extends Document {
             return this;
         }
 
-        public OutgoingDocumentBuilder author(String author) {
+        public OutgoingDocumentBuilder author(Person author) {
             setAuthor(author);
             return this;
         }
 
-        public OutgoingDocumentBuilder recipient(String recipient) {
+        public OutgoingDocumentBuilder recipient(Person recipient) {
             OutgoingDocument.this.recipient = recipient;
             return this;
         }

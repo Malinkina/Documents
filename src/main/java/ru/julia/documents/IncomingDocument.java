@@ -1,12 +1,21 @@
 package ru.julia.documents;
 
+import ru.julia.staff.Person;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+@XmlType (name = "incoming document")
 
 public class IncomingDocument extends Document {
-    private String sender;
-    private String recipient;
+    @XmlElement
+    private Person sender;
+    @XmlElement
+    private Person recipient;
+    @XmlElement
     private int outgoingNumber;
+    @XmlElement
     private String outgoingRegDate;
 
     private IncomingDocument() {
@@ -53,17 +62,17 @@ public class IncomingDocument extends Document {
             return this;
         }
 
-        public IncomingDocumentBuilder author(String author) {
+        public IncomingDocumentBuilder author(Person author) {
             setAuthor(author);
             return this;
         }
 
-        public IncomingDocumentBuilder sender(String sender) {
+        public IncomingDocumentBuilder sender(Person sender) {
             IncomingDocument.this.sender = sender;
             return this;
         }
 
-        public IncomingDocumentBuilder recipient(String recipient) {
+        public IncomingDocumentBuilder recipient(Person recipient) {
             IncomingDocument.this.recipient = recipient;
             return this;
         }

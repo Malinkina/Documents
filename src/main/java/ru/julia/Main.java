@@ -7,6 +7,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws DocumentExistsException {
         List<Document> documents = new DocumentsGeneration().generateDocuments();
-        Report.getInstance().reportGeneratedDocs(documents);
+        Report.getInstance().reportGeneratedDocuments(documents);
     }
 }

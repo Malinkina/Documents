@@ -1,5 +1,6 @@
 package ru.julia.factories;
 
+import ru.julia.XMLReader;
 import ru.julia.documents.OutgoingDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.OutgoingDocumentInfoGenerator;
@@ -12,8 +13,8 @@ public class OutgoingDocumentFactory implements DocumentFactory {
                 .text(DocumentInfoGenerator.generateText())
                 .regNumber(DocumentInfoGenerator.generateRegNumber())
                 .regDate(DocumentInfoGenerator.generateRegDate())
-                .author(DocumentInfoGenerator.generateAuthor())
-                .recipient(OutgoingDocumentInfoGenerator.generateRecipient())
+                .author(XMLReader.readPerson())
+                .recipient(XMLReader.readPerson())
                 .deliveryType(OutgoingDocumentInfoGenerator.generateDeliveryType())
                 .build();
     }

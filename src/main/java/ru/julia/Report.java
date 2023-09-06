@@ -2,7 +2,10 @@ package ru.julia;
 
 import ru.julia.documents.Document;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class Report {
@@ -22,10 +25,10 @@ public final class Report {
         return instance;
     }
 
-    public void reportGeneratedDocs(List<Document> documents) {
+    public void reportGeneratedDocuments(List<Document> documents) {
         Map<String, List<Document>> authorAndDocument = documents.stream()
                 .sorted()
-                .collect(Collectors.groupingBy(Document::getAuthor));
+                .collect(Collectors.groupingBy(d -> d.getAuthor().toString()));
         List<String> authors = new ArrayList<>(authorAndDocument.keySet());
         Collections.sort(authors);
         for (String key : authors) {

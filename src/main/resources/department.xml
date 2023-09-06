@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
- <department>
-    <fullName>Разработка</fullName>
-    <shortName>РЗРБТК</shortName>
-    <manager>Сычев</manager>
-    <contactPhoneNumbers>
-        <contactPhoneNumber>+79373078701</contactPhoneNumber>
-        <contactPhoneNumber>+79991320120</contactPhoneNumber>
-    </contactPhoneNumbers>
-</department>
+<staff>
+    <departments>
+        <department>
+            <fullName>Разработка</fullName>
+            <shortName>РЗРБТК</shortName>
+            <manager>Сычев</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+79373078701</contactPhoneNumber>
+                <contactPhoneNumber>+79991320120</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </department>
+        <department>
+            <fullName>НеРазработка</fullName>
+            <shortName>НРЗРБТК</shortName>
+            <manager>Иванов</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+79373078701</contactPhoneNumber>
+                <contactPhoneNumber>+79991320120</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </department>
+    </departments>
+</staff>

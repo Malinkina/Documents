@@ -1,14 +1,25 @@
 package ru.julia.documents;
 
+import ru.julia.staff.Person;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
+@XmlRootElement
 
 public abstract class Document implements Comparable<Document> {
+    @XmlElement
     private int id;
+    @XmlElement
     private String name;
+    @XmlElement
     private String text;
+    @XmlElement
     private String regNumber;
+    @XmlElement
     private LocalDate regDate;
-    private String author;
+    @XmlElement
+    private Person author;
 
     public int getId() {
         return id;
@@ -30,7 +41,7 @@ public abstract class Document implements Comparable<Document> {
         return regDate;
     }
 
-    public String getAuthor() {
+    public Person getAuthor() {
         return author;
     }
 
@@ -54,7 +65,7 @@ public abstract class Document implements Comparable<Document> {
         this.regDate = regDate;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Person author) {
         this.author = author;
     }
 

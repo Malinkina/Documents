@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Person extends Staff {
+public class Person extends Staff implements Comparable<Person> {
     @XmlElement
     private String surname;
     @XmlElement
@@ -19,17 +19,13 @@ public class Person extends Staff {
     private String dateOfBirth;
     @XmlElement
     private String phoneNumber;
-
     @Override
     public String toString() {
-        return "Person{" +
-                "surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", position='" + position + '\'' +
-                ", photo='" + photo + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return surname + " " + name + " " + patronymic;
+    }
+
+    @Override
+    public int compareTo(Person person) {
+        return this.surname.compareTo(person.surname);
     }
 }

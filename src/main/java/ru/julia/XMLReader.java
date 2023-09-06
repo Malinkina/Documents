@@ -1,8 +1,6 @@
 package ru.julia;
 
-import ru.julia.staff.Department;
-import ru.julia.staff.Organization;
-import ru.julia.staff.Person;
+import ru.julia.staff.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -10,23 +8,27 @@ import javax.xml.bind.Unmarshaller;
 import java.net.URL;
 
 public class XMLReader {
-    public Person readPerson() {
+    public static Person readPerson() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Person.class);
+            JAXBContext context = JAXBContext.newInstance(Person.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            URL resource1 = XMLReader.class.getClassLoader().getResource("person.xml");
-            return (Person) unmarshaller.unmarshal(resource1);
+            URL resource = Test.class.getClassLoader().getResource("person.xml");
+            OrgUnits persons = (OrgUnits) unmarshaller.unmarshal(resource);
+            Person person = persons.getPersonList().get((int) (Math.random() * 2));
+            return person;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public Organization readOrganization() {
+
+    public static Organization readOrganization() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Organization.class);
+            JAXBContext context = JAXBContext.newInstance(Organization.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("organization.xml");
-            Organization organization = (Organization) unmarshaller.unmarshal(resource);
+            OrgUnits organizationList = (OrgUnits) unmarshaller.unmarshal(resource);
+            Organization organization = organizationList.getOrgList().get((int) (Math.random() * 2));
             organization.setManager(readPerson());
             return organization;
         } catch (JAXBException e) {
@@ -34,12 +36,14 @@ public class XMLReader {
         }
         return null;
     }
-    public Department readDepartment() {
+
+    public static Department readDepartment() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Department.class);
+            JAXBContext context = JAXBContext.newInstance(Department.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("department.xml");
-            Department department = (Department) unmarshaller.unmarshal(resource);
+            OrgUnits departmentList = (OrgUnits) unmarshaller.unmarshal(resource);
+            Department department = departmentList.getDepartmentList().get((int) (Math.random() * 2));
             department.setManager(readPerson());
             return department;
         } catch (JAXBException e) {
