@@ -1,5 +1,7 @@
 package ru.julia.documents;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import ru.julia.staff.Person;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,8 +18,10 @@ public abstract class Document implements Comparable<Document> {
     private String text;
     @XmlElement
     private String regNumber;
+    @JsonFormat (pattern = "dd.MM.yyyy")
     @XmlElement
     private LocalDate regDate;
+    @JsonSerialize
     @XmlElement
     private Person author;
 

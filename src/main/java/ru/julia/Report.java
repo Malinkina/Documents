@@ -25,7 +25,7 @@ public final class Report {
         return instance;
     }
 
-    public void reportGeneratedDocuments(List<Document> documents) {
+    public Map<String, List<Document>> reportGeneratedDocuments(List<Document> documents) {
         Map<String, List<Document>> authorAndDocument = documents.stream()
                 .sorted()
                 .collect(Collectors.groupingBy(d -> d.getAuthor().toString()));
@@ -38,5 +38,6 @@ public final class Report {
                 System.out.println("\t" + doc.toString());
             }
         }
+        return authorAndDocument;
     }
 }

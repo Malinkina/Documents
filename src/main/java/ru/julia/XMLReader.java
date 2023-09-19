@@ -12,7 +12,7 @@ public class XMLReader {
         try {
             JAXBContext context = JAXBContext.newInstance(Person.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            URL resource = Test.class.getClassLoader().getResource("person.xml");
+            URL resource = XMLReader.class.getClassLoader().getResource("person.xml");
             OrgUnits persons = (OrgUnits) unmarshaller.unmarshal(resource);
             Person person = persons.getPersonList().get((int) (Math.random() * 2));
             return person;

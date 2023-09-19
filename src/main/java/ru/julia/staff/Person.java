@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Person extends Staff implements Comparable<Person> {
+public class Person extends Staff {
     @XmlElement
     private String surname;
     @XmlElement
@@ -22,10 +22,5 @@ public class Person extends Staff implements Comparable<Person> {
     @Override
     public String toString() {
         return surname + " " + name + " " + patronymic;
-    }
-
-    @Override
-    public int compareTo(Person person) {
-        return this.surname.compareTo(person.surname);
     }
 }
