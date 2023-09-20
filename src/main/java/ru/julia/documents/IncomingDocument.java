@@ -2,36 +2,25 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-@XmlType (name = "incoming document")
 
 public class IncomingDocument extends Document {
-    @XmlElement
     private Person sender;
-    @XmlElement
     private Person recipient;
-    @XmlElement
     private int outgoingNumber;
-    @XmlElement
     private String outgoingRegDate;
 
     private IncomingDocument() {
     }
 
+    @Override
+    public String toString() {
+        return "Входящий № " + super.toString();
+    }
+
     public static IncomingDocumentBuilder newBuilder() {
         return new IncomingDocument().new IncomingDocumentBuilder();
     }
-
-    @Override
-    public String toString() {
-        return "Входящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
-    }
-
 
     public class IncomingDocumentBuilder {
         private IncomingDocumentBuilder() {

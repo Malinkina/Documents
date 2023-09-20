@@ -1,28 +1,18 @@
 package ru.julia.documents;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import ru.julia.staff.Person;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-@XmlRootElement
+import java.time.format.DateTimeFormatter;
 
 public abstract class Document implements Comparable<Document> {
-    @XmlElement
     private int id;
-    @XmlElement
     private String name;
-    @XmlElement
     private String text;
-    @XmlElement
     private String regNumber;
-    @JsonFormat (pattern = "dd.MM.yyyy")
-    @XmlElement
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    @JsonSerialize
-    @XmlElement
     private Person author;
 
     public int getId() {
@@ -80,7 +70,11 @@ public abstract class Document implements Comparable<Document> {
                 regDateComparison : this.regNumber.compareTo(document.getRegNumber());
     }
 
-
+    public String toString() {
+        return getRegNumber()
+                + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + getName();
+    }
     /*public static class DocumentBuilder {
 
         public DocumentBuilder setId(int id) {

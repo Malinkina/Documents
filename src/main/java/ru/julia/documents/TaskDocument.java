@@ -2,14 +2,20 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+@XmlRootElement
 public class TaskDocument extends Document {
+    @XmlElement
     private String issueDate;
+    @XmlElement
     private String executionTerm;
+    @XmlElement
     private Person responsibleExecutive;
+    @XmlElement
     private boolean controlMark;
+    @XmlElement
     private Person controller;
 
     private TaskDocument() {
@@ -20,9 +26,7 @@ public class TaskDocument extends Document {
     }
 
     public String toString() {
-        return "Поручение № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Поручение № " + super.toString();
     }
 
     public class TaskDocumentBuilder {

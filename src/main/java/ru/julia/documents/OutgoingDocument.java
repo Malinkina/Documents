@@ -2,11 +2,15 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+@XmlRootElement
 public class OutgoingDocument extends Document {
+    @XmlElement
     private Person recipient;
+    @XmlElement
     private String deliveryType;
 
     private OutgoingDocument() {
@@ -17,9 +21,7 @@ public class OutgoingDocument extends Document {
     }
 
     public String toString() {
-        return "Исходящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Исходящий № " + super.toString();
     }
 
     public class OutgoingDocumentBuilder {
