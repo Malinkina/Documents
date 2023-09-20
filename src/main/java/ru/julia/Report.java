@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Показывает отчет по сгенерируемым документам
+ */
 public final class Report {
     private static volatile Report instance;
 

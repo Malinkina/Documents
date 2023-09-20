@@ -1,10 +1,12 @@
 package ru.julia.factories;
 
-import ru.julia.XMLReader;
 import ru.julia.documents.IncomingDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
 
+/**
+ * Класс создает объект класса {@link IncomingDocument}
+ */
 public class IncomingDocumentFactory implements DocumentFactory {
     public IncomingDocument create() {
         return IncomingDocument.newBuilder()
@@ -13,9 +15,9 @@ public class IncomingDocumentFactory implements DocumentFactory {
                 .text(DocumentInfoGenerator.generateText())
                 .regNumber(DocumentInfoGenerator.generateRegNumber())
                 .regDate(DocumentInfoGenerator.generateRegDate())
-                .author(XMLReader.readPerson())
-                .sender(XMLReader.readPerson())
-                .recipient(XMLReader.readPerson())
+                .author(DocumentInfoGenerator.generateAuthor())
+                .sender(IncomingDocumentInfoGenerator.generateSender())
+                .recipient(IncomingDocumentInfoGenerator.generateRecipient())
                 .outgoingNumber(IncomingDocumentInfoGenerator.generateOutgoingNumber())
                 .outgoingRegDate(IncomingDocumentInfoGenerator.generateRegDate())
                 .build();

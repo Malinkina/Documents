@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Сериализирует сгенерированные документы
+ */
 public class Serialization {
-
     public void serialize(Map<String, List<Document>> docs) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);

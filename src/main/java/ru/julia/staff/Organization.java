@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+/**
+ * Класс описывает организацию
+ */
 @XmlRootElement(name = "organization")
 public class Organization extends Staff {
     @XmlElement

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Класс описывает персонал
+ */
 @XmlRootElement
 @JsonAutoDetect
 public class Person extends Staff {

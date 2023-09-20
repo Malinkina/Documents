@@ -1,12 +1,15 @@
 package ru.julia.infogenerators;
 
-import ru.julia.representatives.ExternalRepresentatives;
-import ru.julia.representatives.InternalRepresentatives;
+import ru.julia.XMLReader;
+import ru.julia.documents.TaskDocument;
+import ru.julia.staff.Person;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
-
+/**
+ * Класс создает и возвращает объект класса {@link TaskDocument}
+ */
 public class TaskDocumentInfoGenerator {
     public static String generateIssueDate() {
         LocalDate localDate = LocalDate.now().plusDays(1);
@@ -18,13 +21,13 @@ public class TaskDocumentInfoGenerator {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
     }
-    public static String generateResponsibleExecutive() {
-            return ExternalRepresentatives.representatives.get((int) (Math.random() * 3));
+    public static Person generateResponsibleExecutive() {
+            return XMLReader.readPerson();
     }
     public static boolean generateControlMark() {
         return new Random().nextBoolean();
     }
-    public static String generateController() {
-        return InternalRepresentatives.representatives.get((int) (Math.random() * 4));
+    public static Person generateController() {
+        return XMLReader.readPerson();
     }
 }

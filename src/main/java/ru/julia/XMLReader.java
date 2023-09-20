@@ -7,6 +7,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.net.URL;
 
+/**
+ * Читает значения из XML-документов для полей классов {@link Person}, {@link Department}, {@link Organization}
+ */
 public class XMLReader {
     public static Person readPerson() {
         try {

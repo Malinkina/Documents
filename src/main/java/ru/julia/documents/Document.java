@@ -6,6 +6,10 @@ import ru.julia.staff.Person;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
+ * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
+ */
 public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;

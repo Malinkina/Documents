@@ -1,10 +1,12 @@
 package ru.julia.factories;
 
-import ru.julia.XMLReader;
 import ru.julia.documents.TaskDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.TaskDocumentInfoGenerator;
 
+/**
+ * Класс создает объект класса {@link TaskDocument}
+ */
 public class TaskDocumentFactory implements DocumentFactory {
     @Override
     public TaskDocument create() {
@@ -14,12 +16,12 @@ public class TaskDocumentFactory implements DocumentFactory {
                 .text(DocumentInfoGenerator.generateText())
                 .regNumber(DocumentInfoGenerator.generateRegNumber())
                 .regDate(DocumentInfoGenerator.generateRegDate())
-                .author(XMLReader.readPerson())
+                .author(DocumentInfoGenerator.generateAuthor())
                 .issueDate(TaskDocumentInfoGenerator.generateIssueDate())
                 .executionTerm(TaskDocumentInfoGenerator.generateExecutionTerm())
-                .responsibleExecutive(XMLReader.readPerson())
+                .responsibleExecutive(TaskDocumentInfoGenerator.generateResponsibleExecutive())
                 .controlMark(TaskDocumentInfoGenerator.generateControlMark())
-                .controller(XMLReader.readPerson())
+                .controller(TaskDocumentInfoGenerator.generateController())
                 .build();
     }
 }

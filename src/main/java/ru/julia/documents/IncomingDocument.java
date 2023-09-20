@@ -4,6 +4,9 @@ import ru.julia.staff.Person;
 
 import java.time.LocalDate;
 
+/**
+ * Класс описывает входящий документ
+ **/
 public class IncomingDocument extends Document {
     private Person sender;
     private Person recipient;
@@ -22,6 +25,9 @@ public class IncomingDocument extends Document {
         return new IncomingDocument().new IncomingDocumentBuilder();
     }
 
+    /**
+     * Класс присваивает значения полям класса {@link IncomingDocument}
+     */
     public class IncomingDocumentBuilder {
         private IncomingDocumentBuilder() {
         }

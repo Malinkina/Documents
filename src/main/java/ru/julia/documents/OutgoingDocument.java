@@ -2,15 +2,13 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
-@XmlRootElement
+/**
+ * Класс описывает исходящий документ
+ */
 public class OutgoingDocument extends Document {
-    @XmlElement
     private Person recipient;
-    @XmlElement
     private String deliveryType;
 
     private OutgoingDocument() {
@@ -24,6 +22,9 @@ public class OutgoingDocument extends Document {
         return "Исходящий № " + super.toString();
     }
 
+    /**
+     * Класс присваивает значения полям класса {@link OutgoingDocument}
+     */
     public class OutgoingDocumentBuilder {
         private OutgoingDocumentBuilder() {
         }

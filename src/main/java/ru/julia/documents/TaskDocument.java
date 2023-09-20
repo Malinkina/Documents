@@ -2,20 +2,16 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-@XmlRootElement
+
+/**
+ * Класс описывает документ-поручение
+ */
 public class TaskDocument extends Document {
-    @XmlElement
     private String issueDate;
-    @XmlElement
     private String executionTerm;
-    @XmlElement
     private Person responsibleExecutive;
-    @XmlElement
     private boolean controlMark;
-    @XmlElement
     private Person controller;
 
     private TaskDocument() {
@@ -29,6 +25,9 @@ public class TaskDocument extends Document {
         return "Поручение № " + super.toString();
     }
 
+    /**
+     * Класс присваивает значения полям класса {@link TaskDocument}
+     */
     public class TaskDocumentBuilder {
         private TaskDocumentBuilder() {
         }

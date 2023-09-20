@@ -6,8 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс описывает оргштатную единицу
+ */
 @XmlRootElement(name = "staff")
-
 public class OrgUnits {
     @XmlElementWrapper(name = "persons")
     @XmlElement(name = "person")
