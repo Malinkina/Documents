@@ -1,9 +1,14 @@
 package ru.julia;
 
 import ru.julia.documents.Document;
-import ru.julia.factories.*;
+import ru.julia.factories.DocumentFactory;
+import ru.julia.factories.IncomingDocumentFactory;
+import ru.julia.factories.OutgoingDocumentFactory;
+import ru.julia.factories.TaskDocumentFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Класс генерирует документы

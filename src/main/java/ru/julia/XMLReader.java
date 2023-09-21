@@ -1,6 +1,9 @@
 package ru.julia;
 
-import ru.julia.staff.*;
+import ru.julia.staff.Department;
+import ru.julia.staff.OrgUnits;
+import ru.julia.staff.Organization;
+import ru.julia.staff.Person;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
