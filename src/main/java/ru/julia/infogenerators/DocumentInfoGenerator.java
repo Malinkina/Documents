@@ -1,10 +1,15 @@
 package ru.julia.infogenerators;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import ru.julia.representatives.InternalRepresentatives;
+import ru.julia.XMLReader;
+import ru.julia.documents.Document;
+import ru.julia.staff.Person;
 
 import java.time.LocalDate;
 
+/**
+ * Класс генерирует значения для полей класса {@link Document}
+ */
 public class DocumentInfoGenerator {
     public static int generateId() {
         return ((int) (Math.random() * 100));
@@ -24,9 +29,9 @@ public class DocumentInfoGenerator {
 
     public static LocalDate generateRegDate() {
         return LocalDate.now();
-    } // .getTime()
+    }
 
-    public static String generateAuthor() {
-        return InternalRepresentatives.representatives.get((int) (Math.random() * 4));
+    public static Person generateAuthor() {
+        return XMLReader.readPerson();
     }
 }

@@ -4,6 +4,9 @@ import ru.julia.documents.TaskDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.TaskDocumentInfoGenerator;
 
+/**
+ * Класс создает объект класса {@link TaskDocument}
+ */
 public class TaskDocumentFactory implements DocumentFactory {
     @Override
     public TaskDocument create() {

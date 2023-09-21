@@ -1,10 +1,14 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Person;
 
+import java.time.LocalDate;
+
+/**
+ * Класс описывает исходящий документ
+ */
 public class OutgoingDocument extends Document {
-    private String recipient;
+    private Person recipient;
     private String deliveryType;
 
     private OutgoingDocument() {
@@ -15,11 +19,12 @@ public class OutgoingDocument extends Document {
     }
 
     public String toString() {
-        return "Исходящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Исходящий № " + super.toString();
     }
 
+    /**
+     * Класс присваивает значения полям класса {@link OutgoingDocument}
+     */
     public class OutgoingDocumentBuilder {
         private OutgoingDocumentBuilder() {
         }
@@ -49,12 +54,12 @@ public class OutgoingDocument extends Document {
             return this;
         }
 
-        public OutgoingDocumentBuilder author(String author) {
+        public OutgoingDocumentBuilder author(Person author) {
             setAuthor(author);
             return this;
         }
 
-        public OutgoingDocumentBuilder recipient(String recipient) {
+        public OutgoingDocumentBuilder recipient(Person recipient) {
             OutgoingDocument.this.recipient = recipient;
             return this;
         }

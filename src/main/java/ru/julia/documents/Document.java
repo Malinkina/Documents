@@ -1,14 +1,23 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import ru.julia.staff.Person;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
+ * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
+ */
 public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;
     private String text;
     private String regNumber;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    private String author;
+    private Person author;
 
     public int getId() {
         return id;
@@ -30,7 +39,7 @@ public abstract class Document implements Comparable<Document> {
         return regDate;
     }
 
-    public String getAuthor() {
+    public Person getAuthor() {
         return author;
     }
 
@@ -54,7 +63,7 @@ public abstract class Document implements Comparable<Document> {
         this.regDate = regDate;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Person author) {
         this.author = author;
     }
 
@@ -65,7 +74,11 @@ public abstract class Document implements Comparable<Document> {
                 regDateComparison : this.regNumber.compareTo(document.getRegNumber());
     }
 
-
+    public String toString() {
+        return getRegNumber()
+                + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + getName();
+    }
     /*public static class DocumentBuilder {
 
         public DocumentBuilder setId(int id) {

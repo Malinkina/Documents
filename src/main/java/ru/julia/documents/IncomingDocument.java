@@ -1,29 +1,33 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Person;
 
+import java.time.LocalDate;
+
+/**
+ * Класс описывает входящий документ
+ **/
 public class IncomingDocument extends Document {
-    private String sender;
-    private String recipient;
+    private Person sender;
+    private Person recipient;
     private int outgoingNumber;
     private String outgoingRegDate;
 
     private IncomingDocument() {
     }
 
+    @Override
+    public String toString() {
+        return "Входящий № " + super.toString();
+    }
+
     public static IncomingDocumentBuilder newBuilder() {
         return new IncomingDocument().new IncomingDocumentBuilder();
     }
 
-    @Override
-    public String toString() {
-        return "Входящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
-    }
-
-
+    /**
+     * Класс присваивает значения полям класса {@link IncomingDocument}
+     */
     public class IncomingDocumentBuilder {
         private IncomingDocumentBuilder() {
         }
@@ -53,17 +57,17 @@ public class IncomingDocument extends Document {
             return this;
         }
 
-        public IncomingDocumentBuilder author(String author) {
+        public IncomingDocumentBuilder author(Person author) {
             setAuthor(author);
             return this;
         }
 
-        public IncomingDocumentBuilder sender(String sender) {
+        public IncomingDocumentBuilder sender(Person sender) {
             IncomingDocument.this.sender = sender;
             return this;
         }
 
-        public IncomingDocumentBuilder recipient(String recipient) {
+        public IncomingDocumentBuilder recipient(Person recipient) {
             IncomingDocument.this.recipient = recipient;
             return this;
         }

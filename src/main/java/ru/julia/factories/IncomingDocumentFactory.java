@@ -4,6 +4,9 @@ import ru.julia.documents.IncomingDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
 
+/**
+ * Класс создает объект класса {@link IncomingDocument}
+ */
 public class IncomingDocumentFactory implements DocumentFactory {
     public IncomingDocument create() {
         return IncomingDocument.newBuilder()

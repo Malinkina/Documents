@@ -4,6 +4,9 @@ import ru.julia.documents.OutgoingDocument;
 import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.OutgoingDocumentInfoGenerator;
 
+/**
+ * Класс создает объект класса {@link OutgoingDocument}
+ */
 public class OutgoingDocumentFactory implements DocumentFactory {
     public OutgoingDocument create() {
         return OutgoingDocument.newBuilder()

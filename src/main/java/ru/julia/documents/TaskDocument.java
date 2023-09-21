@@ -1,14 +1,18 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Person;
 
+import java.time.LocalDate;
+
+/**
+ * Класс описывает документ-поручение
+ */
 public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
-    private String responsibleExecutive;
+    private Person responsibleExecutive;
     private boolean controlMark;
-    private String controller;
+    private Person controller;
 
     private TaskDocument() {
     }
@@ -18,11 +22,12 @@ public class TaskDocument extends Document {
     }
 
     public String toString() {
-        return "Поручение № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Поручение № " + super.toString();
     }
 
+    /**
+     * Класс присваивает значения полям класса {@link TaskDocument}
+     */
     public class TaskDocumentBuilder {
         private TaskDocumentBuilder() {
         }
@@ -52,7 +57,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder author(String author) {
+        public TaskDocumentBuilder author(Person author) {
             setAuthor(author);
             return this;
         }
@@ -67,7 +72,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder responsibleExecutive(String responsibleExecutive) {
+        public TaskDocumentBuilder responsibleExecutive(Person responsibleExecutive) {
             TaskDocument.this.responsibleExecutive = responsibleExecutive;
             return this;
         }
@@ -77,7 +82,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder controller(String controller) {
+        public TaskDocumentBuilder controller(Person controller) {
             TaskDocument.this.controller = controller;
             return this;
         }

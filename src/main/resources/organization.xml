@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <organizations>
+        <organization>
+            <fullName>ЦИТРОС</fullName>
+            <shortName>ЦТРС</shortName>
+            <manager>Соколов</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+7999999999</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </organization>
+        <organization>
+            <fullName>НЕЦИТРОС</fullName>
+            <shortName>НЦТРС</shortName>
+            <manager>Пустовойт</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+7999999991</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </organization>
+    </organizations>
+</staff>
