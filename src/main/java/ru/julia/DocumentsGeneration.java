@@ -1,14 +1,9 @@
 package ru.julia;
 
 import ru.julia.documents.Document;
-import ru.julia.factories.DocumentFactory;
-import ru.julia.factories.IncomingDocumentFactory;
-import ru.julia.factories.OutgoingDocumentFactory;
-import ru.julia.factories.TaskDocumentFactory;
+import ru.julia.factories.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Класс генерирует документы
@@ -18,6 +13,21 @@ public class DocumentsGeneration {
             new OutgoingDocumentFactory(),
             new TaskDocumentFactory(),
             new IncomingDocumentFactory());
+    private static volatile DocumentsGeneration instance;
+
+    private DocumentsGeneration() {
+    }
+
+    public static DocumentsGeneration getInstance() {
+        if (instance == null) {
+            synchronized (DocumentsGeneration.class) {
+                if (instance == null) {
+                    instance = new DocumentsGeneration();
+                }
+            }
+        }
+        return instance;
+    }
 
     /**
      * Метод генерирует документы и передает в хранилище {@link RegNumbersStorage}
@@ -27,8 +37,8 @@ public class DocumentsGeneration {
         for (int i = 0; i < (int) (Math.random() * 20 + 1); i++) {
             DocumentFactory factory = FACTORIES.get((int) (Math.random() * 3));
             Document document = factory.create();
-            if (!RegNumbersStorage.getRegNumbers().contains(document.getRegNumber())) {
-                RegNumbersStorage.getRegNumbers().add(document.getRegNumber());
+            if (!RegNumbersStorage.getInstance().getRegNumbers().contains(document.getRegNumber())) {
+                RegNumbersStorage.getInstance().getRegNumbers().add(document.getRegNumber());
                 documents.add(document);
             } else {
                 throw new DocumentExistsException();

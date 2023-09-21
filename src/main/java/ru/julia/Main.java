@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws DocumentExistsException {
-        List<Document> documents = new DocumentsGeneration().generateDocuments();
+        List<Document> documents = DocumentsGeneration.getInstance().generateDocuments();
         Map<String, List<Document>> docs = Report.getInstance().reportGeneratedDocuments(documents);
         new Serialization().serialize(docs);
     }
