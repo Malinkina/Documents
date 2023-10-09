@@ -3,6 +3,7 @@ package ru.julia;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.stereotype.Component;
 import ru.julia.documents.Document;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.Map;
 /**
  * Сериализирует сгенерированные документы
  */
+@Component
 public class Serialization {
     public void serialize(Map<String, List<Document>> docs) {
         ObjectMapper mapper = new ObjectMapper();

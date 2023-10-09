@@ -1,5 +1,6 @@
 package ru.julia;
 
+import org.springframework.stereotype.Component;
 import ru.julia.staff.Department;
 import ru.julia.staff.OrgUnits;
 import ru.julia.staff.Organization;
@@ -13,6 +14,7 @@ import java.net.URL;
 /**
  * Читает значения из XML-документов для полей классов {@link Person}, {@link Department}, {@link Organization}
  */
+@Component
 public class XMLReader {
     public static Person readPerson() {
         try {

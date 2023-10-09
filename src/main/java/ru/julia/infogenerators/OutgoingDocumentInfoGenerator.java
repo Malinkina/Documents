@@ -1,5 +1,6 @@
 package ru.julia.infogenerators;
 
+import org.springframework.stereotype.Component;
 import ru.julia.DeliveryTypes;
 import ru.julia.XMLReader;
 import ru.julia.documents.OutgoingDocument;
@@ -10,12 +11,13 @@ import java.util.Random;
 /**
  * Класс создает и возвращает объект класса {@link OutgoingDocument}
  */
+@Component
 public class OutgoingDocumentInfoGenerator {
-    public static Person generateRecipient() {
+    public Person generateRecipient() {
         return XMLReader.readPerson();
     }
 
-    public static String generateDeliveryType() {
+    public String generateDeliveryType() {
         DeliveryTypes[] deliveryTypes = DeliveryTypes.values();
         return deliveryTypes[new Random().nextInt(deliveryTypes.length)].getValue();
     }

@@ -1,14 +1,10 @@
 package ru.julia;
 
-import ru.julia.documents.Document;
-
-import java.util.List;
-import java.util.Map;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     public static void main(String[] args) throws DocumentExistsException {
-        List<Document> documents = DocumentsGeneration.getInstance().generateDocuments();
-        Map<String, List<Document>> docs = Report.getInstance().reportGeneratedDocuments(documents);
-        new Serialization().serialize(docs);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+        context.getBean(Starter.class).start();
     }
 }

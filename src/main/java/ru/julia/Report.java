@@ -1,5 +1,6 @@
 package ru.julia;
 
+import org.springframework.stereotype.Component;
 import ru.julia.documents.Document;
 
 import java.util.ArrayList;
@@ -11,23 +12,8 @@ import java.util.stream.Collectors;
 /**
  * Показывает отчет по сгенерируемым документам
  */
+@Component
 public final class Report {
-    private static volatile Report instance;
-
-    private Report() {
-    }
-
-    public static Report getInstance() {
-        if (instance == null) {
-            synchronized (Report.class) {
-                if (instance == null) {
-                    instance = new Report();
-                }
-            }
-        }
-        return instance;
-    }
-
     public Map<String, List<Document>> reportGeneratedDocuments(List<Document> documents) {
         Map<String, List<Document>> authorAndDocument = documents.stream()
                 .sorted()
