@@ -1,9 +1,9 @@
 package ru.julia.infogenerators;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.XMLReader;
 import ru.julia.documents.IncomingDocument;
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,11 +13,13 @@ import java.time.format.DateTimeFormatter;
  */
 @Component
 public class IncomingDocumentInfoGenerator {
-    public Person generateSender() {
-        return XMLReader.readPerson();
+    @Autowired
+    EmployeeInfoGenerator employeeInfoGenerator;
+    public Employee generateSender() {
+        return employeeInfoGenerator.generateEmployee();
     }
-    public Person generateRecipient() {
-        return XMLReader.readPerson();
+    public Employee generateRecipient() {
+        return employeeInfoGenerator.generateEmployee();
     }
     public int generateOutgoingNumber() {
         return ((int) (Math.random() * 20));

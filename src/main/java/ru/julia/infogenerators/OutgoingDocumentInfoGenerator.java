@@ -1,10 +1,10 @@
 package ru.julia.infogenerators;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.DeliveryTypes;
-import ru.julia.XMLReader;
 import ru.julia.documents.OutgoingDocument;
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 import java.util.Random;
 
@@ -13,8 +13,11 @@ import java.util.Random;
  */
 @Component
 public class OutgoingDocumentInfoGenerator {
-    public Person generateRecipient() {
-        return XMLReader.readPerson();
+    @Autowired
+    EmployeeInfoGenerator employeeInfoGenerator;
+
+    public Employee generateRecipient() {
+        return employeeInfoGenerator.generateEmployee();
     }
 
     public String generateDeliveryType() {

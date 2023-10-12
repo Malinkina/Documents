@@ -21,7 +21,7 @@ public class Serialization {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());
         for (String author : docs.keySet()) {
-            File file = new File(author);
+            File file = new File(author + ".json");
             try {
                 mapper.writeValue(file, docs.get(author));
             } catch (IOException e) {

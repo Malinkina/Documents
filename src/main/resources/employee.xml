@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <staff>
     <persons>
-    <person>
+    <employee>
         <surname>Сычев</surname>
         <name>Никита</name>
         <patronymic>Андреевич</patronymic>
-        <position>Разработчик</position>
         <photo>Классное фото</photo>
         <dateOfBirth>28.06.1994</dateOfBirth>
         <phoneNumber>+79373078701</phoneNumber>
-    </person>
+    </employee>
 
-    <person>
+    <employee>
         <surname>Малинкина</surname>
         <name>Юлия</name>
         <patronymic>Алексеевна</patronymic>
-        <position>Программистер</position>
         <photo>Супер фото</photo>
         <dateOfBirth>05.11.1996</dateOfBirth>
         <phoneNumber>+79991320120</phoneNumber>
-    </person>
+    </employee>
     </persons>
 </staff>

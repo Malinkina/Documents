@@ -1,7 +1,7 @@
 package ru.julia.staff;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Класс описывает персонал
  */
 @XmlRootElement
-@JsonAutoDetect
-public class Person extends Staff {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Employee extends Staff {
     @XmlElement
     private String surname;
     @XmlElement
@@ -18,13 +18,29 @@ public class Person extends Staff {
     @XmlElement
     private String patronymic;
     @XmlElement
-    private String position;
-    @XmlElement
     private String photo;
     @XmlElement
     private String dateOfBirth;
     @XmlElement
     private String phoneNumber;
+    @XmlElement
+    private Position position;
+    @XmlElement
+    private Department department;
+    @XmlElement
+    private Organization organization;
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 
     public String getSurname() {
         return surname;
@@ -38,10 +54,6 @@ public class Person extends Staff {
         return patronymic;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
     public String getPhoto() {
         return photo;
     }
@@ -52,6 +64,18 @@ public class Person extends Staff {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Organization getOrganization() {
+        return organization;
     }
 
     @Override

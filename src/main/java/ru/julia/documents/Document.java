@@ -1,7 +1,7 @@
 package ru.julia.documents;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +17,7 @@ public abstract class Document implements Comparable<Document> {
     private String regNumber;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    private Person author;
+    private Employee author;
 
     public int getId() {
         return id;
@@ -39,7 +39,7 @@ public abstract class Document implements Comparable<Document> {
         return regDate;
     }
 
-    public Person getAuthor() {
+    public Employee getAuthor() {
         return author;
     }
 
@@ -63,7 +63,7 @@ public abstract class Document implements Comparable<Document> {
         this.regDate = regDate;
     }
 
-    public void setAuthor(Person author) {
+    public void setAuthor(Employee author) {
         this.author = author;
     }
 
@@ -108,7 +108,7 @@ public abstract class Document implements Comparable<Document> {
             return (B) this;
         }
 
-        public B author(Person author) {
+        public B author(Employee author) {
             getDocument().setAuthor(author);
             return (B) this;
         }

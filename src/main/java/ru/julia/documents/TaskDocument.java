@@ -1,6 +1,6 @@
 package ru.julia.documents;
 
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 /**
  * Класс описывает документ-поручение
@@ -8,9 +8,9 @@ import ru.julia.staff.Person;
 public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
-    private Person responsibleExecutive;
+    private Employee responsibleExecutive;
     private boolean controlMark;
-    private Person controller;
+    private Employee controller;
 
     private TaskDocument() {
     }
@@ -34,7 +34,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder responsibleExecutive(Person responsibleExecutive) {
+        public TaskDocumentBuilder responsibleExecutive(Employee responsibleExecutive) {
             taskDocument.responsibleExecutive = responsibleExecutive;
             return this;
         }
@@ -44,7 +44,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder controller(Person controller) {
+        public TaskDocumentBuilder controller(Employee controller) {
             taskDocument.controller = controller;
             return this;
         }

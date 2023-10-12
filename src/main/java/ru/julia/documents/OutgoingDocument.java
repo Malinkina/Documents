@@ -1,12 +1,12 @@
 package ru.julia.documents;
 
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 /**
  * Класс описывает исходящий документ
  */
 public class OutgoingDocument extends Document {
-    private Person recipient;
+    private Employee recipient;
     private String deliveryType;
 
     private OutgoingDocument() {
@@ -22,7 +22,7 @@ public class OutgoingDocument extends Document {
     public static class OutgoingDocumentBuilder extends DocumentBuilder<OutgoingDocument, OutgoingDocumentBuilder> {
         OutgoingDocument outgoingDocument = new OutgoingDocument();
 
-        public OutgoingDocumentBuilder recipient(Person recipient) {
+        public OutgoingDocumentBuilder recipient(Employee recipient) {
             outgoingDocument.recipient = recipient;
             return this;
         }

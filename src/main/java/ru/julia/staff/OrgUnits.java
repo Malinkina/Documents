@@ -12,8 +12,8 @@ import java.util.List;
 @XmlRootElement(name = "staff")
 public class OrgUnits {
     @XmlElementWrapper(name = "persons")
-    @XmlElement(name = "person")
-    List<Person> personList = new ArrayList<>();
+    @XmlElement(name = "employee")
+    List<Employee> employeeList = new ArrayList<>();
 
     @XmlElementWrapper(name = "organizations")
     @XmlElement(name = "organization")
@@ -22,6 +22,10 @@ public class OrgUnits {
     @XmlElementWrapper(name = "departments")
     @XmlElement(name = "department")
     List<Department> departmentList = new ArrayList<>();
+    @XmlElementWrapper(name = "positions")
+    @XmlElement(name = "position")
+    List<Position> positionList = new ArrayList<>();
+
 
     public List<Organization> getOrgList() {
         return orgList;
@@ -31,7 +35,11 @@ public class OrgUnits {
         return departmentList;
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public List<Position> getPositionList() {
+        return positionList;
     }
 }

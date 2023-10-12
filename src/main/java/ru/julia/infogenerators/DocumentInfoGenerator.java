@@ -1,10 +1,10 @@
 package ru.julia.infogenerators;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.XMLReader;
 import ru.julia.documents.Document;
-import ru.julia.staff.Person;
+import ru.julia.staff.Employee;
 
 import java.time.LocalDate;
 
@@ -13,6 +13,8 @@ import java.time.LocalDate;
  */
 @Component
 public class DocumentInfoGenerator {
+    @Autowired
+    EmployeeInfoGenerator employeeInfoGenerator;
     public int generateId() {
         return ((int) (Math.random() * 100));
     }
@@ -33,7 +35,7 @@ public class DocumentInfoGenerator {
         return LocalDate.now();
     }
 
-    public Person generateAuthor() {
-        return XMLReader.readPerson();
+    public Employee generateAuthor() {
+        return employeeInfoGenerator.generateEmployee();
     }
 }

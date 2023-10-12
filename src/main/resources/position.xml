@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <positions>
+        <position>
+            <id>1</id>
+            <name>Разработчик</name>
+        </position>
+        <position>
+            <id>2</id>
+            <name>Програмист</name>
+        </position>
+    </positions>
+</staff>

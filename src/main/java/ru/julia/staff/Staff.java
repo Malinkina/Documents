@@ -1,7 +1,7 @@
 package ru.julia.staff;
 
 /**
- * Класс-родитель для классов {@link Department}, {@link Organization}, {@link Person}
+ * Класс-родитель для классов {@link Department}, {@link Organization}, {@link Employee}
  */
 public abstract class Staff {
     private int id;
