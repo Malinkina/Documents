@@ -2,8 +2,6 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import java.time.LocalDate;
-
 /**
  * Класс описывает документ-поручение
  */
@@ -17,10 +15,6 @@ public class TaskDocument extends Document {
     private TaskDocument() {
     }
 
-    public static TaskDocumentBuilder newBuilder() {
-        return new TaskDocument().new TaskDocumentBuilder();
-    }
-
     public String toString() {
         return "Поручение № " + super.toString();
     }
@@ -28,67 +22,41 @@ public class TaskDocument extends Document {
     /**
      * Класс присваивает значения полям класса {@link TaskDocument}
      */
-    public class TaskDocumentBuilder {
-        private TaskDocumentBuilder() {
-        }
-
-        public TaskDocumentBuilder id(int id) {
-            setId(id);
-            return this;
-        }
-
-        public TaskDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public TaskDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public TaskDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public TaskDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public TaskDocumentBuilder author(Person author) {
-            setAuthor(author);
-            return this;
-        }
-
+    public static class TaskDocumentBuilder extends DocumentBuilder<TaskDocument, TaskDocumentBuilder>{
+        TaskDocument taskDocument = new TaskDocument();
         public TaskDocumentBuilder issueDate(String issueDate) {
-            TaskDocument.this.issueDate = issueDate;
+            taskDocument.issueDate = issueDate;
             return this;
         }
 
         public TaskDocumentBuilder executionTerm(String executionTerm) {
-            TaskDocument.this.executionTerm = executionTerm;
+            taskDocument.executionTerm = executionTerm;
             return this;
         }
 
         public TaskDocumentBuilder responsibleExecutive(Person responsibleExecutive) {
-            TaskDocument.this.responsibleExecutive = responsibleExecutive;
+            taskDocument.responsibleExecutive = responsibleExecutive;
             return this;
         }
 
         public TaskDocumentBuilder controlMark(boolean controlMark) {
-            TaskDocument.this.controlMark = controlMark;
+            taskDocument.controlMark = controlMark;
             return this;
         }
 
         public TaskDocumentBuilder controller(Person controller) {
-            TaskDocument.this.controller = controller;
+            taskDocument.controller = controller;
             return this;
         }
 
+        @Override
+        protected TaskDocument getDocument() {
+            return taskDocument;
+        }
+
+        @Override
         public TaskDocument build() {
-            return TaskDocument.this;
+            return taskDocument;
         }
     }
 }

@@ -17,7 +17,7 @@ public class IncomingDocumentFactory implements DocumentFactory {
     IncomingDocumentInfoGenerator incomingDocumentInfoGenerator;
 
     public IncomingDocument create() {
-        return IncomingDocument.newBuilder()
+        return new IncomingDocument.IncomingDocumentBuilder()
                 .id(documentInfoGenerator.generateId())
                 .name(documentInfoGenerator.generateName())
                 .text(documentInfoGenerator.generateText())

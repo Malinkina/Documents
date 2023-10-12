@@ -79,40 +79,40 @@ public abstract class Document implements Comparable<Document> {
                 + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                 + ". " + getName();
     }
-    /*public static class DocumentBuilder {
+    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder> {
 
-        public DocumentBuilder setId(int id) {
-            document.id = id;
-            return this;
-        }
+        protected abstract T getDocument();
 
-        public DocumentBuilder setName(String name) {
-            document.name = name;
-            return this;
+        public B id(int id) {
+            getDocument().setId(id);
+            return (B) this;
         }
 
-        public DocumentBuilder setText(String text) {
-            document.text = text;
-            return this;
+        public B name(String name) {
+            getDocument().setName(name);
+            return (B) this;
         }
 
-        public DocumentBuilder setRegNumber(int regNumber) {
-            document.regNumber = regNumber;
-            return this;
+        public B text(String text) {
+            getDocument().setText(text);
+            return (B) this;
         }
 
-        public DocumentBuilder setRegDate(String regDate) {
-            document.regDate = regDate;
-            return this;
+        public B regNumber(String regNumber) {
+            getDocument().setRegNumber(regNumber);
+            return (B) this;
         }
 
-        public DocumentBuilder setAuthor(String author) {
-            document.author = author;
-            return this;
+        public B regDate(LocalDate regDate) {
+            getDocument().setRegDate(regDate);
+            return (B) this;
         }
-        public Document build() {
-            return document;
+
+        public B author(Person author) {
+            getDocument().setAuthor(author);
+            return (B) this;
         }
-    }*/
+        public abstract T build();
+    }
 }
 

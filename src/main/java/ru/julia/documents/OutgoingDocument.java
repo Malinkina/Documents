@@ -2,8 +2,6 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import java.time.LocalDate;
-
 /**
  * Класс описывает исходящий документ
  */
@@ -14,10 +12,6 @@ public class OutgoingDocument extends Document {
     private OutgoingDocument() {
     }
 
-    public static OutgoingDocumentBuilder newBuilder() {
-        return new OutgoingDocument().new OutgoingDocumentBuilder();
-    }
-
     public String toString() {
         return "Исходящий № " + super.toString();
     }
@@ -25,53 +19,26 @@ public class OutgoingDocument extends Document {
     /**
      * Класс присваивает значения полям класса {@link OutgoingDocument}
      */
-    public class OutgoingDocumentBuilder {
-        private OutgoingDocumentBuilder() {
-        }
-
-        public OutgoingDocumentBuilder id(int id) {
-            setId(id);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder author(Person author) {
-            setAuthor(author);
-            return this;
-        }
+    public static class OutgoingDocumentBuilder extends DocumentBuilder<OutgoingDocument, OutgoingDocumentBuilder> {
+        OutgoingDocument outgoingDocument = new OutgoingDocument();
 
         public OutgoingDocumentBuilder recipient(Person recipient) {
-            OutgoingDocument.this.recipient = recipient;
+            outgoingDocument.recipient = recipient;
             return this;
         }
 
         public OutgoingDocumentBuilder deliveryType(String deliveryType) {
-            OutgoingDocument.this.deliveryType = deliveryType;
+            outgoingDocument.deliveryType = deliveryType;
             return this;
         }
+        @Override
+        protected OutgoingDocument getDocument() {
+            return outgoingDocument;
+        }
 
+        @Override
         public OutgoingDocument build() {
-            return OutgoingDocument.this;
+            return outgoingDocument;
         }
     }
-
 }

@@ -17,7 +17,7 @@ public class OutgoingDocumentFactory implements DocumentFactory {
     OutgoingDocumentInfoGenerator outgoingDocumentInfoGenerator;
 
     public OutgoingDocument create() {
-        return OutgoingDocument.newBuilder()
+        return new OutgoingDocument.OutgoingDocumentBuilder()
                 .id(documentInfoGenerator.generateId())
                 .name(documentInfoGenerator.generateName())
                 .text(documentInfoGenerator.generateText())

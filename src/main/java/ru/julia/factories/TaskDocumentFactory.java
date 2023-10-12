@@ -17,7 +17,7 @@ public class TaskDocumentFactory implements DocumentFactory {
     TaskDocumentInfoGenerator taskDocumentInfoGenerator;
     @Override
     public TaskDocument create() {
-        return TaskDocument.newBuilder()
+        return new TaskDocument.TaskDocumentBuilder()
                 .id(documentInfoGenerator.generateId())
                 .name(documentInfoGenerator.generateName())
                 .text(documentInfoGenerator.generateText())

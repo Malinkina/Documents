@@ -2,8 +2,6 @@ package ru.julia.documents;
 
 import ru.julia.staff.Person;
 
-import java.time.LocalDate;
-
 /**
  * Класс описывает входящий документ
  **/
@@ -21,69 +19,40 @@ public class IncomingDocument extends Document {
         return "Входящий № " + super.toString();
     }
 
-    public static IncomingDocumentBuilder newBuilder() {
-        return new IncomingDocument().new IncomingDocumentBuilder();
-    }
-
     /**
      * Класс присваивает значения полям класса {@link IncomingDocument}
      */
-    public class IncomingDocumentBuilder {
-        private IncomingDocumentBuilder() {
-        }
-
-        public IncomingDocumentBuilder id(int id) {
-            setId(id);
-            return this;
-        }
-
-        public IncomingDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public IncomingDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public IncomingDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public IncomingDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public IncomingDocumentBuilder author(Person author) {
-            setAuthor(author);
-            return this;
-        }
-
+    public static class IncomingDocumentBuilder extends DocumentBuilder<IncomingDocument, IncomingDocumentBuilder> {
+        private IncomingDocument incomingDocument = new IncomingDocument();
+       
         public IncomingDocumentBuilder sender(Person sender) {
-            IncomingDocument.this.sender = sender;
+            incomingDocument.sender = sender;
             return this;
         }
 
         public IncomingDocumentBuilder recipient(Person recipient) {
-            IncomingDocument.this.recipient = recipient;
+            incomingDocument.recipient = recipient;
             return this;
         }
 
         public IncomingDocumentBuilder outgoingNumber(int outgoingNumber) {
-            IncomingDocument.this.outgoingNumber = outgoingNumber;
+            incomingDocument.outgoingNumber = outgoingNumber;
             return this;
         }
 
         public IncomingDocumentBuilder outgoingRegDate(String outgoingRegDate) {
-            IncomingDocument.this.outgoingRegDate = outgoingRegDate;
+            incomingDocument.outgoingRegDate = outgoingRegDate;
             return this;
         }
 
+        @Override
+        protected IncomingDocument getDocument() {
+            return incomingDocument;
+        }
+
+        @Override
         public IncomingDocument build() {
-            return IncomingDocument.this;
+            return incomingDocument;
         }
     }
 }
