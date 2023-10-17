@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class DocumentsGeneration {
     @Autowired
-    private List<DocumentFactory> FACTORIES;
+    private List<DocumentFactory<?>> factories;
     @Autowired
     private  RegNumbersStorage regNumbersStorage;
 
@@ -24,7 +24,7 @@ public class DocumentsGeneration {
     public List<Document> generateDocuments() throws DocumentExistsException {
         List<Document> documents = new ArrayList<>();
         for (int i = 0; i < (int) (Math.random() * 20 + 1); i++) {
-            DocumentFactory factory = FACTORIES.get((int) (Math.random() * 3));
+            DocumentFactory<?> factory = factories.get((int) (Math.random() * 3));
             Document document = factory.create();
             if (!regNumbersStorage.getRegNumbers().contains(document.getRegNumber())) {
                 regNumbersStorage.getRegNumbers().add(document.getRegNumber());

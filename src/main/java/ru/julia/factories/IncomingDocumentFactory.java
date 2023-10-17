@@ -3,31 +3,28 @@ package ru.julia.factories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.documents.IncomingDocument;
-import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
 
 /**
  * Класс создает объект класса {@link IncomingDocument}
  */
 @Component
-public class IncomingDocumentFactory implements DocumentFactory {
+public class IncomingDocumentFactory extends AbstractDocumentFactory<IncomingDocument, IncomingDocument.IncomingDocumentBuilder> {
     @Autowired
-    DocumentInfoGenerator documentInfoGenerator;
-    @Autowired
-    IncomingDocumentInfoGenerator incomingDocumentInfoGenerator;
+    private IncomingDocumentInfoGenerator incomingDocumentInfoGenerator;
 
-    public IncomingDocument create() {
-        return new IncomingDocument.IncomingDocumentBuilder()
-                .id(documentInfoGenerator.generateId())
-                .name(documentInfoGenerator.generateName())
-                .text(documentInfoGenerator.generateText())
-                .regNumber(documentInfoGenerator.generateRegNumber())
-                .regDate(documentInfoGenerator.generateRegDate())
-                .author(documentInfoGenerator.generateAuthor())
+
+    @Override
+    public IncomingDocument.IncomingDocumentBuilder createBuilder() {
+        return new IncomingDocument.IncomingDocumentBuilder();
+    }
+
+    @Override
+    public void fill(IncomingDocument.IncomingDocumentBuilder builder) {
+        builder
                 .sender(incomingDocumentInfoGenerator.generateSender())
                 .recipient(incomingDocumentInfoGenerator.generateRecipient())
                 .outgoingNumber(incomingDocumentInfoGenerator.generateOutgoingNumber())
-                .outgoingRegDate(incomingDocumentInfoGenerator.generateRegDate())
-                .build();
+                .outgoingRegDate(incomingDocumentInfoGenerator.generateRegDate());
     }
 }
