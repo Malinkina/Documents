@@ -1,7 +1,11 @@
 package ru.julia;
 
 import org.springframework.stereotype.Component;
-import ru.julia.staff.*;
+import ru.julia.staff.Department;
+import ru.julia.staff.Employee;
+import ru.julia.staff.OrgUnits;
+import ru.julia.staff.Organization;
+import ru.julia.staff.Position;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
