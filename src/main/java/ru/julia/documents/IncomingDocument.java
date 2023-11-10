@@ -14,6 +14,22 @@ public class IncomingDocument extends Document {
     private IncomingDocument() {
     }
 
+    public Employee getSender() {
+        return sender;
+    }
+
+    public Employee getRecipient() {
+        return recipient;
+    }
+
+    public int getOutgoingNumber() {
+        return outgoingNumber;
+    }
+
+    public String getOutgoingRegDate() {
+        return outgoingRegDate;
+    }
+
     @Override
     public String toString() {
         return "Входящий № " + super.toString();

@@ -115,4 +115,3 @@ public abstract class Document implements Comparable<Document> {
         public abstract T build();
     }
 }
-

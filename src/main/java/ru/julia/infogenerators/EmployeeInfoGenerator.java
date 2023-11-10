@@ -9,11 +9,9 @@ import ru.julia.staff.Employee;
 public class EmployeeInfoGenerator {
     @Autowired
     XMLReader xmlReader;
+
     public Employee generateEmployee() {
         Employee employee = xmlReader.readEmployee().getEmployeeList().get((int) (Math.random() * 2));
-        employee.setPosition(xmlReader.readPosition().getPositionList().get((int) (Math.random() * 2)));
-        employee.setDepartment(xmlReader.readDepartment().getDepartmentList().get((int) (Math.random() * 2)));
-        employee.setOrganization(xmlReader.readOrganization().getOrgList().get((int) (Math.random() * 2)));
         return employee;
     }
 }

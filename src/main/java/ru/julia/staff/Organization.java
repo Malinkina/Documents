@@ -1,6 +1,10 @@
 package ru.julia.staff;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 /**
@@ -9,6 +13,8 @@ import java.util.List;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization extends Staff {
+    @XmlElement
+    private String id;
     @XmlElement
     private String fullName;
     @XmlElement
@@ -33,6 +39,10 @@ public class Organization extends Staff {
 
     public List<String> getContactPhoneNumbers() {
         return contactPhoneNumbers;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setContactPhoneNumbers(List<String> contactPhoneNumbers) {

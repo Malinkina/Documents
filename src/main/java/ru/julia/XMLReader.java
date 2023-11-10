@@ -35,8 +35,8 @@ public class XMLReader {
             JAXBContext context = JAXBContext.newInstance(Organization.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("organization.xml");
-            OrgUnits organizationList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return organizationList;
+            OrgUnits orgList = (OrgUnits) unmarshaller.unmarshal(resource);
+            return orgList;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
