@@ -2,7 +2,7 @@ package ru.julia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dao.IncomingDocumentDAO;
+import ru.julia.dao.EmployeeDAO;
 import ru.julia.dbconfiguration.DatabaseInitiator;
 import ru.julia.dbconfiguration.DocumentTableFiller;
 
@@ -17,9 +17,9 @@ public class Starter {
     @Autowired
     private DocumentTableFiller documentTableFiller;
     @Autowired
-    IncomingDocumentDAO incomingDocumentDAO;
+    EmployeeDAO employeeDAO;
     public void start() throws DocumentExistsException {
-        System.out.println(incomingDocumentDAO.getById("c7ac9e5c-39d0-4b03-9033-79b27e5cbec8").getOutgoingNumber());
+        employeeDAO.update("name", "Никита", "8d673582-47ba-41bc-9571-71715a15a85b");
         //databaseInitiation.initialize();
         /*List<Document> documents = documentsGeneration.generateDocuments();
         Map<String, List<Document>> docs = report.reportGeneratedDocuments(documents);
