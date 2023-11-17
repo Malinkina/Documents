@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <departments>
+        <department>
+            <id>62201c9d-1c11-41c5-916e-40922e99406f</id>
+            <fullName>Разработка</fullName>
+            <shortName>РЗРБТК</shortName>
+            <manager>Петров</manager>
+            <organizationId>dbef9b15-d3ad-4748-a6b1-5999b52c15c5</organizationId>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+79373078701</contactPhoneNumber>
+                <contactPhoneNumber>+79991320120</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </department>
+        <department>
+            <id>0c67807a-7291-4801-aabc-1e235d557d29</id>
+            <fullName>НеРазработка</fullName>
+            <shortName>НРЗРБТК</shortName>
+            <manager>Иванов</manager>
+            <organizationId>f0ca9f90-bf19-453d-aa38-b85e5aff2da7</organizationId>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+79373078701</contactPhoneNumber>
+                <contactPhoneNumber>+79991320120</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </department>
+    </departments>
+</staff>
