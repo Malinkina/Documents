@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <organizations>
+        <organization>
+            <id>dbef9b15-d3ad-4748-a6b1-5999b52c15c5</id>
+            <fullName>ЦИТРОС</fullName>
+            <shortName>ЦТРС</shortName>
+            <manager>Соколов</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+7999999999</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </organization>
+        <organization>
+            <id>f0ca9f90-bf19-453d-aa38-b85e5aff2da7</id>
+            <fullName>НЕЦИТРОС</fullName>
+            <shortName>НЦТРС</shortName>
+            <manager>Пустовойт</manager>
+            <contactPhoneNumbers>
+                <contactPhoneNumber>+7999999991</contactPhoneNumber>
+            </contactPhoneNumbers>
+        </organization>
+    </organizations>
+</staff>

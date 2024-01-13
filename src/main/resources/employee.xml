@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <persons>
+    <employee>
+        <id>8d673582-47ba-41bc-9571-71715a15a85b</id>
+        <surname>Сычев</surname>
+        <name>Никита</name>
+        <patronymic>Андреевич</patronymic>
+        <photo>Классное фото</photo>
+        <dateOfBirth>28.06.1994</dateOfBirth>
+        <phoneNumber>+79373078701</phoneNumber>
+        <positionId>6b386fde-cbf4-4476-92f6-1c7da41b37b8</positionId>
+        <departmentId>62201c9d-1c11-41c5-916e-40922e99406f</departmentId>
+        <organizationId>dbef9b15-d3ad-4748-a6b1-5999b52c15c5</organizationId>
+    </employee>
+
+    <employee>
+        <id>e6bc8ca4-e2f3-40ac-a218-126a54aeb510</id>
+        <surname>Малинкина</surname>
+        <name>Юлия</name>
+        <patronymic>Алексеевна</patronymic>
+        <photo>Супер фото</photo>
+        <dateOfBirth>05.11.1996</dateOfBirth>
+        <phoneNumber>+79991320120</phoneNumber>
+        <positionId>b4274492-caef-4aa9-9eef-c862bce034e7</positionId>
+        <departmentId>0c67807a-7291-4801-aabc-1e235d557d29</departmentId>
+        <organizationId>f0ca9f90-bf19-453d-aa38-b85e5aff2da7</organizationId>
+    </employee>
+    </persons>
+</staff>

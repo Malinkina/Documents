@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<staff>
+    <positions>
+        <position>
+            <id>6b386fde-cbf4-4476-92f6-1c7da41b37b8</id>
+            <positionId>1</positionId>
+            <name>Разработчик</name>
+        </position>
+        <position>
+            <id>b4274492-caef-4aa9-9eef-c862bce034e7</id>
+            <positionId>2</positionId>
+            <name>Программист</name>
+        </position>
+    </positions>
+</staff>
