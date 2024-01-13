@@ -1,7 +1,7 @@
 package ru.julia;
 
 import org.springframework.stereotype.Component;
-import ru.julia.documents.Document;
+import ru.julia.document.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;

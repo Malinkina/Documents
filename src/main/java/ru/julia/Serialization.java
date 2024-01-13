@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.Document;
+import ru.julia.document.Document;
 
 import java.io.File;
 import java.io.IOException;

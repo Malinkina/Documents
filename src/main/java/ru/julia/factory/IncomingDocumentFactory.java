@@ -1,9 +1,9 @@
-package ru.julia.factories;
+package ru.julia.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.IncomingDocument;
-import ru.julia.infogenerators.IncomingDocumentInfoGenerator;
+import ru.julia.document.IncomingDocument;
+import ru.julia.infogenerator.IncomingDocumentInfoGenerator;
 
 /**
  * Класс создает объект класса {@link IncomingDocument}

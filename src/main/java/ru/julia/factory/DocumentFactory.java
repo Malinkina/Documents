@@ -1,6 +1,6 @@
-package ru.julia.factories;
+package ru.julia.factory;
 
-import ru.julia.documents.Document;
+import ru.julia.document.Document;
 
 /**
  * Класс определяет поведение классов-фабрик {@link IncomingDocumentFactory}, {@link OutgoingDocumentFactory}, {@link TaskDocumentFactory}

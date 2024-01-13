@@ -2,9 +2,13 @@ package ru.julia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dao.EmployeeDAO;
+import ru.julia.dao.OrganizationDAO;
 import ru.julia.dbconfiguration.DatabaseInitiator;
 import ru.julia.dbconfiguration.DocumentTableFiller;
+import ru.julia.document.Document;
+
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class Starter {
@@ -17,13 +21,12 @@ public class Starter {
     @Autowired
     private DocumentTableFiller documentTableFiller;
     @Autowired
-    EmployeeDAO employeeDAO;
+    OrganizationDAO organizationDAO;
     public void start() throws DocumentExistsException {
-        employeeDAO.update("name", "Никита", "8d673582-47ba-41bc-9571-71715a15a85b");
         //databaseInitiation.initialize();
-        /*List<Document> documents = documentsGeneration.generateDocuments();
+        List<Document> documents = documentsGeneration.generateDocuments();
         Map<String, List<Document>> docs = report.reportGeneratedDocuments(documents);
         new Serialization().serialize(docs);
-        documentTableFiller.fillDocumentTables(documents);*/
+        documentTableFiller.fillDocumentTables(documents);
     }
 }

@@ -2,10 +2,10 @@ package ru.julia.dbconfiguration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.Document;
-import ru.julia.documents.IncomingDocument;
-import ru.julia.documents.OutgoingDocument;
-import ru.julia.documents.TaskDocument;
+import ru.julia.document.Document;
+import ru.julia.document.IncomingDocument;
+import ru.julia.document.OutgoingDocument;
+import ru.julia.document.TaskDocument;
 
 import java.sql.*;
 import java.util.List;
