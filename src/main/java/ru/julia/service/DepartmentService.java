@@ -1,34 +1,38 @@
+
 package ru.julia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dao.DepartmentDAO;
-import ru.julia.domain.Department;
+import ru.julia.orm.jpamodel.JPADepartment;
+import ru.julia.orm.repository.DepartmentRepository;
+import ru.julia.service.mapper.DepartmentMapper;
+import ru.julia.service.modelforservice.DepartmentModel;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class DepartmentService {
     @Autowired
-    private DepartmentDAO departmentDAO;
+    private DepartmentRepository departmentRepository;
+    @Autowired
+    private DepartmentMapper mapper;
 
-    public void create(Department department) {
-        departmentDAO.create(department);
+    public void create(DepartmentModel departmentModel) {
+        departmentRepository.save(mapper.departmentModelToDepartmentJpa(departmentModel));
     }
 
-    public Department read(String id) {
-        return departmentDAO.read(id);
+    public Optional<JPADepartment> read(UUID id) {
+        return departmentRepository.findById(id);
     }
 
-    public List<Department> readAll() {
-        return departmentDAO.readAll();
+    public List<JPADepartment> readAll() {
+        return (List<JPADepartment>) departmentRepository.findAll();
     }
 
-    public void update(String id, Department department) {
-        departmentDAO.update(id, department);
-    }
-
-    public void delete(String id) {
-        departmentDAO.delete(id);
+    public void delete(UUID id) {
+        departmentRepository.deleteById(id);
     }
 }
+

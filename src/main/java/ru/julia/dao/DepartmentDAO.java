@@ -1,8 +1,9 @@
+/*
 package ru.julia.dao;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.domain.Department;
+import ru.julia.orm.domain.JPADepartment;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class DepartmentDAO implements MyDAO<Department> {
+public class DepartmentDAO implements MyDAO<JPADepartment> {
     @Value("${db.url}")
     private String url;
     @Value("${db.user}")
@@ -18,7 +19,7 @@ public class DepartmentDAO implements MyDAO<Department> {
     @Value("${db.password}")
     private String password;
 
-    public void create(Department department) {
+    public void create(JPADepartment department) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO department VALUES (?, ?, ?, ?, ?)"
@@ -35,7 +36,7 @@ public class DepartmentDAO implements MyDAO<Department> {
     }
 
     @Override
-    public Department read(String id) {
+    public JPADepartment read(String id) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM department WHERE id = ?"
@@ -43,7 +44,7 @@ public class DepartmentDAO implements MyDAO<Department> {
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            Department department = new Department();
+            JPADepartment department = new JPADepartment();
             department.setId(resultSet.getString("id"));
             department.setFullName(resultSet.getString("full_name"));
             department.setShortName(resultSet.getString("short_name"));
@@ -56,8 +57,8 @@ public class DepartmentDAO implements MyDAO<Department> {
     }
 
     @Override
-    public List<Department> readAll() {
-        List<Department> departments = new ArrayList<>();
+    public List<JPADepartment> readAll() {
+        List<JPADepartment> departments = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM department"
@@ -65,7 +66,7 @@ public class DepartmentDAO implements MyDAO<Department> {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (!resultSet.isLast()) {
                 resultSet.next();
-                Department department = new Department();
+                JPADepartment department = new JPADepartment();
                 department.setId(resultSet.getString("id"));
                 department.setFullName(resultSet.getString("full_name"));
                 department.setShortName(resultSet.getString("short_name"));
@@ -80,7 +81,7 @@ public class DepartmentDAO implements MyDAO<Department> {
         return departments;
     }
 
-    public void update(String id, Department department) {
+    public void update(String id, JPADepartment department) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE department SET full_name = ?, short_name = ? " +
@@ -109,3 +110,4 @@ public class DepartmentDAO implements MyDAO<Department> {
         }
     }
     }
+*/

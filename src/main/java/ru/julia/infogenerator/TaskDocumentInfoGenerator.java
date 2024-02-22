@@ -3,7 +3,7 @@ package ru.julia.infogenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.TaskDocument;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.XMLEmployee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,13 +25,13 @@ public class TaskDocumentInfoGenerator {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
     }
-    public Employee generateResponsibleExecutive() {
+    public XMLEmployee generateResponsibleExecutive() {
         return employeeInfoGenerator.generateEmployee();
     }
     public boolean generateControlMark() {
         return new Random().nextBoolean();
     }
-    public Employee generateController() {
+    public XMLEmployee generateController() {
         return employeeInfoGenerator.generateEmployee();
     }
 }

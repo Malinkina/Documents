@@ -1,8 +1,9 @@
+/*
 package ru.julia.dao;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.domain.Organization;
+import ru.julia.orm.domain.JPAOrganization;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class OrganizationDAO implements MyDAO<Organization> {
+public class OrganizationDAO implements MyDAO<JPAOrganization> {
     @Value("${db.url}")
     private String url;
     @Value("${db.user}")
@@ -18,7 +19,7 @@ public class OrganizationDAO implements MyDAO<Organization> {
     @Value("${db.password}")
     private String password;
 
-    public void create(Organization organization) {
+    public void create(JPAOrganization organization) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO organization VALUES (?, ?, ?, ?)"
@@ -34,7 +35,7 @@ public class OrganizationDAO implements MyDAO<Organization> {
     }
 
     @Override
-    public Organization read(String id) {
+    public JPAOrganization read(String id) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM organization WHERE id = ?"
@@ -42,7 +43,7 @@ public class OrganizationDAO implements MyDAO<Organization> {
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            Organization organization = new Organization();
+            JPAOrganization organization = new JPAOrganization();
             organization.setId(resultSet.getString("id"));
             organization.setFullName(resultSet.getString("full_name"));
             organization.setShortName(resultSet.getString("short_name"));
@@ -54,8 +55,8 @@ public class OrganizationDAO implements MyDAO<Organization> {
     }
 
     @Override
-    public List<Organization> readAll() {
-        List<Organization> orgs = new ArrayList<>();
+    public List<JPAOrganization> readAll() {
+        List<JPAOrganization> orgs = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM organization"
@@ -63,7 +64,7 @@ public class OrganizationDAO implements MyDAO<Organization> {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (!resultSet.isLast()) {
                 resultSet.next();
-                Organization organization = new Organization();
+                JPAOrganization organization = new JPAOrganization();
                 organization.setId(resultSet.getString("id"));
                 organization.setFullName(resultSet.getString("full_name"));
                 organization.setShortName(resultSet.getString("short_name"));
@@ -77,7 +78,7 @@ public class OrganizationDAO implements MyDAO<Organization> {
         return orgs;
     }
 
-    public void update(String id, Organization organization) {
+    public void update(String id, JPAOrganization organization) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE organization SET full_name = ?, short_name = ? WHERE id = ?"
@@ -105,3 +106,4 @@ public class OrganizationDAO implements MyDAO<Organization> {
         }
     }
 }
+*/

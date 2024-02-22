@@ -1,3 +1,4 @@
+/*
 package ru.julia.dao;
 
 import java.util.List;
@@ -9,3 +10,4 @@ public interface MyDAO<T> {
     void update(String id, T t);
     void delete(String id);
 }
+*/

@@ -1,8 +1,9 @@
+/*
 package ru.julia.dao;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.domain.Position;
+import ru.julia.orm.domain.JPAPosition;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class PositionDAO implements MyDAO<Position> {
+public class PositionDAO implements MyDAO<JPAPosition> {
     @Value("${db.url}")
     private String url;
     @Value("${db.user}")
@@ -18,7 +19,7 @@ public class PositionDAO implements MyDAO<Position> {
     @Value("${db.password}")
     private String password;
 
-    public void create(Position position) {
+    public void create(JPAPosition position) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO position VALUES (?, ?, ?)"
@@ -33,7 +34,7 @@ public class PositionDAO implements MyDAO<Position> {
     }
 
     @Override
-    public Position read(String id) {
+    public JPAPosition read(String id) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM position WHERE id = ?"
@@ -41,7 +42,7 @@ public class PositionDAO implements MyDAO<Position> {
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            Position position = new Position();
+            JPAPosition position = new JPAPosition();
             position.setId(resultSet.getString("id"));
             position.setPositionId(resultSet.getInt("position_id"));
             position.setName(resultSet.getString("name"));
@@ -52,8 +53,8 @@ public class PositionDAO implements MyDAO<Position> {
     }
 
     @Override
-    public List<Position> readAll() {
-        List<Position> positions = new ArrayList<>();
+    public List<JPAPosition> readAll() {
+        List<JPAPosition> positions = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM position"
@@ -61,7 +62,7 @@ public class PositionDAO implements MyDAO<Position> {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (!resultSet.isLast()) {
                 resultSet.next();
-                Position position = new Position();
+                JPAPosition position = new JPAPosition();
                 position.setId(resultSet.getString("id"));
                 position.setPositionId(resultSet.getInt("position_id"));
                 position.setName(resultSet.getString("name"));
@@ -74,7 +75,7 @@ public class PositionDAO implements MyDAO<Position> {
         return positions;
     }
 
-    public void update(String id, Position position) {
+    public void update(String id, JPAPosition position) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE position SET name = ? WHERE id = ?"
@@ -101,3 +102,4 @@ public class PositionDAO implements MyDAO<Position> {
         }
     }
 }
+*/

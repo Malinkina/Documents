@@ -1,34 +1,46 @@
+
 package ru.julia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dao.PositionDAO;
-import ru.julia.domain.Position;
+import ru.julia.orm.jpamodel.JPAPosition;
+import ru.julia.orm.repository.PositionRepository;
+import ru.julia.service.mapper.PositionMapper;
+import ru.julia.service.modelforservice.PositionModel;
+import ru.julia.xml.xmlmodel.XMLPosition;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class PositionService {
     @Autowired
-    private PositionDAO positionDAO;
+    private PositionRepository positionRepository;
+    @Autowired
+    private PositionMapper mapper;
 
-    public void create(Position position) {
-        positionDAO.create(position);
+    public void create(PositionModel positionModel) {
+        positionRepository.save(mapper.positionModelToJpaPosition(positionModel));
     }
 
-    public Position read(String id) {
-        return positionDAO.read(id);
+    public Optional<JPAPosition> read(UUID id) {
+        return positionRepository.findById(id);
     }
 
-    public List<Position> readAll() {
-        return positionDAO.readAll();
+    public List<JPAPosition> readAll() {
+        return (List<JPAPosition>) positionRepository.findAll();
     }
 
-    public void update(String id, Position position) {
-        positionDAO.update(id, position);
+    public void delete(UUID id) {
+        positionRepository.deleteById(id);
     }
-
-    public void delete(String id) {
-        positionDAO.delete(id);
+    private JPAPosition mapData(XMLPosition xmlPosition) {
+        JPAPosition JPAPositionForDb = new JPAPosition();
+        JPAPositionForDb.setId(UUID.fromString(xmlPosition.getId()));
+        JPAPositionForDb.setPositionId(xmlPosition.getPositionId());
+        JPAPositionForDb.setName(xmlPosition.getName());
+        return JPAPositionForDb;
     }
 }
+

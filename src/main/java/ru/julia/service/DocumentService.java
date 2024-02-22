@@ -1,9 +1,10 @@
+/*
 package ru.julia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.dao.DocumentDAO;
-import ru.julia.domain.Document;
+import ru.julia.orm.domain.JPADocument;
 import ru.julia.dto.DocumentDTO;
 
 import java.util.Comparator;
@@ -14,7 +15,7 @@ public class DocumentService {
     @Autowired
     private DocumentDAO documentDAO;
 
-    public void create(Document document) {
+    public void create(JPADocument document) {
         documentDAO.create(document);
     }
 
@@ -28,7 +29,8 @@ public class DocumentService {
         return docList;
     }
 
-    public void update(String id, Document document) {
+    public void update(String id, JPADocument document) {
         documentDAO.update(id, document);
     }
 }
+*/

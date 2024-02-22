@@ -1,34 +1,39 @@
+
 package ru.julia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dao.OrganizationDAO;
-import ru.julia.domain.Organization;
+import ru.julia.orm.jpamodel.JPAOrganization;
+import ru.julia.orm.repository.OrganizationRepository;
+import ru.julia.service.mapper.OrganizationMapper;
+import ru.julia.service.modelforservice.OrganizationModel;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class OrganizationService {
     @Autowired
-    private OrganizationDAO organizationDAO;
+    private OrganizationRepository organizationRepository;
+    @Autowired
+    private OrganizationMapper mapper;
 
-    public void create(Organization organization) {
-        organizationDAO.create(organization);
+    public void create(OrganizationModel organizationModel) {
+        organizationRepository.save(mapper.orgModelToOrgJpa(organizationModel));
     }
 
-    public Organization read(String id) {
-        return organizationDAO.read(id);
+    public Optional<JPAOrganization> read(UUID id) {
+        return organizationRepository.findById(id);
     }
 
-    public List<Organization> readAll() {
-        return organizationDAO.readAll();
+    public List<JPAOrganization> readAll() {
+        return (List<JPAOrganization>) organizationRepository.findAll();
     }
 
-    public void update(String id, Organization organization) {
-        organizationDAO.update(id, organization);
+    public void delete(UUID id) {
+        organizationRepository.deleteById(id);
     }
 
-    public void delete(String id) {
-        organizationDAO.delete(id);
-    }
 }
+

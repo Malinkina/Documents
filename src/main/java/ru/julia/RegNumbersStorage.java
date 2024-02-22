@@ -10,8 +10,8 @@ import java.util.List;
  */
 @Component
 public class RegNumbersStorage {
-    private static final List<String> regNumbers = new ArrayList<>();
+    private static final List<String> REG_NUMBERS = new ArrayList<>();
     public List<String> getRegNumbers() {
-        return regNumbers;
+        return REG_NUMBERS;
     }
 }

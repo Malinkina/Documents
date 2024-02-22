@@ -1,29 +1,26 @@
-package ru.julia;
+package ru.julia.xml;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import org.springframework.stereotype.Component;
-import ru.julia.staff.Department;
-import ru.julia.staff.Employee;
-import ru.julia.staff.OrgUnits;
-import ru.julia.staff.Organization;
-import ru.julia.staff.Position;
+import ru.julia.staff.*;
+import ru.julia.xml.xmlmodel.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.net.URL;
 
 /**
- * Читает значения из XML-документов для полей классов {@link Employee}, {@link Department}, {@link Organization}
+ * Читает значения из XML-документов для полей классов {@link Employee}, {@link Department}, {@link Organization}, {@link Position}
  */
 @Component
 public class XMLReader {
     public OrgUnits readEmployee() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Employee.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(XMLEmployee.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("employee.xml");
-            OrgUnits employeesList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return employeesList;
+            OrgUnits employees = (OrgUnits) unmarshaller.unmarshal(resource);
+            return employees;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -32,11 +29,11 @@ public class XMLReader {
 
     public OrgUnits readOrganization() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Organization.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(XMLOrganization.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("organization.xml");
-            OrgUnits orgList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return orgList;
+            OrgUnits organizations = (OrgUnits) unmarshaller.unmarshal(resource);
+            return organizations;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -45,11 +42,11 @@ public class XMLReader {
 
     public OrgUnits readDepartment() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Department.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(XMLDepartment.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("department.xml");
-            OrgUnits departmentList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return departmentList;
+            OrgUnits departments = (OrgUnits) unmarshaller.unmarshal(resource);
+            return departments;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -57,11 +54,11 @@ public class XMLReader {
     }
     public OrgUnits readPosition() {
         try {
-            JAXBContext context = JAXBContext.newInstance(Position.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(XMLPosition.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("position.xml");
-            OrgUnits positionList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return positionList;
+            OrgUnits positions = (OrgUnits) unmarshaller.unmarshal(resource);
+            return positions;
         } catch (JAXBException e) {
             e.printStackTrace();
         }

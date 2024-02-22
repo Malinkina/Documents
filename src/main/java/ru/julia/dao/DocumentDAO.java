@@ -1,8 +1,9 @@
+/*
 package ru.julia.dao;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.domain.Document;
+import ru.julia.orm.domain.JPADocument;
 import ru.julia.dto.DocumentDTO;
 
 import java.sql.*;
@@ -20,13 +21,13 @@ public class DocumentDAO {
     @Value("${db.password}")
     private String password;
 
-    public void create(Document document) {
+    public void create(JPADocument document) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO document VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
             preparedStatement.setString(1, UUID.randomUUID().toString());
-            preparedStatement.setInt(2, document.getDocId());
+            preparedStatement.setInt(2, document.getId);
             preparedStatement.setString(3, document.getName());
             preparedStatement.setString(4, document.getText());
             preparedStatement.setString(5, document.getRegNumber());
@@ -85,7 +86,7 @@ public class DocumentDAO {
         return documentDTOList;
     }
 
-    public void update(String id, Document document) {
+    public void update(String id, JPADocument document) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE document SET name = ?, text = ? WHERE id = ?"
@@ -101,3 +102,4 @@ public class DocumentDAO {
         }
     }
 }
+*/

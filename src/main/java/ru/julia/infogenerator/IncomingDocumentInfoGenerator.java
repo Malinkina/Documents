@@ -3,7 +3,7 @@ package ru.julia.infogenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.IncomingDocument;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.XMLEmployee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,10 +15,10 @@ import java.time.format.DateTimeFormatter;
 public class IncomingDocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public Employee generateSender() {
+    public XMLEmployee generateSender() {
         return employeeInfoGenerator.generateEmployee();
     }
-    public Employee generateRecipient() {
+    public XMLEmployee generateRecipient() {
         return employeeInfoGenerator.generateEmployee();
     }
     public int generateOutgoingNumber() {

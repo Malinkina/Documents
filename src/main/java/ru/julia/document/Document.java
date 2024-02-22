@@ -1,8 +1,7 @@
 package ru.julia.document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.XMLEmployee;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
  * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
  */
-@Data
 public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;
@@ -19,55 +17,55 @@ public abstract class Document implements Comparable<Document> {
     private String regNumber;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    private Employee author;
+    private XMLEmployee author;
 
-    /*public int getId() {
+    public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getRegNumber() {
-        return regNumber;
-    }
-
-    public LocalDate getRegDate() {
-        return regDate;
-    }
-
-    public Employee getAuthor() {
-        return author;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
+    public String getRegNumber() {
+        return regNumber;
+    }
+
     public void setRegNumber(String regNumber) {
         this.regNumber = regNumber;
+    }
+
+    public LocalDate getRegDate() {
+        return regDate;
     }
 
     public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
-    public void setAuthor(Employee author) {
+    public XMLEmployee getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(XMLEmployee author) {
         this.author = author;
-    }*/
+    }
 
     @Override
     public int compareTo(Document document) {
@@ -110,7 +108,7 @@ public abstract class Document implements Comparable<Document> {
             return (B) this;
         }
 
-        public B author(Employee author) {
+        public B author(XMLEmployee author) {
             getDocument().setAuthor(author);
             return (B) this;
         }

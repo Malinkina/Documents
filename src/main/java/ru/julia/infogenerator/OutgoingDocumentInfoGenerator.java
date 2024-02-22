@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.DeliveryTypes;
 import ru.julia.document.OutgoingDocument;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.XMLEmployee;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ public class OutgoingDocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
 
-    public Employee generateRecipient() {
+    public XMLEmployee generateRecipient() {
         return employeeInfoGenerator.generateEmployee();
     }
 

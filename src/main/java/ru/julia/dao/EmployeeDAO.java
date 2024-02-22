@@ -1,8 +1,9 @@
+/*
 package ru.julia.dao;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.julia.domain.Employee;
+import ru.julia.orm.domain.JPAEmployee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class EmployeeDAO implements MyDAO<Employee> {
+public class EmployeeDAO implements MyDAO<JPAEmployee> {
     @Value("${db.url}")
     private String url;
     @Value("${db.user}")
@@ -18,7 +19,7 @@ public class EmployeeDAO implements MyDAO<Employee> {
     @Value("${db.password}")
     private String password;
 
-    public void create(Employee employee) {
+    public void create(JPAEmployee employee) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -38,7 +39,7 @@ public class EmployeeDAO implements MyDAO<Employee> {
             throw new RuntimeException(e);
         }
     }
-    public Employee read(String id) {
+    public JPAEmployee read(String id) {
         try(Connection connection = DriverManager.getConnection(url, user, password)) {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "SELECT * FROM employee WHERE id = ?"
@@ -46,7 +47,7 @@ public class EmployeeDAO implements MyDAO<Employee> {
         preparedStatement.setString(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        Employee employee = new Employee();
+        JPAEmployee employee = new JPAEmployee();
         employee.setId(resultSet.getString("id"));
         employee.setSurname(resultSet.getString("surname"));
         employee.setName(resultSet.getString("name"));
@@ -64,8 +65,8 @@ public class EmployeeDAO implements MyDAO<Employee> {
     }
 
     @Override
-    public List<Employee> readAll() {
-        List<Employee> employees = new ArrayList<>();
+    public List<JPAEmployee> readAll() {
+        List<JPAEmployee> employees = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM employee"
@@ -73,7 +74,7 @@ public class EmployeeDAO implements MyDAO<Employee> {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (!resultSet.isLast()) {
                 resultSet.next();
-                Employee employee = new Employee();
+                JPAEmployee employee = new JPAEmployee();
                 employee.setId(resultSet.getString("id"));
                 employee.setSurname(resultSet.getString("surname"));
                 employee.setName(resultSet.getString("name"));
@@ -91,7 +92,7 @@ public class EmployeeDAO implements MyDAO<Employee> {
         }
         return employees;
     }
-    public void update(String id, Employee employee) {
+    public void update(String id, JPAEmployee employee) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE employee SET name = ?, " +
@@ -120,3 +121,4 @@ public class EmployeeDAO implements MyDAO<Employee> {
         }
     }
 }
+*/
