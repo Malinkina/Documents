@@ -7,27 +7,35 @@ public class PositionModel {
     private int positionId;
     private String name;
 
+    private PositionModel() {}
+
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public int getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
-    }
-
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public static class PositionModelBuilder {
+        private PositionModel positionModel = new PositionModel();
+        public PositionModelBuilder id(UUID id) {
+            positionModel.id = id;
+            return this;
+        }
+        public PositionModelBuilder positionId(int id) {
+            positionModel.positionId = id;
+            return this;
+        }
+        public PositionModelBuilder name(String name) {
+            positionModel.name = name;
+            return this;
+        }
+        public PositionModel build() {
+            return positionModel;
+        }
     }
 }

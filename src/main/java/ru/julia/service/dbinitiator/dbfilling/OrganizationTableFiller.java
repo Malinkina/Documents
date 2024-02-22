@@ -1,4 +1,4 @@
-package ru.julia.dbconfiguration;
+package ru.julia.service.dbinitiator.dbfilling;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,14 +7,15 @@ import ru.julia.service.mapper.OrganizationMapper;
 import ru.julia.xml.XMLReader;
 
 @Component
-public class OrganizationTableFiller {
+public class OrganizationTableFiller implements TableFiller {
     @Autowired
     private XMLReader reader;
     @Autowired
     private OrganizationMapper mapper;
     @Autowired
     private OrganizationService service;
-    public void fillOrganization() {
+    @Override
+    public void fill() {
         reader
                 .readOrganization()
                 .getOrganizations()

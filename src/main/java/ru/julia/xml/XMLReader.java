@@ -16,7 +16,7 @@ import java.net.URL;
 public class XMLReader {
     public OrgUnits readEmployee() {
         try {
-            JAXBContext context = JAXBContext.newInstance(XMLEmployee.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(EmployeeXML.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("employee.xml");
             OrgUnits employees = (OrgUnits) unmarshaller.unmarshal(resource);
@@ -29,7 +29,7 @@ public class XMLReader {
 
     public OrgUnits readOrganization() {
         try {
-            JAXBContext context = JAXBContext.newInstance(XMLOrganization.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(OrganizationXML.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("organization.xml");
             OrgUnits organizations = (OrgUnits) unmarshaller.unmarshal(resource);
@@ -42,7 +42,7 @@ public class XMLReader {
 
     public OrgUnits readDepartment() {
         try {
-            JAXBContext context = JAXBContext.newInstance(XMLDepartment.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(DepartmentXML.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("department.xml");
             OrgUnits departments = (OrgUnits) unmarshaller.unmarshal(resource);
@@ -54,7 +54,7 @@ public class XMLReader {
     }
     public OrgUnits readPosition() {
         try {
-            JAXBContext context = JAXBContext.newInstance(XMLPosition.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(PositionXML.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("position.xml");
             OrgUnits positions = (OrgUnits) unmarshaller.unmarshal(resource);

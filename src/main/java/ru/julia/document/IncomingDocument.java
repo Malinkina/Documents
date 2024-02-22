@@ -1,24 +1,24 @@
 package ru.julia.document;
 
-import ru.julia.xml.xmlmodel.XMLEmployee;
+import ru.julia.xml.xmlmodel.EmployeeXML;
 
 /**
  * Класс описывает входящий документ
  **/
 public class IncomingDocument extends Document {
-    private XMLEmployee sender;
-    private XMLEmployee recipient;
+    private EmployeeXML sender;
+    private EmployeeXML recipient;
     private int outgoingNumber;
     private String outgoingRegDate;
 
     private IncomingDocument() {
     }
 
-    public XMLEmployee getSender() {
+    public EmployeeXML getSender() {
         return sender;
     }
 
-    public XMLEmployee getRecipient() {
+    public EmployeeXML getRecipient() {
         return recipient;
     }
 
@@ -41,12 +41,12 @@ public class IncomingDocument extends Document {
     public static class IncomingDocumentBuilder extends DocumentBuilder<IncomingDocument, IncomingDocumentBuilder> {
         private IncomingDocument incomingDocument = new IncomingDocument();
        
-        public IncomingDocumentBuilder sender(XMLEmployee sender) {
+        public IncomingDocumentBuilder sender(EmployeeXML sender) {
             incomingDocument.sender = sender;
             return this;
         }
 
-        public IncomingDocumentBuilder recipient(XMLEmployee recipient) {
+        public IncomingDocumentBuilder recipient(EmployeeXML recipient) {
             incomingDocument.recipient = recipient;
             return this;
         }

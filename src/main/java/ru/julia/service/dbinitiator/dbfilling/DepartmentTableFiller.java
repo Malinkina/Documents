@@ -1,4 +1,4 @@
-package ru.julia.dbconfiguration;
+package ru.julia.service.dbinitiator.dbfilling;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,14 +7,15 @@ import ru.julia.service.mapper.DepartmentMapper;
 import ru.julia.xml.XMLReader;
 
 @Component
-public class DepartmentTableFiller {
+public class DepartmentTableFiller implements TableFiller {
     @Autowired
     private XMLReader reader;
     @Autowired
     private DepartmentMapper mapper;
     @Autowired
     private DepartmentService service;
-    public void fillDepartment() {
+    @Override
+    public void fill() {
         reader
                 .readDepartment()
                 .getDepartments()

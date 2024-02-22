@@ -1,6 +1,6 @@
 package ru.julia.document;
 
-import ru.julia.xml.xmlmodel.XMLEmployee;
+import ru.julia.xml.xmlmodel.EmployeeXML;
 
 /**
  * Класс описывает документ-поручение
@@ -8,9 +8,9 @@ import ru.julia.xml.xmlmodel.XMLEmployee;
 public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
-    private XMLEmployee responsibleExecutive;
+    private EmployeeXML responsibleExecutive;
     private boolean controlMark;
-    private XMLEmployee controller;
+    private EmployeeXML controller;
 
     private TaskDocument() {
     }
@@ -23,7 +23,7 @@ public class TaskDocument extends Document {
         return executionTerm;
     }
 
-    public XMLEmployee getResponsibleExecutive() {
+    public EmployeeXML getResponsibleExecutive() {
         return responsibleExecutive;
     }
 
@@ -31,7 +31,7 @@ public class TaskDocument extends Document {
         return controlMark;
     }
 
-    public XMLEmployee getController() {
+    public EmployeeXML getController() {
         return controller;
     }
 
@@ -54,7 +54,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder responsibleExecutive(XMLEmployee responsibleExecutive) {
+        public TaskDocumentBuilder responsibleExecutive(EmployeeXML responsibleExecutive) {
             taskDocument.responsibleExecutive = responsibleExecutive;
             return this;
         }
@@ -64,7 +64,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder controller(XMLEmployee controller) {
+        public TaskDocumentBuilder controller(EmployeeXML controller) {
             taskDocument.controller = controller;
             return this;
         }

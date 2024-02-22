@@ -6,22 +6,22 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "incoming_document")
-public class JPAIncomingDocument {
+public class IncomingDocumentJPA {
     @Id
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    private JPAEmployee sender;
+    private EmployeeJPA sender;
     @ManyToOne
     @JoinColumn(name = "recipient_id")
-    private JPAEmployee recipient;
+    private EmployeeJPA recipient;
     @Column(name = "outgoing_number")
     private int outgoingNumber;
     @Column(name = "outgoing_reg_date")
     private String outgoingRegDate;
     @OneToOne
     @JoinColumn(name = "document_id")
-    private JPADocument jpaDocument;
+    private DocumentJPA documentJPA;
 
     public UUID getId() {
         return id;
@@ -31,27 +31,27 @@ public class JPAIncomingDocument {
         this.id = id;
     }
 
-    public JPADocument getDocument() {
-        return jpaDocument;
+    public DocumentJPA getDocument() {
+        return documentJPA;
     }
 
-    public void setDocument(JPADocument JPADocument) {
-        this.jpaDocument = JPADocument;
+    public void setDocument(DocumentJPA DocumentJPA) {
+        this.documentJPA = DocumentJPA;
     }
 
-    public JPAEmployee getSender() {
+    public EmployeeJPA getSender() {
         return sender;
     }
 
-    public void setSender(JPAEmployee sender) {
+    public void setSender(EmployeeJPA sender) {
         this.sender = sender;
     }
 
-    public JPAEmployee getRecipient() {
+    public EmployeeJPA getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(JPAEmployee recipient) {
+    public void setRecipient(EmployeeJPA recipient) {
         this.recipient = recipient;
     }
 

@@ -1,26 +1,26 @@
 package ru.julia.service.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.julia.orm.jpamodel.JPAPosition;
+import ru.julia.orm.jpamodel.PositionJPA;
 import ru.julia.service.modelforservice.PositionModel;
-import ru.julia.xml.xmlmodel.XMLPosition;
-
-import java.util.UUID;
+import ru.julia.xml.xmlmodel.PositionXML;
 @Component
 public class PositionMapper {
-    public PositionModel xmlPositionToPositionModel(XMLPosition xmlPosition) {
-        PositionModel positionModel = new PositionModel();
-        positionModel.setId(UUID.fromString(xmlPosition.getId()));
-        positionModel.setPositionId(xmlPosition.getPositionId());
-        positionModel.setName(xmlPosition.getName());
-        return positionModel;
+    public PositionModel xmlPositionToPositionModel(PositionXML positionXML) {
+        PositionModel.PositionModelBuilder builder = new PositionModel.PositionModelBuilder();
+        return builder
+                .id(positionXML.getId())
+                .positionId(positionXML.getPositionId())
+                .name(positionXML.getName())
+                .build();
     }
 
-    public JPAPosition positionModelToJpaPosition(PositionModel positionModel) {
-        JPAPosition jpaPosition = new JPAPosition();
-        jpaPosition.setId(positionModel.getId());
-        jpaPosition.setPositionId(positionModel.getPositionId());
-        jpaPosition.setName(positionModel.getName());
-        return jpaPosition;
+    public PositionJPA positionModelToJpaPosition(PositionModel positionModel) {
+        PositionJPA.PositionJpaBuilder builder = new PositionJPA.PositionJpaBuilder();
+        return builder
+                .id(positionModel.getId())
+                .positionId(positionModel.getPositionId())
+                .name(positionModel.getName())
+                .build();
     }
 }

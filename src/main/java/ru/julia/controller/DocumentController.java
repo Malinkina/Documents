@@ -4,7 +4,7 @@ package ru.julia.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.orm.domain.JPADocument;
+import ru.julia.orm.domain.DocumentJPA;
 import ru.julia.dto.DocumentDTO;
 import ru.julia.service.DocumentService;
 
@@ -28,7 +28,7 @@ public class DocumentController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") String id, @RequestBody JPADocument document) {
+    public void update(@PathVariable("id") String id, @RequestBody DocumentJPA document) {
         documentService.update(id, document);
     }
 }

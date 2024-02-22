@@ -7,15 +7,8 @@ import ru.julia.service.dbinitiator.DatabaseInitiator;
 @Component
 public class Starter {
     @Autowired
-    private DocumentsGeneration documentsGeneration;
-    @Autowired
-    private Report report;
-    @Autowired
     private DatabaseInitiator databaseInitiator;
-    public void start() throws DocumentExistsException {
+    public void start()  {
         databaseInitiator.initialize();
-        /*List<Document> documents = documentsGeneration.generateDocuments();
-        Map<String, List<Document>> docs = report.reportGeneratedDocuments(documents);
-        new Serialization().serialize(docs);*/
     }
 }

@@ -4,9 +4,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.Document;
-import ru.julia.xml.xmlmodel.XMLEmployee;
+import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * Класс генерирует значения для полей класса {@link Document}
@@ -15,7 +16,10 @@ import java.time.LocalDate;
 public class DocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public int generateId() {
+    public UUID generateUUID() {
+        return UUID.randomUUID();
+    }
+    public int generateDocumentId() {
         return ((int) (Math.random() * 100));
     }
 
@@ -35,7 +39,7 @@ public class DocumentInfoGenerator {
         return LocalDate.now();
     }
 
-    public XMLEmployee generateAuthor() {
+    public EmployeeXML generateAuthor() {
         return employeeInfoGenerator.generateEmployee();
     }
 }

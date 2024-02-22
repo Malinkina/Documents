@@ -4,7 +4,7 @@ package ru.julia.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.orm.domain.JPADepartment;
+import ru.julia.orm.domain.DepartmentJPA;
 import ru.julia.service.DepartmentService;
 
 import java.util.List;
@@ -17,25 +17,25 @@ public class DepartmentController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody JPADepartment department) {
+    public void create(@RequestBody DepartmentJPA department) {
         departmentService.create(department);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<JPADepartment> list() {
+    public List<DepartmentJPA> list() {
         return departmentService.readAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public JPADepartment read(@PathVariable("id") String id) {
+    public DepartmentJPA read(@PathVariable("id") String id) {
         return departmentService.read(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") String id, @RequestBody JPADepartment department) {
+    public void update(@PathVariable("id") String id, @RequestBody DepartmentJPA department) {
         departmentService.update(id, department);
     }
     @DeleteMapping("/{id}")

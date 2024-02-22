@@ -1,30 +1,29 @@
 package ru.julia.service.mapper;
 
 import org.springframework.stereotype.Component;
+import ru.julia.orm.jpamodel.OrganizationJPA;
 import ru.julia.service.modelforservice.OrganizationModel;
-import ru.julia.orm.jpamodel.JPAOrganization;
-import ru.julia.xml.xmlmodel.XMLOrganization;
-
-import java.util.UUID;
+import ru.julia.xml.xmlmodel.OrganizationXML;
 @Component
 public class OrganizationMapper {
-    public OrganizationModel xmlOrgToOrgModel(XMLOrganization xmlOrganization) {
-        OrganizationModel organizationModel = new OrganizationModel();
-        organizationModel.setId(UUID.fromString(xmlOrganization.getId()));
-        organizationModel.setFullName(xmlOrganization.getFullName());
-        organizationModel.setShortName(xmlOrganization.getShortName());
-        organizationModel.setManager(xmlOrganization.getManager());
-        organizationModel.setContactPhoneNumber(xmlOrganization.getContactPhoneNumbers());
-        return organizationModel;
+    public OrganizationModel xmlOrgToOrgModel(OrganizationXML organizationXML) {
+        OrganizationModel.OrganizationModelBuilder builder = new OrganizationModel.OrganizationModelBuilder();
+        return builder.id(organizationXML.getId())
+                .fullName(organizationXML.getFullName())
+                .shortName(organizationXML.getShortName())
+                .manager(organizationXML.getManager())
+                .phoneNumbers(organizationXML.getContactPhoneNumbers())
+                .build();
     }
-    public JPAOrganization orgModelToOrgJpa(OrganizationModel organizationModel) {
-        JPAOrganization jpaOrganization = new JPAOrganization();
-        jpaOrganization.setId(organizationModel.getId());
-        jpaOrganization.setFullName(organizationModel.getFullName());
-        jpaOrganization.setShortName(organizationModel.getShortName());
-        jpaOrganization.setManager(organizationModel.getManager());
-        jpaOrganization.setContactPhoneNumber(organizationModel.getContactPhoneNumber().toString());
-        return jpaOrganization;
+    public OrganizationJPA orgModelToOrgJpa(OrganizationModel organizationModel) {
+        OrganizationJPA.OrganizationJPABuilder builder = new OrganizationJPA.OrganizationJPABuilder();
+        return builder
+                .id(organizationModel.getId())
+                .fullName(organizationModel.getFullName())
+                .shortName(organizationModel.getShortName())
+                .manager(organizationModel.getManager())
+                .phoneNumbers(organizationModel.getPhoneNumbers().toString())
+                .build();
     }
 
 

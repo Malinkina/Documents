@@ -1,26 +1,18 @@
-package ru.julia.orm.jpamodel;
+package ru.julia.service.modelforservice;
 
-import jakarta.persistence.*;
+import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
-@Table(name = "document")
-public class JPADocument {
-    @Id
+public class DocumentModel {
     private UUID id;
-    @Column(name = "document_id")
     private int documentId;
     private String name;
     private String text;
-    @Column(name = "reg_number")
     private String regNumber;
-    @Column(name = "reg_date")
     private LocalDate regDate;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private JPAEmployee author;
+    private EmployeeXML author;
 
     public UUID getId() {
         return id;
@@ -70,11 +62,11 @@ public class JPADocument {
         this.regDate = regDate;
     }
 
-    public JPAEmployee getAuthor() {
+    public EmployeeXML getAuthor() {
         return author;
     }
 
-    public void setAuthor(JPAEmployee author) {
+    public void setAuthor(EmployeeXML author) {
         this.author = author;
     }
 }

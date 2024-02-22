@@ -1,23 +1,26 @@
-package ru.julia.orm.jpamodel;
+package ru.julia.xml.xmlmodel;
 
-import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "department")
-public class JPADepartment {
-    @Id
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class DepartmentXML {
+    @XmlElement
     private UUID id;
-    @Column(name = "full_name")
+    @XmlElement
     private String fullName;
-    @Column(name = "short_name")
+    @XmlElement
     private String shortName;
+    @XmlElement
     private String manager;
-    @ManyToOne
-    @JoinColumn(name = "organization_id")
-    private JPAOrganization jpaOrganization;
-    private String contactPhoneNumbers;
+    @XmlElement
+    private UUID organizationId;
+    @XmlElementWrapper(name = "contactPhoneNumbers")
+    @XmlElement(name = "contactPhoneNumber")
+    private List<String> contactPhoneNumbers;
 
     public UUID getId() {
         return id;
@@ -51,19 +54,19 @@ public class JPADepartment {
         this.manager = manager;
     }
 
-    public JPAOrganization getOrganization() {
-        return jpaOrganization;
+    public UUID getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrganization(JPAOrganization JPAOrganization) {
-        this.jpaOrganization = JPAOrganization;
+    public void setOrganizationId(UUID organizationId) {
+        this.organizationId = organizationId;
     }
 
-    public String getContactPhoneNumbers() {
+    public List<String> getContactPhoneNumbers() {
         return contactPhoneNumbers;
     }
 
-    public void setContactPhoneNumbers(String contactPhoneNumbers) {
+    public void setContactPhoneNumbers(List<String> contactPhoneNumbers) {
         this.contactPhoneNumbers = contactPhoneNumbers;
     }
 }

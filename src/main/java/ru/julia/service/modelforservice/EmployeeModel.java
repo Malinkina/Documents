@@ -10,87 +10,110 @@ public class EmployeeModel {
     private String photo;
     private String dateOfBirth;
     private String phoneNumber;
-    private String departmentId;
-    private String organizationId;
-    private String positionId;
+    private UUID departmentId;
+    private UUID organizationId;
+    private UUID positionId;
+
+    private EmployeeModel() {
+    }
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPatronymic() {
         return patronymic;
     }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
     public String getPhoto() {
         return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getDepartmentId() {
+    public UUID getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getOrganizationId() {
+    public UUID getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
-    }
-
-    public String getPositionId() {
+    public UUID getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(String positionId) {
+    public void setDepartmentId(UUID departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public void setOrganizationId(UUID organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public void setPositionId(UUID positionId) {
         this.positionId = positionId;
+    }
+
+    public static class EmployeeModelBuilder {
+        private EmployeeModel employeeModel = new EmployeeModel();
+
+        public EmployeeModelBuilder id(UUID id) {
+            employeeModel.id = id;
+            return this;
+        }
+        public EmployeeModelBuilder surname(String surname) {
+            employeeModel.surname = surname;
+            return this;
+        }
+        public EmployeeModelBuilder name(String name) {
+            employeeModel.name = name;
+            return this;
+        }
+        public EmployeeModelBuilder patronymic(String patronymic) {
+            employeeModel.patronymic = patronymic;
+            return this;
+        }
+        public EmployeeModelBuilder photo(String photo) {
+            employeeModel.photo = photo;
+            return this;
+        }
+        public EmployeeModelBuilder dateOfBirth(String dateOfBirth) {
+            employeeModel.dateOfBirth = dateOfBirth;
+            return this;
+        }
+        public EmployeeModelBuilder phoneNumber(String phoneNumber) {
+            employeeModel.phoneNumber = phoneNumber;
+            return this;
+        }
+        public EmployeeModelBuilder organizationId(UUID id) {
+            employeeModel.organizationId = id;
+            return this;
+        }
+        public EmployeeModelBuilder departmentId(UUID id) {
+            employeeModel.departmentId = id;
+            return this;
+        }
+        public EmployeeModelBuilder positionId(UUID id) {
+            employeeModel.positionId = id;
+            return this;
+        }
+        public EmployeeModel build() {
+            return employeeModel;
+        }
     }
 }

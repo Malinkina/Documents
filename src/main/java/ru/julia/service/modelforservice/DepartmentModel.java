@@ -7,54 +7,64 @@ public class DepartmentModel {
     private String fullName;
     private String shortName;
     private String manager;
-    private String organizationId;
-    private String contactPhoneNumbers;
+    private UUID organizationId;
+    private String phoneNumbers;
+
+    private DepartmentModel() {}
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getShortName() {
         return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
     }
 
     public String getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
-
-    public String getOrganizationId() {
+    public UUID getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public String getPhoneNumbers() {
+        return phoneNumbers;
     }
+    public static class DepartmentModelBuilder {
+        private DepartmentModel departmentModel = new DepartmentModel();
+        public DepartmentModelBuilder id(UUID id) {
+            departmentModel.id = id;
+            return this;
+        }
 
-    public String getContactPhoneNumbers() {
-        return contactPhoneNumbers;
-    }
+        public DepartmentModelBuilder fullName(String fullName) {
+            departmentModel.fullName = fullName;
+            return this;
+        }
 
-    public void setContactPhoneNumbers(String contactPhoneNumbers) {
-        this.contactPhoneNumbers = contactPhoneNumbers;
+        public DepartmentModelBuilder shortName(String shortName) {
+            departmentModel.shortName = shortName;
+            return this;
+        }
+        public DepartmentModelBuilder manager(String manager) {
+            departmentModel.manager = manager;
+            return this;
+        }
+        public DepartmentModelBuilder phoneNumbers(String phoneNumbers) {
+            departmentModel.phoneNumbers = phoneNumbers;
+            return this;
+        }
+        public DepartmentModelBuilder organizationId(UUID id) {
+            departmentModel.organizationId = id;
+            return this;
+        }
+        public DepartmentModel build() {
+            return departmentModel;
+        }
     }
 }

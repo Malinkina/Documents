@@ -3,14 +3,14 @@ package ru.julia.infogenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.xml.XMLReader;
-import ru.julia.xml.xmlmodel.XMLEmployee;
+import ru.julia.xml.xmlmodel.EmployeeXML;
 
 @Component
 public class EmployeeInfoGenerator {
     @Autowired
     XMLReader xmlReader;
 
-    public XMLEmployee generateEmployee() {
+    public EmployeeXML generateEmployee() {
         return xmlReader
                 .readEmployee()
                 .getEmployees()

@@ -1,36 +1,31 @@
 package ru.julia.service.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.orm.jpamodel.JPADepartment;
-import ru.julia.orm.repository.OrganizationRepository;
+import ru.julia.orm.jpamodel.DepartmentJPA;
 import ru.julia.service.modelforservice.DepartmentModel;
-import ru.julia.xml.xmlmodel.XMLDepartment;
-
-import java.util.UUID;
+import ru.julia.xml.xmlmodel.DepartmentXML;
 
 @Component
 public class DepartmentMapper {
-    @Autowired
-    private OrganizationRepository organizationRepository;
-    public DepartmentModel xmlDepartmentToDepartmentModel(XMLDepartment xmlDepartment) {
-        DepartmentModel departmentModel = new DepartmentModel();
-        departmentModel.setId(UUID.fromString(xmlDepartment.getId()));
-        departmentModel.setFullName(xmlDepartment.getFullName());
-        departmentModel.setShortName(xmlDepartment.getShortName());
-        departmentModel.setManager(xmlDepartment.getManager());
-        departmentModel.setContactPhoneNumbers(xmlDepartment.getContactPhoneNumbers().toString());
-        departmentModel.setOrganizationId(xmlDepartment.getOrganizationId());
-        return departmentModel;
+    public DepartmentModel xmlDepartmentToDepartmentModel(DepartmentXML departmentXML) {
+        DepartmentModel.DepartmentModelBuilder builder = new DepartmentModel.DepartmentModelBuilder();
+        return builder
+                .id(departmentXML.getId())
+                .fullName(departmentXML.getFullName())
+                .shortName(departmentXML.getShortName())
+                .manager(departmentXML.getManager())
+                .phoneNumbers(departmentXML.getContactPhoneNumbers().toString())
+                .organizationId(departmentXML.getOrganizationId())
+                .build();
     }
-    public JPADepartment departmentModelToDepartmentJpa(DepartmentModel departmentModel) {
-        JPADepartment jpaDepartment = new JPADepartment();
-        jpaDepartment.setId(departmentModel.getId());
-        jpaDepartment.setFullName(departmentModel.getFullName());
-        jpaDepartment.setShortName(departmentModel.getShortName());
-        jpaDepartment.setManager(departmentModel.getManager());
-        jpaDepartment.setContactPhoneNumbers(departmentModel.getContactPhoneNumbers());
-        jpaDepartment.setOrganization(organizationRepository.findById(UUID.fromString(departmentModel.getOrganizationId())).get());
-        return jpaDepartment;
+    public DepartmentJPA departmentModelToDepartmentJpa(DepartmentModel departmentModel) {
+        DepartmentJPA.DepartmentJpaBuilder builder = new DepartmentJPA.DepartmentJpaBuilder();
+        return builder
+                .id(departmentModel.getId())
+                .fullName(departmentModel.getFullName())
+                .shortName(departmentModel.getShortName())
+                .manager(departmentModel.getManager())
+                .phoneNumbers(departmentModel.getPhoneNumbers())
+                .build();
     }
 }

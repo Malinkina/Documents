@@ -1,9 +1,9 @@
 package ru.julia.orm.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.julia.orm.jpamodel.JPAOutgoingDocument;
+import ru.julia.orm.jpamodel.OutgoingDocumentJPA;
 
 import java.util.UUID;
 
-public interface OutgoingDocumentRepository extends CrudRepository<JPAOutgoingDocument, UUID> {
+public interface OutgoingDocumentRepository extends CrudRepository<OutgoingDocumentJPA, UUID> {
 }

@@ -6,17 +6,17 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "outgoing_document")
-public class JPAOutgoingDocument {
+public class OutgoingDocumentJPA {
     @Id
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "recipient_id")
-    private JPAEmployee recipient;
+    private EmployeeJPA recipient;
     @Column(name = "delivery_type")
     private String deliveryType;
     @OneToOne
     @JoinColumn(name = "document_id")
-    private JPADocument jpaDocument;
+    private DocumentJPA documentJPA;
 
     public UUID getId() {
         return id;
@@ -26,19 +26,19 @@ public class JPAOutgoingDocument {
         this.id = id;
     }
 
-    public JPADocument getDocument() {
-        return jpaDocument;
+    public DocumentJPA getDocument() {
+        return documentJPA;
     }
 
-    public void setDocument(JPADocument JPADocument) {
-        this.jpaDocument = JPADocument;
+    public void setDocument(DocumentJPA DocumentJPA) {
+        this.documentJPA = DocumentJPA;
     }
 
-    public JPAEmployee getRecipient() {
+    public EmployeeJPA getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(JPAEmployee recipient) {
+    public void setRecipient(EmployeeJPA recipient) {
         this.recipient = recipient;
     }
 

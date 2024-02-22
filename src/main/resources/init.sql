@@ -1,23 +1,23 @@
-CREATE TABLE IF NOT EXISTS JPAOrganization
+CREATE TABLE IF NOT EXISTS OrganizationJPA
 (
     id         varchar(255) PRIMARY KEY,
     full_name  varchar(255),
     short_name varchar(255),
     manager    varchar(255)
 );
-CREATE TABLE IF NOT EXISTS JPAPosition
+CREATE TABLE IF NOT EXISTS PositionJPA
 (
     id          varchar(255) PRIMARY KEY,
     position_id INT,
     "name"      varchar(255)
 );
-CREATE TABLE IF NOT EXISTS JPADepartment
+CREATE TABLE IF NOT EXISTS DepartmentJPA
 (
     id              varchar(255) PRIMARY KEY,
     full_name       varchar(255),
     short_name      varchar(255),
     manager         varchar(255),
-    organization_id varchar(255) REFERENCES JPAOrganization (id)
+    organization_id varchar(255) REFERENCES OrganizationJPA (id)
 );
 CREATE TABLE IF NOT EXISTS XMLEmployee
 (
@@ -28,11 +28,11 @@ CREATE TABLE IF NOT EXISTS XMLEmployee
     photo           varchar(255),
     date_of_birth   varchar(255),
     phone_number    varchar(255),
-    department_id   varchar(255) REFERENCES JPADepartment (id),
-    organization_id varchar(255) REFERENCES JPAOrganization (id),
-    position_id     varchar(255) REFERENCES JPAPosition (id)
+    department_id   varchar(255) REFERENCES DepartmentJPA (id),
+    organization_id varchar(255) REFERENCES OrganizationJPA (id),
+    position_id     varchar(255) REFERENCES PositionJPA (id)
 );
-CREATE TABLE IF NOT EXISTS JPADocument
+CREATE TABLE IF NOT EXISTS DocumentJPA
 (
     id         varchar(255) PRIMARY KEY,
     doc_id     INT,
@@ -49,14 +49,14 @@ CREATE TABLE IF NOT EXISTS incoming_document
     outgoing_reg_date varchar(255),
     recipient_id      varchar(255) REFERENCES XMLEmployee (id),
     sender_id         varchar(255) REFERENCES XMLEmployee (id),
-    document_id       varchar(255) REFERENCES JPADocument (id)
+    document_id       varchar(255) REFERENCES DocumentJPA (id)
 );
 CREATE TABLE IF NOT EXISTS outgoing_document
 (
     id            varchar(255) PRIMARY KEY,
     delivery_type varchar(255),
     recipient_id  varchar(255) REFERENCES XMLEmployee (id),
-    document_id   varchar(255) REFERENCES JPADocument (id)
+    document_id   varchar(255) REFERENCES DocumentJPA (id)
 );
 CREATE TABLE IF NOT EXISTS task_document
 (
@@ -66,5 +66,5 @@ CREATE TABLE IF NOT EXISTS task_document
     control_mark             boolean,
     responsible_executive_id varchar(255) REFERENCES XMLEmployee (id),
     controller_id            varchar(255) REFERENCES XMLEmployee (id),
-    document_id              varchar(255) REFERENCES JPADocument (id)
+    document_id              varchar(255) REFERENCES DocumentJPA (id)
 );

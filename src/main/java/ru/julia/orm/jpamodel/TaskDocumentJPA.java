@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "task_document")
-public class JPATaskDocument {
+public class TaskDocumentJPA {
     @Id
     private UUID id;
     @Column(name = "issue_date")
@@ -15,15 +15,15 @@ public class JPATaskDocument {
     private String executionTerm;
     @ManyToOne
     @JoinColumn(name = "responsible_executive_id")
-    private JPAEmployee responsibleExecutive;
+    private EmployeeJPA responsibleExecutive;
     @Column(name = "control_mark")
     private boolean controlMark;
     @ManyToOne
     @JoinColumn(name = "controller_id")
-    private JPAEmployee controller;
+    private EmployeeJPA controller;
     @OneToOne
     @JoinColumn(name = "document_id")
-    private JPADocument jpaDocument;
+    private DocumentJPA documentJPA;
 
     public UUID getId() {
         return id;
@@ -49,11 +49,11 @@ public class JPATaskDocument {
         this.executionTerm = executionTerm;
     }
 
-    public JPAEmployee getResponsibleExecutive() {
+    public EmployeeJPA getResponsibleExecutive() {
         return responsibleExecutive;
     }
 
-    public void setResponsibleExecutive(JPAEmployee responsibleExecutive) {
+    public void setResponsibleExecutive(EmployeeJPA responsibleExecutive) {
         this.responsibleExecutive = responsibleExecutive;
     }
 
@@ -65,11 +65,11 @@ public class JPATaskDocument {
         this.controlMark = controlMark;
     }
 
-    public JPAEmployee getController() {
+    public EmployeeJPA getController() {
         return controller;
     }
 
-    public void setController(JPAEmployee controller) {
+    public void setController(EmployeeJPA controller) {
         this.controller = controller;
     }
 }

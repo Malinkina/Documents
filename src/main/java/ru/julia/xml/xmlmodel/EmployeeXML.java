@@ -5,14 +5,16 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.UUID;
+
 /**
  * Класс описывает персонал
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XMLEmployee {
+public class EmployeeXML {
     @XmlElement
-    private String id;
+    private UUID id;
     @XmlElement
     private String surname;
     @XmlElement
@@ -26,14 +28,14 @@ public class XMLEmployee {
     @XmlElement
     private String phoneNumber;
     @XmlElement
-    private String positionId;
+    private UUID positionId;
     @XmlElement
-    private String departmentId;
+    private UUID departmentId;
     @XmlElement
-    private String organizationId;
+    private UUID organizationId;
 
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -61,15 +63,15 @@ public class XMLEmployee {
         return phoneNumber;
     }
 
-    public String getPositionId() {
+    public UUID getPositionId() {
         return positionId;
     }
 
-    public String getOrganizationId() {
+    public UUID getOrganizationId() {
         return organizationId;
     }
 
-    public String getDepartmentId() {
+    public UUID getDepartmentId() {
         return departmentId;
     }
 

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.julia.dto.OrganizationDTO;
-import ru.julia.orm.domain.JPAOrganization;
+import ru.julia.orm.domain.OrganizationJPA;
 import ru.julia.service.OrganizationService;
 import ru.julia.service.mapper.OrganizationMapper;
 
@@ -27,19 +27,19 @@ public class OrganizationController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<JPAOrganization> readAll() {
+    public List<OrganizationJPA> readAll() {
         return organizationService.readAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public JPAOrganization read(@PathVariable("id") String id) {
+    public OrganizationJPA read(@PathVariable("id") String id) {
         return organizationService.read(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody JPAOrganization organization, @PathVariable("id") String id) {
+    public void update(@RequestBody OrganizationJPA organization, @PathVariable("id") String id) {
         organizationService.update(id, organization);
     }
 

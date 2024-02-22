@@ -1,19 +1,26 @@
-package ru.julia.orm.jpamodel;
+package ru.julia.xml.xmlmodel;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "position")
-public class JPAPosition {
-    @Id
+/**
+ * Класс описывает должность
+ */
+@XmlRootElement
+@JsonAutoDetect
+@XmlAccessorType(XmlAccessType.FIELD)
+public class PositionXML {
+    @XmlElement
     private UUID id;
-    @Column(name = "position_id")
+    @XmlElement
     private int positionId;
+    @XmlElement
     private String name;
 
     public UUID getId() {

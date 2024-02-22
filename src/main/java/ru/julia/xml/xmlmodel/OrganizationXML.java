@@ -1,24 +1,24 @@
-package ru.julia.orm.jpamodel;
+package ru.julia.xml.xmlmodel;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "organization")
-public class JPAOrganization {
-    @Id
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class OrganizationXML {
+    @XmlElement
     private UUID id;
-    @Column(name = "full_name")
+    @XmlElement
     private String fullName;
-    @Column(name = "short_name")
+    @XmlElement
     private String shortName;
+    @XmlElement
     private String manager;
-    @Column(name = "phone_number")
-    private String contactPhoneNumber;
+    @XmlElementWrapper(name = "contactPhoneNumbers")
+    @XmlElement(name = "contactPhoneNumber")
+    private List<String> contactPhoneNumbers;
 
     public UUID getId() {
         return id;
@@ -52,11 +52,12 @@ public class JPAOrganization {
         this.manager = manager;
     }
 
-    public String getContactPhoneNumber() {
-        return contactPhoneNumber;
+    public List<String> getContactPhoneNumbers() {
+        return contactPhoneNumbers;
     }
 
-    public void setContactPhoneNumber(String contactPhoneNumber) {
-        this.contactPhoneNumber = contactPhoneNumber;
+    public void setContactPhoneNumbers(List<String> contactPhoneNumbers) {
+        this.contactPhoneNumbers = contactPhoneNumbers;
     }
 }
+

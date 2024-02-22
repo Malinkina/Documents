@@ -8,45 +8,58 @@ public class OrganizationModel {
     private String fullName;
     private String shortName;
     private String manager;
-    private List<String> contactPhoneNumber;
+    private List<String> phoneNumbers;
+
+    private OrganizationModel() {
+    }
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getShortName() {
         return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
     }
 
     public String getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    public List<String> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public List<String> getContactPhoneNumber() {
-        return contactPhoneNumber;
-    }
+    public static class OrganizationModelBuilder {
+        private final OrganizationModel organizationModel = new OrganizationModel();
 
-    public void setContactPhoneNumber(List<String> contactPhoneNumber) {
-        this.contactPhoneNumber = contactPhoneNumber;
+        public OrganizationModelBuilder id(UUID id) {
+            organizationModel.id = id;
+            return this;
+        }
+
+        public OrganizationModelBuilder fullName(String fullName) {
+            organizationModel.fullName = fullName;
+            return this;
+        }
+        public OrganizationModelBuilder shortName(String shortName) {
+            organizationModel.shortName = shortName;
+            return this;
+        }
+
+        public OrganizationModelBuilder manager(String manager) {
+            organizationModel.manager = manager;
+            return this;
+        }
+        public OrganizationModelBuilder phoneNumbers(List<String> phoneNumbers) {
+            organizationModel.phoneNumbers = phoneNumbers;
+            return this;
+        }
+        public OrganizationModel build() {
+            return organizationModel;
+        }
     }
 }
