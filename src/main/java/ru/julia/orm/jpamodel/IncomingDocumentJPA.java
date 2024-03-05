@@ -2,13 +2,9 @@ package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "incoming_document")
 public class IncomingDocumentJPA extends DocumentJPA {
-    @Id
-    private UUID id;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private EmployeeJPA sender;
@@ -19,14 +15,6 @@ public class IncomingDocumentJPA extends DocumentJPA {
     private int outgoingNumber;
     @Column(name = "outgoing_reg_date")
     private String outgoingRegDate;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public EmployeeJPA getSender() {
         return sender;

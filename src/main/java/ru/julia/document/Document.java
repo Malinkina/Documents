@@ -5,15 +5,13 @@ import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 /**
  * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
  * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
  */
 public abstract class Document implements Comparable<Document> {
-    private UUID id;
-    private int documentId;
+    private int id;
     private String name;
     private String text;
     private String regNumber;
@@ -21,20 +19,12 @@ public abstract class Document implements Comparable<Document> {
     private LocalDate regDate;
     private EmployeeXML author;
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    protected void setId(UUID id) {
+    protected void setId(int id) {
         this.id = id;
-    }
-
-    public int getDocumentId() {
-        return documentId;
-    }
-
-    protected void setDocumentId(int documentId) {
-        this.documentId = documentId;
     }
 
     public String getName() {
@@ -92,12 +82,12 @@ public abstract class Document implements Comparable<Document> {
     public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder> {
 
         protected abstract T getDocument();
-        public B id(UUID id) {
+        public B id(int id) {
             getDocument().setId(id);
             return (B) this;
         }
         public B documentId(int id) {
-            getDocument().setDocumentId(id);
+            getDocument().setId(id);
             return (B) this;
         }
 

@@ -7,7 +7,6 @@ import ru.julia.document.Document;
 import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 /**
  * Класс генерирует значения для полей класса {@link Document}
@@ -16,10 +15,7 @@ import java.util.UUID;
 public class DocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public UUID generateUUID() {
-        return UUID.randomUUID();
-    }
-    public int generateDocumentId() {
+    public int generateId() {
         return ((int) (Math.random() * 100));
     }
 

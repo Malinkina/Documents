@@ -11,7 +11,6 @@ public class IncomingDocumentMapper {
         IncomingDocumentModel.IncomingDocumentModelBuilder builder = new IncomingDocumentModel.IncomingDocumentModelBuilder();
         return builder
                 .id(incomingDocument.getId())
-                .documentId(incomingDocument.getDocumentId())
                 .name(incomingDocument.getName())
                 .text(incomingDocument.getText())
                 .regNumber(incomingDocument.getRegNumber())
@@ -27,7 +26,6 @@ public class IncomingDocumentMapper {
     public IncomingDocumentJPA incomingDocumentModelToIncomingDocumentJpa(IncomingDocumentModel incomingDocumentModel) {
         IncomingDocumentJPA incomingDocumentJPA = new IncomingDocumentJPA();
         incomingDocumentJPA.setId(incomingDocumentModel.getId());
-        incomingDocumentJPA.setDocumentId(incomingDocumentModel.getDocumentId());
         incomingDocumentJPA.setName(incomingDocumentModel.getName());
         incomingDocumentJPA.setText(incomingDocumentModel.getText());
         incomingDocumentJPA.setRegNumber(incomingDocumentModel.getRegNumber());

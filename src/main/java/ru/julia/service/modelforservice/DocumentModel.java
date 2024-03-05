@@ -3,31 +3,21 @@ package ru.julia.service.modelforservice;
 import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public abstract class DocumentModel {
-    private UUID id;
-    private int documentId;
+    private int id;
     private String name;
     private String text;
     private String regNumber;
     private LocalDate regDate;
     private EmployeeXML author;
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public int getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(int documentId) {
-        this.documentId = documentId;
+    public void setId(int documentId) {
+        this.id = documentId;
     }
 
     public String getName() {
@@ -72,12 +62,8 @@ public abstract class DocumentModel {
     public abstract static class DocumentModelBuilder <T extends DocumentModel, B extends DocumentModelBuilder> {
         protected abstract T getDocument();
 
-        public B id(UUID id) {
+        public B id(int id) {
             getDocument().setId(id);
-            return (B) this;
-        }
-        public B documentId(int id) {
-            getDocument().setDocumentId(id);
             return (B) this;
         }
 

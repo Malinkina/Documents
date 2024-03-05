@@ -10,7 +10,6 @@ public class TaskDocumentMapper {
         TaskDocumentModel.TaskDocumentModelBuilder builder = new TaskDocumentModel.TaskDocumentModelBuilder();
         return builder
                 .id(taskDocument.getId())
-                .documentId(taskDocument.getDocumentId())
                 .name(taskDocument.getName())
                 .text(taskDocument.getText())
                 .regNumber(taskDocument.getRegNumber())
@@ -26,7 +25,6 @@ public class TaskDocumentMapper {
     public TaskDocumentJPA taskDocumentModelToTaskDocumentJpa(TaskDocumentModel taskDocumentModel) {
         TaskDocumentJPA taskDocumentJPA = new TaskDocumentJPA();
         taskDocumentJPA.setId(taskDocumentModel.getId());
-        taskDocumentJPA.setDocumentId(taskDocumentModel.getDocumentId());
         taskDocumentJPA.setName(taskDocumentModel.getName());
         taskDocumentJPA.setText(taskDocumentModel.getText());
         taskDocumentJPA.setRegNumber(taskDocumentModel.getRegNumber());

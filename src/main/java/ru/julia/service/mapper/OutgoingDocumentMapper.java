@@ -11,7 +11,6 @@ public class OutgoingDocumentMapper {
         OutgoingDocumentModel.OutgoingDocumentModelBuilder builder = new OutgoingDocumentModel.OutgoingDocumentModelBuilder();
         return builder
                 .id(outgoingDocument.getId())
-                .documentId(outgoingDocument.getDocumentId())
                 .name(outgoingDocument.getName())
                 .text(outgoingDocument.getText())
                 .regNumber(outgoingDocument.getRegNumber())
@@ -25,7 +24,6 @@ public class OutgoingDocumentMapper {
     public OutgoingDocumentJPA outgoingDocumentModelToOutgoingDocumentJpa(OutgoingDocumentModel outgoingDocumentModel) {
         OutgoingDocumentJPA outgoingDocumentJPA = new OutgoingDocumentJPA();
         outgoingDocumentJPA.setId(outgoingDocumentModel.getId());
-        outgoingDocumentJPA.setDocumentId(outgoingDocumentModel.getDocumentId());
         outgoingDocumentJPA.setName(outgoingDocumentModel.getName());
         outgoingDocumentJPA.setText(outgoingDocumentModel.getText());
         outgoingDocumentJPA.setRegNumber(outgoingDocumentModel.getRegNumber());

@@ -10,9 +10,10 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class DocumentJPA {
     @Id
-    private UUID id;
+    @Column(name = "id")
+    private UUID pk;
     @Column(name = "document_id")
-    private int documentId;
+    private int id;
     private String name;
     private String text;
     @Column(name = "reg_number")
@@ -23,20 +24,17 @@ public abstract class DocumentJPA {
     @JoinColumn(name = "author_id")
     private EmployeeJPA author;
 
-    public UUID getId() {
+    @PrePersist
+    private void setPk(){
+        pk = UUID.randomUUID();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public int getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(int documentId) {
-        this.documentId = documentId;
     }
 
     public String getName() {
@@ -83,7 +81,7 @@ public abstract class DocumentJPA {
     public String toString() {
         return "DocumentJPA{" +
                 "id=" + id +
-                ", documentId=" + documentId +
+                ", documentId=" +
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 '}';
