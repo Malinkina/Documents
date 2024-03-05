@@ -7,7 +7,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "document")
-public class DocumentJPA {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class DocumentJPA {
     @Id
     private UUID id;
     @Column(name = "document_id")
@@ -76,5 +77,15 @@ public class DocumentJPA {
 
     public void setAuthor(EmployeeJPA author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "DocumentJPA{" +
+                "id=" + id +
+                ", documentId=" + documentId +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 }

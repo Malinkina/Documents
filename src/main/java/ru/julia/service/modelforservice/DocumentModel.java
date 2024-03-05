@@ -5,7 +5,7 @@ import ru.julia.xml.xmlmodel.EmployeeXML;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class DocumentModel {
+public abstract class DocumentModel {
     private UUID id;
     private int documentId;
     private String name;
@@ -68,5 +68,43 @@ public class DocumentModel {
 
     public void setAuthor(EmployeeXML author) {
         this.author = author;
+    }
+    public abstract static class DocumentModelBuilder <T extends DocumentModel, B extends DocumentModelBuilder> {
+        protected abstract T getDocument();
+
+        public B id(UUID id) {
+            getDocument().setId(id);
+            return (B) this;
+        }
+        public B documentId(int id) {
+            getDocument().setDocumentId(id);
+            return (B) this;
+        }
+
+        public B name(String name) {
+            getDocument().setName(name);
+            return (B) this;
+        }
+
+        public B text(String text) {
+            getDocument().setText(text);
+            return (B) this;
+        }
+
+        public B regNumber(String regNumber) {
+            getDocument().setRegNumber(regNumber);
+            return (B) this;
+        }
+
+        public B regDate(LocalDate regDate) {
+            getDocument().setRegDate(regDate);
+            return (B) this;
+        }
+
+        public B author(EmployeeXML author) {
+            getDocument().setAuthor(author);
+            return (B) this;
+        }
+        public abstract T build();
     }
 }

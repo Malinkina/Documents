@@ -1,7 +1,6 @@
 package ru.julia;
 
 import org.springframework.stereotype.Component;
-import ru.julia.document.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +12,9 @@ import java.util.List;
 public class RegNumbersStorage {
     private static final List<String> REG_NUMBERS = new ArrayList<>();
 
-    public void add(Document document) throws DocumentExistsException {
-        if (!exists(document.getRegNumber())) {
-            REG_NUMBERS.add(document.getRegNumber());
+    public void add(String regNumber) throws DocumentExistsException {
+        if (!exists(regNumber)) {
+            REG_NUMBERS.add(regNumber);
         } else {
             throw new DocumentExistsException();
         }

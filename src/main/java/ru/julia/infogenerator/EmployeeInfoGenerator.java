@@ -14,6 +14,6 @@ public class EmployeeInfoGenerator {
         return xmlReader
                 .readEmployee()
                 .getEmployees()
-                .get((int) (Math.random() * 1));
+                .get((int) (Math.random() * 2));
     }
 }

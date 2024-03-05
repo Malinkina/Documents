@@ -2,19 +2,11 @@ package ru.julia.service.modelforservice;
 
 import java.util.UUID;
 
-public class OutgoingDocumentModel {
-    private UUID id;
+public class OutgoingDocumentModel extends DocumentModel {
     private UUID recipientId;
     private String deliveryType;
-    private UUID documentId;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    private OutgoingDocumentModel() {}
 
     public UUID getRecipientId() {
         return recipientId;
@@ -31,12 +23,25 @@ public class OutgoingDocumentModel {
     public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
+    public static class OutgoingDocumentModelBuilder extends DocumentModelBuilder<OutgoingDocumentModel, OutgoingDocumentModelBuilder> {
+        private OutgoingDocumentModel outgoingDocumentModel = new OutgoingDocumentModel();
+        public OutgoingDocumentModelBuilder recipient(UUID id) {
+            outgoingDocumentModel.recipientId = id;
+            return this;
+        }
+        public OutgoingDocumentModelBuilder deliveryType(String deliveryType) {
+            outgoingDocumentModel.deliveryType = deliveryType;
+            return this;
+        }
 
-    public UUID getDocumentId() {
-        return documentId;
-    }
+        @Override
+        protected OutgoingDocumentModel getDocument() {
+            return outgoingDocumentModel;
+        }
 
-    public void setDocumentId(UUID documentId) {
-        this.documentId = documentId;
+        @Override
+        public OutgoingDocumentModel build() {
+            return outgoingDocumentModel;
+        }
     }
 }

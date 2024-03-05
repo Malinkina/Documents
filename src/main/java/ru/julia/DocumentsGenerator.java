@@ -22,24 +22,32 @@ public class DocumentsGenerator<T extends AbstractDocumentFactory> {
     /**
      * Метод генерирует документы и передает в хранилище {@link RegNumbersStorage}
      */
-    public List<Document> generateDocuments(DocumentFactory factoryType, int quantity) throws DocumentExistsException {
+    public List<Document> generateDocuments(Class<T> factoryType, int quantity) {
+        DocumentFactory<?> factory = getFactory(factoryType);
         List<Document> documents = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
-            DocumentFactory<?> factory = factories.get(factories.indexOf(factoryType));
             Document document = factory.create();
-            regNumbersStorage.add(document);
+            try {
+                regNumbersStorage.add(document.getRegNumber());
+            } catch (DocumentExistsException e) {
+                throw new RuntimeException(
+                        "Document with registration number " + document.getRegNumber() + " already exists"
+                );
+            }
             documents.add(document);
         }
         return documents;
+    }
 
-        /*for (int i = 0; i < (int) (Math.random() * 20 + 1); i++) {
-            DocumentFactory<?> factory = factories.get((int) (Math.random() * 3));
-            Document document = factory.create();
-            regNumbersStorage.add(document);
-            documents.add(document);
+    private DocumentFactory<?> getFactory(Class<T> factoryType) {
+        for (DocumentFactory<?> documentFactory : factories) {
+            if (documentFactory.getClass() == factoryType) {
+                return factories.get(factories.indexOf(documentFactory));
+            }
         }
-        return documents;*/
+        throw new RuntimeException("No such factory with name " + factoryType);
     }
 }
+
 
 

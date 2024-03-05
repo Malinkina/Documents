@@ -25,7 +25,7 @@ public abstract class Document implements Comparable<Document> {
         return id;
     }
 
-    public void setId(UUID id) {
+    protected void setId(UUID id) {
         this.id = id;
     }
 
@@ -33,7 +33,7 @@ public abstract class Document implements Comparable<Document> {
         return documentId;
     }
 
-    public void setDocumentId(int documentId) {
+    protected void setDocumentId(int documentId) {
         this.documentId = documentId;
     }
 
@@ -41,7 +41,7 @@ public abstract class Document implements Comparable<Document> {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -49,7 +49,7 @@ public abstract class Document implements Comparable<Document> {
         return text;
     }
 
-    public void setText(String text) {
+    protected void setText(String text) {
         this.text = text;
     }
 
@@ -57,7 +57,7 @@ public abstract class Document implements Comparable<Document> {
         return regNumber;
     }
 
-    public void setRegNumber(String regNumber) {
+    protected void setRegNumber(String regNumber) {
         this.regNumber = regNumber;
     }
 
@@ -65,7 +65,7 @@ public abstract class Document implements Comparable<Document> {
         return regDate;
     }
 
-    public void setRegDate(LocalDate regDate) {
+    protected void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
@@ -73,7 +73,7 @@ public abstract class Document implements Comparable<Document> {
         return author;
     }
 
-    public void setAuthor(EmployeeXML author) {
+    protected void setAuthor(EmployeeXML author) {
         this.author = author;
     }
 

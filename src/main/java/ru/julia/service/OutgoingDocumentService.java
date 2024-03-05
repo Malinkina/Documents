@@ -2,10 +2,8 @@ package ru.julia.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.orm.jpamodel.DocumentJPA;
 import ru.julia.orm.jpamodel.EmployeeJPA;
 import ru.julia.orm.jpamodel.OutgoingDocumentJPA;
-import ru.julia.orm.repository.DocumentRepository;
 import ru.julia.orm.repository.EmployeeRepository;
 import ru.julia.orm.repository.OutgoingDocumentRepository;
 import ru.julia.service.mapper.OutgoingDocumentMapper;
@@ -17,8 +15,6 @@ import java.util.UUID;
 @Component
 public class OutgoingDocumentService {
     @Autowired
-    private DocumentRepository documentRepository;
-    @Autowired
     private OutgoingDocumentRepository outgoingDocumentRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -27,14 +23,19 @@ public class OutgoingDocumentService {
 
     public void create(OutgoingDocumentModel outgoingDocumentModel) {
         UUID recipientId = outgoingDocumentModel.getRecipientId();
-        EmployeeJPA employeeJPA = employeeRepository.findById(recipientId)
-                .orElseThrow(() -> new RuntimeException("Employee with id " + recipientId + " not found"));
-        UUID documentId = outgoingDocumentModel.getDocumentId();
-        DocumentJPA documentJPA = documentRepository.findById(outgoingDocumentModel.getDocumentId())
-                .orElseThrow(() -> new RuntimeException("Document with id " + documentId + " not found"));
+        EmployeeJPA recipient = employeeRepository.findById(recipientId)
+                .orElseThrow(() -> new RuntimeException(
+                        "Recipient with id " + recipientId + " not found")
+                );
+        UUID authorId = outgoingDocumentModel.getAuthor().getId();
+        EmployeeJPA author = employeeRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException(
+                        "Author with id " + authorId + " not found")
+                );
         OutgoingDocumentJPA outgoingDocumentJPA = mapper.outgoingDocumentModelToOutgoingDocumentJpa(outgoingDocumentModel);
-        outgoingDocumentJPA.setRecipient(employeeJPA);
-        outgoingDocumentJPA.setDocument(documentJPA);
+        outgoingDocumentJPA.setRecipient(recipient);
+        outgoingDocumentJPA.setAuthor(author);
+        outgoingDocumentRepository.save(outgoingDocumentJPA);
     }
 
     public Optional<OutgoingDocumentJPA> read(UUID id) {

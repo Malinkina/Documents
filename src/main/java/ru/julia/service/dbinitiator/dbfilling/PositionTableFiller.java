@@ -2,13 +2,14 @@
 package ru.julia.service.dbinitiator.dbfilling;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import ru.julia.service.PositionService;
 import ru.julia.service.mapper.PositionMapper;
 import ru.julia.xml.XMLReader;
 
 @Component
-public class PositionTableFiller implements TableFiller {
+public class PositionTableFiller implements TableFiller, Ordered {
     @Autowired
     private XMLReader reader;
     @Autowired
@@ -21,5 +22,10 @@ public class PositionTableFiller implements TableFiller {
                 .readPosition()
                 .getPositions()
                 .forEach(p -> service.create(mapper.xmlPositionToPositionModel(p)));
+    }
+
+    @Override
+    public int getOrder() {
+        return 3;
     }
 }

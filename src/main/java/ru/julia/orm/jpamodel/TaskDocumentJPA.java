@@ -2,13 +2,9 @@ package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "task_document")
-public class TaskDocumentJPA {
-    @Id
-    private UUID id;
+public class TaskDocumentJPA extends DocumentJPA {
     @Column(name = "issue_date")
     private String issueDate;
     @Column(name = "execution_term")
@@ -21,17 +17,6 @@ public class TaskDocumentJPA {
     @ManyToOne
     @JoinColumn(name = "controller_id")
     private EmployeeJPA controller;
-    @OneToOne
-    @JoinColumn(name = "document_id")
-    private DocumentJPA documentJPA;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getIssueDate() {
         return issueDate;

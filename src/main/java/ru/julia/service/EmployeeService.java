@@ -33,13 +33,19 @@ public class EmployeeService {
     public void create(EmployeeModel employeeModel) {
         UUID organizationId = employeeModel.getOrganizationId();
         OrganizationJPA organizationJPA = organizationRepository.findById(organizationId)
-                        .orElseThrow(() -> new RuntimeException("Organization with id " + organizationId + " not found"));
+                        .orElseThrow(() -> new RuntimeException(
+                                "Organization with id " + organizationId + " not found")
+                        );
         UUID departmentId = employeeModel.getDepartmentId();
         DepartmentJPA departmentJPA = departmentRepository.findById(departmentId)
-                        .orElseThrow(() -> new RuntimeException("Department with id " + departmentId + " not found"));
+                        .orElseThrow(() -> new RuntimeException(
+                                "Department with id " + departmentId + " not found")
+                        );
         UUID positionId = employeeModel.getPositionId();
         PositionJPA positionJPA = positionRepository.findById(positionId)
-                        .orElseThrow(() -> new RuntimeException("Position with id " + positionId + " not found"));
+                        .orElseThrow(() -> new RuntimeException(
+                                "Position with id " + positionId + " not found")
+                        );
         EmployeeJPA employeeJPA = mapper.employeeModelToJpaEmployee(employeeModel);
         employeeJPA.setOrganization(organizationJPA);
         employeeJPA.setDepartment(departmentJPA);

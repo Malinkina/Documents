@@ -25,7 +25,9 @@ public class DepartmentService {
     public void create(DepartmentModel departmentModel) {
         UUID organizationId = departmentModel.getOrganizationId();
         OrganizationJPA organizationJPA = organizationRepository.findById(organizationId)
-                .orElseThrow(()-> new RuntimeException("Organization with id " + organizationId + " not found"));
+                .orElseThrow(()-> new RuntimeException(
+                        "Organization with id " + organizationId + " not found")
+                );
         DepartmentJPA departmentJPA = mapper.departmentModelToDepartmentJpa(departmentModel);
         departmentJPA.setOrganization(organizationJPA);
         departmentRepository.save(departmentJPA);
