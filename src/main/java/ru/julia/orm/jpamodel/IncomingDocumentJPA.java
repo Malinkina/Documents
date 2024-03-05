@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "incoming_document")
-public class IncomingDocumentJPA {
+public class IncomingDocumentJPA extends DocumentJPA {
     @Id
     private UUID id;
     @ManyToOne
@@ -19,9 +19,6 @@ public class IncomingDocumentJPA {
     private int outgoingNumber;
     @Column(name = "outgoing_reg_date")
     private String outgoingRegDate;
-    @OneToOne
-    @JoinColumn(name = "document_id")
-    private DocumentJPA documentJPA;
 
     public UUID getId() {
         return id;
@@ -29,14 +26,6 @@ public class IncomingDocumentJPA {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public DocumentJPA getDocument() {
-        return documentJPA;
-    }
-
-    public void setDocument(DocumentJPA DocumentJPA) {
-        this.documentJPA = DocumentJPA;
     }
 
     public EmployeeJPA getSender() {
