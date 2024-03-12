@@ -2,7 +2,7 @@ package ru.julia.infogenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.DeliveryTypes;
+import ru.julia.document.DeliveryTypes;
 import ru.julia.document.OutgoingDocument;
 import ru.julia.xml.xmlmodel.EmployeeXML;
 

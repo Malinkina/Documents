@@ -1,6 +1,5 @@
 package ru.julia.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import ru.julia.xml.xmlmodel.EmployeeXML;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ public abstract class Document implements Comparable<Document> {
     private String name;
     private String text;
     private String regNumber;
-    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
     private EmployeeXML author;
 
@@ -79,7 +77,7 @@ public abstract class Document implements Comparable<Document> {
                 + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                 + ". " + getName();
     }
-    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder> {
+    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder<?, ?>> {
 
         protected abstract T getDocument();
         public B id(int id) {

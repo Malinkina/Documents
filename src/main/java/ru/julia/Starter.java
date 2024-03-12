@@ -2,7 +2,7 @@ package ru.julia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.service.dbinitiator.DatabaseInitiator;
+import ru.julia.servicelayer.dbinitiator.DatabaseInitiator;
 
 @Component
 public class Starter {
