@@ -9,5 +9,5 @@ public class Department extends Staff {
     private String fullName;
     private String shortName;
     private Employee manager;
-    private List<String> contactPhoneNumbers;
+    private List<String> phoneNumbers;
 }

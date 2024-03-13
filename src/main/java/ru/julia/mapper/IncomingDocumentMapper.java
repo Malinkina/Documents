@@ -2,15 +2,15 @@ package ru.julia.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.julia.document.IncomingDocument;
-import ru.julia.dto.request.IncomingDocumentRequestDTO;
-import ru.julia.dto.response.IncomingDocumentResponseDTO;
-import ru.julia.orm.jpamodel.IncomingDocumentJPA;
-import ru.julia.servicelayer.model.IncomingDocumentModel;
+import ru.julia.dto.request.IncomingDocRequestDto;
+import ru.julia.dto.response.IncomingDocResponseDto;
+import ru.julia.orm.jpamodel.IncomingDocJpa;
+import ru.julia.servicelayer.model.IncomingDocModel;
 
 @Component
 public class IncomingDocumentMapper {
-    public IncomingDocumentModel incomingDocumentToModel(IncomingDocument incomingDocument) {
-        IncomingDocumentModel.IncomingDocumentModelBuilder builder = new IncomingDocumentModel.IncomingDocumentModelBuilder();
+    public IncomingDocModel incomingDocumentToModel(IncomingDocument incomingDocument) {
+        IncomingDocModel.IncomingDocumentModelBuilder builder = new IncomingDocModel.IncomingDocumentModelBuilder();
         return builder
                 .id(incomingDocument.getId())
                 .name(incomingDocument.getName())
@@ -25,38 +25,38 @@ public class IncomingDocumentMapper {
                 .build();
     }
 
-    public IncomingDocumentJPA modelToJpa(IncomingDocumentModel incomingDocumentModel) {
-        IncomingDocumentJPA incomingDocumentJPA = new IncomingDocumentJPA();
-        incomingDocumentJPA.setId(incomingDocumentModel.getId());
-        incomingDocumentJPA.setName(incomingDocumentModel.getName());
-        incomingDocumentJPA.setText(incomingDocumentModel.getText());
-        incomingDocumentJPA.setRegNumber(incomingDocumentModel.getRegNumber());
-        incomingDocumentJPA.setRegDate(incomingDocumentModel.getRegDate());
-        incomingDocumentJPA.setOutgoingNumber(incomingDocumentModel.getOutgoingNumber());
-        incomingDocumentJPA.setOutgoingRegDate(incomingDocumentModel.getOutgoingRegDate());
-        return incomingDocumentJPA;
+    public IncomingDocJpa modelToJpa(IncomingDocModel incomingDocModel) {
+        IncomingDocJpa incomingDocJPA = new IncomingDocJpa();
+        incomingDocJPA.setId(incomingDocModel.getId());
+        incomingDocJPA.setName(incomingDocModel.getName());
+        incomingDocJPA.setText(incomingDocModel.getText());
+        incomingDocJPA.setRegNumber(incomingDocModel.getRegNumber());
+        incomingDocJPA.setRegDate(incomingDocModel.getRegDate());
+        incomingDocJPA.setOutgoingNumber(incomingDocModel.getOutgoingNumber());
+        incomingDocJPA.setOutgoingRegDate(incomingDocModel.getOutgoingRegDate());
+        return incomingDocJPA;
     }
 
-    public IncomingDocumentResponseDTO jpaToResponseDTO(IncomingDocumentJPA documentJPA) {
-        IncomingDocumentResponseDTO incomingDocumentResponseDTO = new IncomingDocumentResponseDTO();
-        incomingDocumentResponseDTO.setName(documentJPA.getName());
-        incomingDocumentResponseDTO.setText(documentJPA.getText());
-        incomingDocumentResponseDTO.setAuthor(documentJPA.getAuthor().getSurname());
-        incomingDocumentResponseDTO.setOutgoingNumber(documentJPA.getOutgoingNumber());
-        incomingDocumentResponseDTO.setRecipient(documentJPA.getRecipient().getSurname());
-        incomingDocumentResponseDTO.setSender(documentJPA.getSender().getSurname());
-        incomingDocumentResponseDTO.setOutgoingRegDate(documentJPA.getOutgoingRegDate());
-        return incomingDocumentResponseDTO;
+    public IncomingDocResponseDto jpaToResponseDto(IncomingDocJpa documentJPA) {
+        IncomingDocResponseDto incomingDocResponseDTO = new IncomingDocResponseDto();
+        incomingDocResponseDTO.setName(documentJPA.getName());
+        incomingDocResponseDTO.setText(documentJPA.getText());
+        incomingDocResponseDTO.setAuthor(documentJPA.getAuthor().getSurname());
+        incomingDocResponseDTO.setOutgoingNumber(documentJPA.getOutgoingNumber());
+        incomingDocResponseDTO.setRecipient(documentJPA.getRecipient().getSurname());
+        incomingDocResponseDTO.setSender(documentJPA.getSender().getSurname());
+        incomingDocResponseDTO.setOutgoingRegDate(documentJPA.getOutgoingRegDate());
+        return incomingDocResponseDTO;
     }
 
-    public IncomingDocumentModel requestDtoToModel(IncomingDocumentRequestDTO incomingDocumentRequestDTO) {
-        IncomingDocumentModel.IncomingDocumentModelBuilder builder = new IncomingDocumentModel.IncomingDocumentModelBuilder();
+    public IncomingDocModel requestDtoToModel(IncomingDocRequestDto incomingDocRequestDTO) {
+        IncomingDocModel.IncomingDocumentModelBuilder builder = new IncomingDocModel.IncomingDocumentModelBuilder();
         return builder
-                .name(incomingDocumentRequestDTO.getName())
-                .text(incomingDocumentRequestDTO.getText())
-                .authorId(incomingDocumentRequestDTO.getAuthorId())
-                .senderId(incomingDocumentRequestDTO.getSenderId())
-                .recipientId(incomingDocumentRequestDTO.getRecipientId())
+                .name(incomingDocRequestDTO.getName())
+                .text(incomingDocRequestDTO.getText())
+                .authorId(incomingDocRequestDTO.getAuthorId())
+                .senderId(incomingDocRequestDTO.getSenderId())
+                .recipientId(incomingDocRequestDTO.getRecipientId())
                 .build();
     }
 }

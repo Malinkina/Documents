@@ -2,16 +2,17 @@ package ru.julia.servicelayer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.EmployeeResponseDTO;
-import ru.julia.orm.jpamodel.DepartmentJPA;
-import ru.julia.orm.jpamodel.EmployeeJPA;
-import ru.julia.orm.jpamodel.OrganizationJPA;
-import ru.julia.orm.jpamodel.PositionJPA;
+import ru.julia.dto.response.EmployeeResponseDto;
+import ru.julia.mapper.employee.EmployeeJpaResponseDtoMapper;
+import ru.julia.mapper.employee.EmployeeModelJpaMapper;
+import ru.julia.orm.jpamodel.DepartmentJpa;
+import ru.julia.orm.jpamodel.EmployeeJpa;
+import ru.julia.orm.jpamodel.OrganizationJpa;
+import ru.julia.orm.jpamodel.PositionJpa;
 import ru.julia.orm.repository.DepartmentRepository;
 import ru.julia.orm.repository.EmployeeRepository;
 import ru.julia.orm.repository.OrganizationRepository;
 import ru.julia.orm.repository.PositionRepository;
-import ru.julia.mapper.EmployeeMapper;
 import ru.julia.servicelayer.model.EmployeeModel;
 
 import java.util.ArrayList;
@@ -30,42 +31,54 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
-    private EmployeeMapper mapper;
+    private EmployeeModelJpaMapper modelJpaMapper;
+    @Autowired
+    private EmployeeJpaResponseDtoMapper jpaResponseDtoMapper;
 
     public void create(EmployeeModel employeeModel) {
         UUID organizationId = employeeModel.getOrganizationId();
-        OrganizationJPA organizationJPA = organizationRepository.findById(organizationId)
+        OrganizationJpa organizationJpa = organizationRepository.findById(organizationId)
                         .orElseThrow(() -> new RuntimeException(
-                                "Organization with id " + organizationId + " not found")
+                                "Organization with id %s not found".formatted(organizationId))
                         );
         UUID departmentId = employeeModel.getDepartmentId();
-        DepartmentJPA departmentJPA = departmentRepository.findById(departmentId)
+        DepartmentJpa departmentJpa = departmentRepository.findById(departmentId)
                         .orElseThrow(() -> new RuntimeException(
-                                "Department with id " + departmentId + " not found")
+                                "Department with id %s not found".formatted(departmentId))
                         );
         UUID positionId = employeeModel.getPositionId();
-        PositionJPA positionJPA = positionRepository.findById(positionId)
+        PositionJpa positionJpa = positionRepository.findById(positionId)
                         .orElseThrow(() -> new RuntimeException(
-                                "Position with id " + positionId + " not found")
+                                "Position with id %s not found".formatted(positionId))
                         );
-        EmployeeJPA employeeJPA = mapper.modelToJpa(employeeModel);
-        employeeJPA.setOrganization(organizationJPA);
-        employeeJPA.setDepartment(departmentJPA);
-        employeeJPA.setPosition(positionJPA);
-        employeeRepository.save(employeeJPA);
+        if (employeeModel.getId() == null) {
+            employeeModel.setId(UUID.randomUUID());
+        }
+        EmployeeJpa employeeJpa = modelJpaMapper.toJpa(employeeModel);
+        employeeJpa.setOrganizationJpa(organizationJpa);
+        employeeJpa.setDepartmentJpa(departmentJpa);
+        employeeJpa.setPositionJpa(positionJpa);
+        employeeRepository.save(employeeJpa);
     }
 
-    public EmployeeResponseDTO read(UUID id) {
-        Optional<EmployeeJPA> employeeJPA = employeeRepository.findById(id);
-        return employeeJPA.map(employeeJpa -> mapper.jpaToResponseDto(employeeJpa))
-                .orElseThrow(() -> new RuntimeException("Employee with id " + id + " not found"));
+    public EmployeeResponseDto read(UUID id) {
+        Optional<EmployeeJpa> employeeJPA = employeeRepository.findById(id);
+        return employeeJPA.map(employeeJpa -> jpaResponseDtoMapper.toResponseDto(employeeJpa))
+                .orElseThrow(() -> new RuntimeException("Employee with id %s not found".formatted(id)));
     }
 
-    public List<EmployeeResponseDTO> readAll() {
-        List<EmployeeJPA> employeeJPA = (List<EmployeeJPA>) employeeRepository.findAll();
-        List<EmployeeResponseDTO> employeeResponseDTOS = new ArrayList<>();
-        employeeJPA.forEach(employeeJpa -> employeeResponseDTOS.add(mapper.jpaToResponseDto(employeeJpa)));
-        return employeeResponseDTOS;
+    public List<EmployeeResponseDto> readAll() {
+        List<EmployeeJpa> employeeJPA = (List<EmployeeJpa>) employeeRepository.findAll();
+        List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
+        employeeJPA.forEach(employeeJpa -> employeeResponseDtos.add(jpaResponseDtoMapper.toResponseDto(employeeJpa)));
+        return employeeResponseDtos;
+    }
+
+    public void update(UUID id, EmployeeModel employeeModel) {
+        EmployeeJpa existingEmployeeJpa = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee with id %s not found".formatted(id)));
+        modelJpaMapper.updateJpaFromModel(employeeModel, existingEmployeeJpa);
+        employeeRepository.save(existingEmployeeJpa);
     }
 
     public void delete(UUID id) {

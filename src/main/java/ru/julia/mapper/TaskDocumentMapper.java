@@ -2,14 +2,14 @@ package ru.julia.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.julia.document.TaskDocument;
-import ru.julia.dto.request.TaskDocumentRequestDTO;
-import ru.julia.dto.response.TaskDocumentResponseDTO;
-import ru.julia.orm.jpamodel.TaskDocumentJPA;
-import ru.julia.servicelayer.model.TaskDocumentModel;
+import ru.julia.dto.request.TaskDocRequestDto;
+import ru.julia.dto.response.TaskDocResponseDto;
+import ru.julia.orm.jpamodel.TaskDocJpa;
+import ru.julia.servicelayer.model.TaskDocModel;
 @Component
 public class TaskDocumentMapper {
-    public TaskDocumentModel taskDocumentToModel(TaskDocument taskDocument) {
-        TaskDocumentModel.TaskDocumentModelBuilder builder = new TaskDocumentModel.TaskDocumentModelBuilder();
+    public TaskDocModel taskDocumentToModel(TaskDocument taskDocument) {
+        TaskDocModel.TaskDocumentModelBuilder builder = new TaskDocModel.TaskDocumentModelBuilder();
         return builder
                 .id(taskDocument.getId())
                 .name(taskDocument.getName())
@@ -24,42 +24,42 @@ public class TaskDocumentMapper {
                 .controllerId(taskDocument.getController().getId())
                 .build();
     }
-    public TaskDocumentJPA modelToJpa(TaskDocumentModel taskDocumentModel) {
-        TaskDocumentJPA taskDocumentJPA = new TaskDocumentJPA();
-        taskDocumentJPA.setId(taskDocumentModel.getId());
-        taskDocumentJPA.setName(taskDocumentModel.getName());
-        taskDocumentJPA.setText(taskDocumentModel.getText());
-        taskDocumentJPA.setRegNumber(taskDocumentModel.getRegNumber());
-        taskDocumentJPA.setRegDate(taskDocumentModel.getRegDate());
-        taskDocumentJPA.setIssueDate(taskDocumentModel.getIssueDate());
-        taskDocumentJPA.setExecutionTerm(taskDocumentModel.getExecutionTerm());
-        taskDocumentJPA.setControlMark(taskDocumentModel.isControlMark());
-        return taskDocumentJPA;
+    public TaskDocJpa modelToJpa(TaskDocModel taskDocModel) {
+        TaskDocJpa taskDocJPA = new TaskDocJpa();
+        taskDocJPA.setId(taskDocModel.getId());
+        taskDocJPA.setName(taskDocModel.getName());
+        taskDocJPA.setText(taskDocModel.getText());
+        taskDocJPA.setRegNumber(taskDocModel.getRegNumber());
+        taskDocJPA.setRegDate(taskDocModel.getRegDate());
+        taskDocJPA.setIssueDate(taskDocModel.getIssueDate());
+        taskDocJPA.setExecutionTerm(taskDocModel.getExecutionTerm());
+        taskDocJPA.setControlMark(taskDocModel.isControlMark());
+        return taskDocJPA;
     }
 
-    public TaskDocumentResponseDTO jpaToResponseDto(TaskDocumentJPA taskDocumentJPA) {
-        TaskDocumentResponseDTO taskDocumentResponseDTO = new TaskDocumentResponseDTO();
-        taskDocumentResponseDTO.setName(taskDocumentJPA.getName());
-        taskDocumentResponseDTO.setText(taskDocumentJPA.getText());
-        taskDocumentResponseDTO.setAuthor(taskDocumentJPA.getAuthor().getSurname());
-        taskDocumentResponseDTO.setIssueDate(taskDocumentJPA.getIssueDate());
-        taskDocumentResponseDTO.setExecutionTerm(taskDocumentJPA.getExecutionTerm());
-        taskDocumentResponseDTO.setResponsibleExecutive(taskDocumentJPA.getResponsibleExecutive().getSurname());
-        taskDocumentResponseDTO.setControlMark(taskDocumentJPA.isControlMark());
-        taskDocumentResponseDTO.setController(taskDocumentJPA.getController().getSurname());
-        return taskDocumentResponseDTO;
+    public TaskDocResponseDto jpaToResponseDto(TaskDocJpa taskDocJPA) {
+        TaskDocResponseDto taskDocResponseDTO = new TaskDocResponseDto();
+        taskDocResponseDTO.setName(taskDocJPA.getName());
+        taskDocResponseDTO.setText(taskDocJPA.getText());
+        taskDocResponseDTO.setAuthor(taskDocJPA.getAuthor().getSurname());
+        taskDocResponseDTO.setIssueDate(taskDocJPA.getIssueDate());
+        taskDocResponseDTO.setExecutionTerm(taskDocJPA.getExecutionTerm());
+        taskDocResponseDTO.setResponsibleExecutive(taskDocJPA.getResponsibleExecutive().getSurname());
+        taskDocResponseDTO.setControlMark(taskDocJPA.isControlMark());
+        taskDocResponseDTO.setController(taskDocJPA.getController().getSurname());
+        return taskDocResponseDTO;
     }
 
-    public TaskDocumentModel requestDtoToModel(TaskDocumentRequestDTO taskDocumentRequestDTO) {
-        TaskDocumentModel.TaskDocumentModelBuilder builder = new TaskDocumentModel.TaskDocumentModelBuilder();
+    public TaskDocModel requestDtoToModel(TaskDocRequestDto taskDocRequestDTO) {
+        TaskDocModel.TaskDocumentModelBuilder builder = new TaskDocModel.TaskDocumentModelBuilder();
         return builder
-                .name(taskDocumentRequestDTO.getName())
-                .text(taskDocumentRequestDTO.getText())
-                .authorId(taskDocumentRequestDTO.getAuthorId())
-                .executionTerm(taskDocumentRequestDTO.getExecutionTerm())
-                .responsibleExecutiveId(taskDocumentRequestDTO.getResponsibleExecutiveId())
-                .controlMark(taskDocumentRequestDTO.isControlMark())
-                .controllerId(taskDocumentRequestDTO.getControllerId())
+                .name(taskDocRequestDTO.getName())
+                .text(taskDocRequestDTO.getText())
+                .authorId(taskDocRequestDTO.getAuthorId())
+                .executionTerm(taskDocRequestDTO.getExecutionTerm())
+                .responsibleExecutiveId(taskDocRequestDTO.getResponsibleExecutiveId())
+                .controlMark(taskDocRequestDTO.isControlMark())
+                .controllerId(taskDocRequestDTO.getControllerId())
                 .build();
     }
 }

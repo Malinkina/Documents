@@ -4,7 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.Document;
-import ru.julia.xml.xmlmodel.EmployeeXML;
+import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 
@@ -35,7 +35,7 @@ public class DocumentInfoGenerator {
         return LocalDate.now();
     }
 
-    public EmployeeXML generateAuthor() {
+    public EmployeeXml generateAuthor() {
         return employeeInfoGenerator.generateEmployee();
     }
 }

@@ -2,15 +2,15 @@ package ru.julia.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.julia.document.OutgoingDocument;
-import ru.julia.dto.request.OutgoingDocumentRequestDTO;
-import ru.julia.dto.response.OutgoingDocumentResponseDTO;
-import ru.julia.orm.jpamodel.OutgoingDocumentJPA;
-import ru.julia.servicelayer.model.OutgoingDocumentModel;
+import ru.julia.dto.request.OutgoingDocRequestDto;
+import ru.julia.dto.response.OutgoingDocResponseDto;
+import ru.julia.orm.jpamodel.OutgoingDocJpa;
+import ru.julia.servicelayer.model.OutgoingDocModel;
 
 @Component
 public class OutgoingDocumentMapper {
-    public OutgoingDocumentModel outgoingDocumentToModel(OutgoingDocument outgoingDocument) {
-        OutgoingDocumentModel.OutgoingDocumentModelBuilder builder = new OutgoingDocumentModel.OutgoingDocumentModelBuilder();
+    public OutgoingDocModel outgoingDocumentToModel(OutgoingDocument outgoingDocument) {
+        OutgoingDocModel.OutgoingDocumentModelBuilder builder = new OutgoingDocModel.OutgoingDocumentModelBuilder();
         return builder
                 .id(outgoingDocument.getId())
                 .name(outgoingDocument.getName())
@@ -23,35 +23,35 @@ public class OutgoingDocumentMapper {
                 .build();
     }
 
-    public OutgoingDocumentJPA modelToJpa(OutgoingDocumentModel outgoingDocumentModel) {
-        OutgoingDocumentJPA outgoingDocumentJPA = new OutgoingDocumentJPA();
-        outgoingDocumentJPA.setId(outgoingDocumentModel.getId());
-        outgoingDocumentJPA.setName(outgoingDocumentModel.getName());
-        outgoingDocumentJPA.setText(outgoingDocumentModel.getText());
-        outgoingDocumentJPA.setRegNumber(outgoingDocumentModel.getRegNumber());
-        outgoingDocumentJPA.setRegDate(outgoingDocumentModel.getRegDate());
-        outgoingDocumentJPA.setDeliveryType(outgoingDocumentModel.getDeliveryType());
-        return outgoingDocumentJPA;
+    public OutgoingDocJpa modelToJpa(OutgoingDocModel outgoingDocModel) {
+        OutgoingDocJpa outgoingDocJPA = new OutgoingDocJpa();
+        outgoingDocJPA.setId(outgoingDocModel.getId());
+        outgoingDocJPA.setName(outgoingDocModel.getName());
+        outgoingDocJPA.setText(outgoingDocModel.getText());
+        outgoingDocJPA.setRegNumber(outgoingDocModel.getRegNumber());
+        outgoingDocJPA.setRegDate(outgoingDocModel.getRegDate());
+        outgoingDocJPA.setDeliveryType(outgoingDocModel.getDeliveryType());
+        return outgoingDocJPA;
     }
 
-    public OutgoingDocumentResponseDTO jpaToResponseDto(OutgoingDocumentJPA outgoingDocumentJPA) {
-        OutgoingDocumentResponseDTO outgoingDocumentResponseDTO = new OutgoingDocumentResponseDTO();
-        outgoingDocumentResponseDTO.setName(outgoingDocumentJPA.getName());
-        outgoingDocumentResponseDTO.setText(outgoingDocumentJPA.getText());
-        outgoingDocumentResponseDTO.setAuthor(outgoingDocumentJPA.getAuthor().getSurname());
-        outgoingDocumentResponseDTO.setDeliveryType(outgoingDocumentJPA.getDeliveryType());
-        outgoingDocumentResponseDTO.setRecipient(outgoingDocumentJPA.getRecipient().getSurname());
-        return outgoingDocumentResponseDTO;
+    public OutgoingDocResponseDto jpaToResponseDto(OutgoingDocJpa outgoingDocJPA) {
+        OutgoingDocResponseDto outgoingDocResponseDTO = new OutgoingDocResponseDto();
+        outgoingDocResponseDTO.setName(outgoingDocJPA.getName());
+        outgoingDocResponseDTO.setText(outgoingDocJPA.getText());
+        outgoingDocResponseDTO.setAuthor(outgoingDocJPA.getAuthor().getSurname());
+        outgoingDocResponseDTO.setDeliveryType(outgoingDocJPA.getDeliveryType());
+        outgoingDocResponseDTO.setRecipient(outgoingDocJPA.getRecipient().getSurname());
+        return outgoingDocResponseDTO;
     }
 
-    public OutgoingDocumentModel requestDtoToModel(OutgoingDocumentRequestDTO outgoingDocumentRequestDTO) {
-        OutgoingDocumentModel.OutgoingDocumentModelBuilder builder = new OutgoingDocumentModel.OutgoingDocumentModelBuilder();
+    public OutgoingDocModel requestDtoToModel(OutgoingDocRequestDto outgoingDocRequestDTO) {
+        OutgoingDocModel.OutgoingDocumentModelBuilder builder = new OutgoingDocModel.OutgoingDocumentModelBuilder();
         return builder
-                .name(outgoingDocumentRequestDTO.getName())
-                .text(outgoingDocumentRequestDTO.getText())
-                .authorId(outgoingDocumentRequestDTO.getAuthorId())
-                .deliveryType(outgoingDocumentRequestDTO.getDeliveryType())
-                .recipient(outgoingDocumentRequestDTO.getRecipientId())
+                .name(outgoingDocRequestDTO.getName())
+                .text(outgoingDocRequestDTO.getText())
+                .authorId(outgoingDocRequestDTO.getAuthorId())
+                .deliveryType(outgoingDocRequestDTO.getDeliveryType())
+                .recipient(outgoingDocRequestDTO.getRecipientId())
                 .build();
     }
 }

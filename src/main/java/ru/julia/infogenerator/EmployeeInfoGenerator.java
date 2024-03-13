@@ -2,15 +2,15 @@ package ru.julia.infogenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.xml.XMLReader;
-import ru.julia.xml.xmlmodel.EmployeeXML;
+import ru.julia.xml.XmlReader;
+import ru.julia.xml.xmlmodel.EmployeeXml;
 
 @Component
 public class EmployeeInfoGenerator {
     @Autowired
-    XMLReader xmlReader;
+    XmlReader xmlReader;
 
-    public EmployeeXML generateEmployee() {
+    public EmployeeXml generateEmployee() {
         return xmlReader
                 .readEmployee()
                 .getEmployees()

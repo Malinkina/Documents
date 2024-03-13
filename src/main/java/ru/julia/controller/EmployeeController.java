@@ -3,9 +3,9 @@ package ru.julia.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.dto.request.EmployeeRequestDTO;
-import ru.julia.dto.response.EmployeeResponseDTO;
-import ru.julia.mapper.EmployeeMapper;
+import ru.julia.dto.request.EmployeeRequestDto;
+import ru.julia.dto.response.EmployeeResponseDto;
+import ru.julia.mapper.employee.EmployeeRequestDtoModelMapper;
 import ru.julia.servicelayer.service.EmployeeService;
 
 import java.util.List;
@@ -17,28 +17,32 @@ public class EmployeeController {
     @Autowired
     private EmployeeService service;
     @Autowired
-    private EmployeeMapper mapper;
+    private EmployeeRequestDtoModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        service.create(mapper.requestDtoToModel(employeeRequestDTO));
+    public void create(@RequestBody EmployeeRequestDto employeeRequestDto) {
+        service.create(mapper.toModel(employeeRequestDto));
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EmployeeResponseDTO> readAll() {
+    public List<EmployeeResponseDto> readAll() {
         return service.readAll();
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeResponseDTO read(@PathVariable("id") UUID id) {
+    public EmployeeResponseDto read(@PathVariable("id") UUID id) {
         return service.read(id);
     }
-    /*@PutMapping("/{id}")
+
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") UUID id, @RequestBody EmployeeJPA employee) {
-        service.update(id, employee);
-    }*/
+    public void update(@PathVariable("id") UUID id, @RequestBody EmployeeRequestDto employeeRequestDto) {
+        service.update(id, mapper.toModel(employeeRequestDto));
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") UUID id) {

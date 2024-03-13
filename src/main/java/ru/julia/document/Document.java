@@ -1,6 +1,6 @@
 package ru.julia.document;
 
-import ru.julia.xml.xmlmodel.EmployeeXML;
+import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +15,7 @@ public abstract class Document implements Comparable<Document> {
     private String text;
     private String regNumber;
     private LocalDate regDate;
-    private EmployeeXML author;
+    private EmployeeXml author;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public abstract class Document implements Comparable<Document> {
         this.regDate = regDate;
     }
 
-    public EmployeeXML getAuthor() {
+    public EmployeeXml getAuthor() {
         return author;
     }
 
-    protected void setAuthor(EmployeeXML author) {
+    protected void setAuthor(EmployeeXml author) {
         this.author = author;
     }
 
@@ -109,7 +109,7 @@ public abstract class Document implements Comparable<Document> {
             return (B) this;
         }
 
-        public B author(EmployeeXML author) {
+        public B author(EmployeeXml author) {
             getDocument().setAuthor(author);
             return (B) this;
         }

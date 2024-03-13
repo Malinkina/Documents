@@ -3,7 +3,7 @@ package ru.julia.factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.TaskDocument;
-import ru.julia.infogenerator.TaskDocumentInfoGenerator;
+import ru.julia.infogenerator.TaskDocInfoGenerator;
 
 /**
  * Класс создает объект класса {@link TaskDocument}
@@ -11,7 +11,7 @@ import ru.julia.infogenerator.TaskDocumentInfoGenerator;
 @Component
 public class TaskDocumentFactory extends AbstractDocumentFactory<TaskDocument, TaskDocument.TaskDocumentBuilder>{
     @Autowired
-    private TaskDocumentInfoGenerator taskDocumentInfoGenerator;
+    private TaskDocInfoGenerator taskDocInfoGenerator;
 
     @Override
     public TaskDocument.TaskDocumentBuilder createBuilder() {
@@ -21,10 +21,10 @@ public class TaskDocumentFactory extends AbstractDocumentFactory<TaskDocument, T
     @Override
     public void fill(TaskDocument.TaskDocumentBuilder builder) {
         builder
-                .issueDate(taskDocumentInfoGenerator.generateIssueDate())
-                .executionTerm(taskDocumentInfoGenerator.generateExecutionTerm())
-                .responsibleExecutive(taskDocumentInfoGenerator.generateResponsibleExecutive())
-                .controlMark(taskDocumentInfoGenerator.generateControlMark())
-                .controller(taskDocumentInfoGenerator.generateController());
+                .issueDate(taskDocInfoGenerator.generateIssueDate())
+                .executionTerm(taskDocInfoGenerator.generateExecutionTerm())
+                .responsibleExecutive(taskDocInfoGenerator.generateResponsibleExecutive())
+                .controlMark(taskDocInfoGenerator.generateControlMark())
+                .controller(taskDocInfoGenerator.generateController());
     }
 }

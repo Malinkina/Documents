@@ -16,32 +16,32 @@ import java.util.List;
 public class OrgUnits {
     @XmlElementWrapper(name = "employees")
     @XmlElement(name = "employee")
-    List<EmployeeXML> employees = new ArrayList<>();
+    List<EmployeeXml> employees = new ArrayList<>();
 
     @XmlElementWrapper(name = "organizations")
     @XmlElement(name = "organization")
-    List<OrganizationXML> organizations = new ArrayList<>();
+    List<OrganizationXml> organizations = new ArrayList<>();
 
     @XmlElementWrapper(name = "departments")
     @XmlElement(name = "department")
-    List<DepartmentXML> departments = new ArrayList<>();
+    List<DepartmentXml> departments = new ArrayList<>();
     @XmlElementWrapper(name = "positions")
     @XmlElement(name = "position")
-    List<PositionXML> positions = new ArrayList<>();
+    List<PositionXml> positions = new ArrayList<>();
 
-    public List<EmployeeXML> getEmployees() {
+    public List<EmployeeXml> getEmployees() {
         return employees;
     }
 
-    public List<OrganizationXML> getOrganizations() {
+    public List<OrganizationXml> getOrganizations() {
         return organizations;
     }
 
-    public List<DepartmentXML> getDepartments() {
+    public List<DepartmentXml> getDepartments() {
         return departments;
     }
 
-    public List<PositionXML> getPositions() {
+    public List<PositionXml> getPositions() {
         return positions;
     }
 }

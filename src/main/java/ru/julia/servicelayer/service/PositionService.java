@@ -3,10 +3,11 @@ package ru.julia.servicelayer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.PositionResponseDTO;
-import ru.julia.orm.jpamodel.PositionJPA;
+import ru.julia.dto.response.PositionResponseDto;
+import ru.julia.mapper.position.PositionJpaResponseDTOMapper;
+import ru.julia.mapper.position.PositionModelJpaMapper;
+import ru.julia.orm.jpamodel.PositionJpa;
 import ru.julia.orm.repository.PositionRepository;
-import ru.julia.mapper.PositionMapper;
 import ru.julia.servicelayer.model.PositionModel;
 
 import java.util.ArrayList;
@@ -19,23 +20,36 @@ public class PositionService {
     @Autowired
     private PositionRepository positionRepository;
     @Autowired
-    private PositionMapper mapper;
+    private PositionModelJpaMapper modelJpaMapper;
+    @Autowired
+    private PositionJpaResponseDTOMapper jpaResponseDtoMapper;
 
     public void create(PositionModel positionModel) {
-        positionRepository.save(mapper.modelToJpa(positionModel));
+        if (positionModel.getId() == null) {
+            positionModel.setId(UUID.randomUUID());
+            positionModel.setPositionId((int) (Math.random()*100));
+        }
+        positionRepository.save(modelJpaMapper.toJpa(positionModel));
     }
 
-    public PositionResponseDTO read(UUID id) {
-        Optional<PositionJPA> positionJPA = positionRepository.findById(id);
-        return positionJPA.map(positionJpa -> mapper.jpaToResponseDto(positionJpa))
-                .orElseThrow(() -> new RuntimeException("Position with id " + id + " not found"));
+    public PositionResponseDto read(UUID id) {
+        Optional<PositionJpa> positionJpa = positionRepository.findById(id);
+        return positionJpa.map(position -> jpaResponseDtoMapper.toResponseDto(position))
+                .orElseThrow(() -> new RuntimeException("Position with id %s not found".formatted(id)));
     }
 
-    public List<PositionResponseDTO> readAll() {
-        List<PositionJPA> positionJPA = (List<PositionJPA>) positionRepository.findAll();
-        List<PositionResponseDTO> positionResponseDTOS = new ArrayList<>();
-        positionJPA.forEach(position -> positionResponseDTOS.add(mapper.jpaToResponseDto(position)));
-        return positionResponseDTOS;
+    public List<PositionResponseDto> readAll() {
+        List<PositionJpa> positionJpa = (List<PositionJpa>) positionRepository.findAll();
+        List<PositionResponseDto> positionResponseDtos = new ArrayList<>();
+        positionJpa.forEach(position -> positionResponseDtos.add(jpaResponseDtoMapper.toResponseDto(position)));
+        return positionResponseDtos;
+    }
+
+    public void update(UUID id, PositionModel positionModel) {
+        PositionJpa existingPosition = positionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Position with id %s not found".formatted(id)));
+        modelJpaMapper.updateJpaFromModel(positionModel, existingPosition);
+        positionRepository.save(existingPosition);
     }
 
     public void delete(UUID id) {

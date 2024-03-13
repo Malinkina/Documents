@@ -2,17 +2,17 @@ package ru.julia.servicelayer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.IncomingDocumentResponseDTO;
+import ru.julia.dto.response.IncomingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
-import ru.julia.infogenerator.IncomingDocumentInfoGenerator;
-import ru.julia.orm.jpamodel.EmployeeJPA;
-import ru.julia.orm.jpamodel.IncomingDocumentJPA;
+import ru.julia.infogenerator.IncomingDocInfoGenerator;
+import ru.julia.orm.jpamodel.EmployeeJpa;
+import ru.julia.orm.jpamodel.IncomingDocJpa;
 import ru.julia.orm.repository.EmployeeRepository;
-import ru.julia.orm.repository.IncomingDocumentRepository;
+import ru.julia.orm.repository.IncomingDocRepository;
 import ru.julia.servicelayer.RegNumbersStorage;
 import ru.julia.mapper.IncomingDocumentMapper;
-import ru.julia.servicelayer.model.IncomingDocumentModel;
+import ru.julia.servicelayer.model.IncomingDocModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,70 +23,70 @@ import java.util.UUID;
 @Component
 public class IncomingDocumentService {
     @Autowired
-    private IncomingDocumentRepository incomingDocumentRepository;
+    private IncomingDocRepository incomingDocRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
     private IncomingDocumentMapper mapper;
     @Autowired
-    private IncomingDocumentInfoGenerator incomingDocumentGenerator;
+    private IncomingDocInfoGenerator incomingDocumentGenerator;
     @Autowired
     private DocumentInfoGenerator documentGenerator;
 
-    public void create(IncomingDocumentModel incomingDocumentModel) {
-        UUID recipientId = incomingDocumentModel.getRecipientId();
-        EmployeeJPA recipient = employeeRepository.findById(recipientId)
+    public void create(IncomingDocModel incomingDocModel) {
+        UUID recipientId = incomingDocModel.getRecipientId();
+        EmployeeJpa recipient = employeeRepository.findById(recipientId)
                 .orElseThrow(() -> new RuntimeException(
                         "Recipient with id %s not found".formatted(recipientId))
                 );
-        UUID senderId = incomingDocumentModel.getSenderId();
-        EmployeeJPA sender = employeeRepository.findById(senderId)
+        UUID senderId = incomingDocModel.getSenderId();
+        EmployeeJpa sender = employeeRepository.findById(senderId)
                 .orElseThrow(() -> new RuntimeException(
                         "Sender with id %s not found".formatted(senderId))
                 );
-        UUID authorId = incomingDocumentModel.getAuthorId();
-        EmployeeJPA author = employeeRepository.findById(authorId)
+        UUID authorId = incomingDocModel.getAuthorId();
+        EmployeeJpa author = employeeRepository.findById(authorId)
                 .orElseThrow(() -> new RuntimeException(
                         "Author with id %s not found".formatted(authorId))
                 );
-        if (incomingDocumentModel.getId() == 0) {
-            setDTOMissingFields(incomingDocumentModel);
+        if (incomingDocModel.getId() == 0) {
+            setDTOMissingFields(incomingDocModel);
         }
-        IncomingDocumentJPA incomingDocumentJPA = mapper.modelToJpa(incomingDocumentModel);
-        incomingDocumentJPA.setSender(sender);
-        incomingDocumentJPA.setRecipient(recipient);
-        incomingDocumentJPA.setAuthor(author);
-        incomingDocumentRepository.save(incomingDocumentJPA);
+        IncomingDocJpa incomingDocJPA = mapper.modelToJpa(incomingDocModel);
+        incomingDocJPA.setSender(sender);
+        incomingDocJPA.setRecipient(recipient);
+        incomingDocJPA.setAuthor(author);
+        incomingDocRepository.save(incomingDocJPA);
     }
 
-    public IncomingDocumentResponseDTO read(UUID id) {
-        Optional<IncomingDocumentJPA> incomingDocumentJPA = incomingDocumentRepository.findById(id);
-        return incomingDocumentJPA.map(documentJpa -> mapper.jpaToResponseDTO(documentJpa))
+    public IncomingDocResponseDto read(UUID id) {
+        Optional<IncomingDocJpa> incomingDocumentJpa = incomingDocRepository.findById(id);
+        return incomingDocumentJpa.map(documentJpa -> mapper.jpaToResponseDto(documentJpa))
                 .orElseThrow(() -> new RuntimeException(("Incoming document with id %s not found".formatted(id))));
     }
 
-    public List<IncomingDocumentResponseDTO> readAll() {
-        List<IncomingDocumentJPA> incomingDocumentJPAs = (List<IncomingDocumentJPA>) incomingDocumentRepository.findAll();
-        List<IncomingDocumentResponseDTO> incomingDocumentResponseDTOS = new ArrayList<>();
-        incomingDocumentJPAs.forEach(incDoc -> incomingDocumentResponseDTOS.add(mapper.jpaToResponseDTO(incDoc)));
-        return incomingDocumentResponseDTOS;
+    public List<IncomingDocResponseDto> readAll() {
+        List<IncomingDocJpa> incomingDocJpas = (List<IncomingDocJpa>) incomingDocRepository.findAll();
+        List<IncomingDocResponseDto> incomingDocResponseDtos = new ArrayList<>();
+        incomingDocJpas.forEach(incDoc -> incomingDocResponseDtos.add(mapper.jpaToResponseDto(incDoc)));
+        return incomingDocResponseDtos;
     }
 
     public void delete(UUID id) {
-        incomingDocumentRepository.deleteById(id);
+        incomingDocRepository.deleteById(id);
     }
 
-    private void setDTOMissingFields(IncomingDocumentModel incomingDocumentModel) {
-        incomingDocumentModel.setId(documentGenerator.generateId());
+    private void setDTOMissingFields(IncomingDocModel incomingDocModel) {
+        incomingDocModel.setId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
             RegNumbersStorage.add(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }
-        incomingDocumentModel.setRegNumber(regNumber);
-        incomingDocumentModel.setRegDate(LocalDate.now());
-        incomingDocumentModel.setOutgoingNumber(incomingDocumentGenerator.generateOutgoingNumber());
-        incomingDocumentModel.setOutgoingRegDate(incomingDocumentGenerator.generateRegDate());
+        incomingDocModel.setRegNumber(regNumber);
+        incomingDocModel.setRegDate(LocalDate.now());
+        incomingDocModel.setOutgoingNumber(incomingDocumentGenerator.generateOutgoingNumber());
+        incomingDocModel.setOutgoingRegDate(incomingDocumentGenerator.generateRegDate());
     }
 }
