@@ -1,8 +1,21 @@
 package ru.julia.dto.response;
 
+import java.util.UUID;
+
 public class OutgoingDocResponseDto extends DocumentResponseDto {
+    private UUID id;
     private String recipient;
     private String deliveryType;
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getRecipient() {
         return recipient;

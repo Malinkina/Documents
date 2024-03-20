@@ -10,19 +10,19 @@ import java.time.format.DateTimeFormatter;
  * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
  */
 public abstract class Document implements Comparable<Document> {
-    private int id;
+    private Integer docId;
     private String name;
     private String text;
     private String regNumber;
     private LocalDate regDate;
     private EmployeeXml author;
 
-    public int getId() {
-        return id;
+    public Integer getDocId() {
+        return docId;
     }
 
-    protected void setId(int id) {
-        this.id = id;
+    public void setDocId(Integer docId) {
+        this.docId = docId;
     }
 
     public String getName() {
@@ -81,11 +81,11 @@ public abstract class Document implements Comparable<Document> {
 
         protected abstract T getDocument();
         public B id(int id) {
-            getDocument().setId(id);
+            getDocument().setDocId(id);
             return (B) this;
         }
         public B documentId(int id) {
-            getDocument().setId(id);
+            getDocument().setDocId(id);
             return (B) this;
         }
 

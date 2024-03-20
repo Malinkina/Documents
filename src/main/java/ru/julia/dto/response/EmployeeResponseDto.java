@@ -1,12 +1,23 @@
 package ru.julia.dto.response;
 
+import java.util.UUID;
+
 public class EmployeeResponseDto {
+    private UUID id;
     private String surname;
     private String name;
     private String patronymic;
     private String photo;
     private String dateOfBirth;
     private String phoneNumber;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getSurname() {
         return surname;

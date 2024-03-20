@@ -11,9 +11,9 @@ import java.util.UUID;
 public abstract class DocumentJpa {
     @Id
     @Column(name = "id")
-    private UUID pk;
+    private UUID id;
     @Column(name = "document_id")
-    private int id;
+    private Integer docId;
     private String name;
     private String text;
     @Column(name = "reg_number")
@@ -26,15 +26,23 @@ public abstract class DocumentJpa {
 
     @PrePersist
     private void setPk(){
-        pk = UUID.randomUUID();
+        id = UUID.randomUUID();
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Integer getDocId() {
+        return docId;
+    }
+
+    public void setDocId(Integer docId) {
+        this.docId = docId;
     }
 
     public String getName() {
@@ -75,15 +83,5 @@ public abstract class DocumentJpa {
 
     public void setAuthor(EmployeeJpa author) {
         this.author = author;
-    }
-
-    @Override
-    public String toString() {
-        return "DocumentJpa{" +
-                "id=" + id +
-                ", documentId=" +
-                ", name='" + name + '\'' +
-                ", text='" + text + '\'' +
-                '}';
     }
 }

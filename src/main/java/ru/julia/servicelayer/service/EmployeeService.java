@@ -1,6 +1,5 @@
 package ru.julia.servicelayer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.dto.response.EmployeeResponseDto;
 import ru.julia.mapper.employee.EmployeeJpaResponseDtoMapper;
@@ -22,18 +21,26 @@ import java.util.UUID;
 
 @Component
 public class EmployeeService {
-    @Autowired
-    private OrganizationRepository organizationRepository;
-    @Autowired
-    private DepartmentRepository departmentRepository;
-    @Autowired
-    private PositionRepository positionRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private EmployeeModelJpaMapper modelJpaMapper;
-    @Autowired
-    private EmployeeJpaResponseDtoMapper jpaResponseDtoMapper;
+    private final OrganizationRepository organizationRepository;
+    private final DepartmentRepository departmentRepository;
+    private final PositionRepository positionRepository;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeModelJpaMapper modelJpaMapper;
+    private final EmployeeJpaResponseDtoMapper jpaResponseDtoMapper;
+    public EmployeeService(OrganizationRepository organizationRepository,
+                           DepartmentRepository departmentRepository,
+                           PositionRepository positionRepository,
+                           EmployeeRepository employeeRepository,
+                           EmployeeModelJpaMapper modelJpaMapper,
+                           EmployeeJpaResponseDtoMapper jpaResponseDtoMapper)
+    {
+        this.organizationRepository = organizationRepository;
+        this.departmentRepository = departmentRepository;
+        this.positionRepository = positionRepository;
+        this.employeeRepository = employeeRepository;
+        this.modelJpaMapper = modelJpaMapper;
+        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
+    }
 
     public void create(EmployeeModel employeeModel) {
         UUID organizationId = employeeModel.getOrganizationId();
@@ -63,7 +70,7 @@ public class EmployeeService {
 
     public EmployeeResponseDto read(UUID id) {
         Optional<EmployeeJpa> employeeJPA = employeeRepository.findById(id);
-        return employeeJPA.map(employeeJpa -> jpaResponseDtoMapper.toResponseDto(employeeJpa))
+        return employeeJPA.map(jpaResponseDtoMapper::toResponseDto)
                 .orElseThrow(() -> new RuntimeException("Employee with id %s not found".formatted(id)));
     }
 

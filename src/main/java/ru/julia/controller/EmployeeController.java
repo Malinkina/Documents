@@ -1,5 +1,6 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody EmployeeRequestDto employeeRequestDto) {
+    public void create(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
         service.create(mapper.toModel(employeeRequestDto));
     }
 

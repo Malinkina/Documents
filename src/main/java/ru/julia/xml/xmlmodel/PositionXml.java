@@ -19,7 +19,7 @@ public class PositionXml {
     @XmlElement
     private UUID id;
     @XmlElement
-    private int positionId;
+    private Integer positionId;
     @XmlElement
     private String name;
 
@@ -31,11 +31,11 @@ public class PositionXml {
         this.id = id;
     }
 
-    public int getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(int positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 

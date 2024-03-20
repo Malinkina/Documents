@@ -1,5 +1,6 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class PositionController {
     @Autowired
     private PositionService service;
     @Autowired
-    private PositionRequestDTOModelMapper requestModelMapper;
+    private PositionRequestDTOModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody PositionRequestDto positionRequestDto) {
-        service.create(requestModelMapper.toModel(positionRequestDto));
+    public void create(@Valid @RequestBody PositionRequestDto positionRequestDto) {
+        service.create(mapper.toModel(positionRequestDto));
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -39,7 +40,7 @@ public class PositionController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("id") UUID id, @RequestBody PositionRequestDto positionRequestDto) {
-        service.update(id, requestModelMapper.toModel(positionRequestDto));
+        service.update(id, mapper.toModel(positionRequestDto));
     }
 
     @DeleteMapping("/{id}")

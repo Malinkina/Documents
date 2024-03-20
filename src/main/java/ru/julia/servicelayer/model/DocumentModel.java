@@ -4,19 +4,28 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public abstract class DocumentModel {
-    private int id;
+    private UUID id;
+    private Integer docId;
     private String name;
     private String text;
     private String regNumber;
     private LocalDate regDate;
     private UUID authorId;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int documentId) {
-        this.id = documentId;
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Integer getDocId() {
+        return docId;
+    }
+
+    public void setDocId(Integer docId) {
+        this.docId = docId;
     }
 
     public String getName() {
@@ -57,40 +66,5 @@ public abstract class DocumentModel {
 
     public void setAuthorId(UUID authorId) {
         this.authorId = authorId;
-    }
-
-    public abstract static class DocumentModelBuilder <T extends DocumentModel, B extends DocumentModelBuilder> {
-        protected abstract T getDocument();
-
-        public B id(int id) {
-            getDocument().setId(id);
-            return (B) this;
-        }
-
-        public B name(String name) {
-            getDocument().setName(name);
-            return (B) this;
-        }
-
-        public B text(String text) {
-            getDocument().setText(text);
-            return (B) this;
-        }
-
-        public B regNumber(String regNumber) {
-            getDocument().setRegNumber(regNumber);
-            return (B) this;
-        }
-
-        public B regDate(LocalDate regDate) {
-            getDocument().setRegDate(regDate);
-            return (B) this;
-        }
-
-        public B authorId(UUID authorId) {
-            getDocument().setAuthorId(authorId);
-            return (B) this;
-        }
-        public abstract T build();
     }
 }

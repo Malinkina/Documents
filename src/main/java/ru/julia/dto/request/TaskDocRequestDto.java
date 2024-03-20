@@ -1,11 +1,17 @@
 package ru.julia.dto.request;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.UUID;
 
 public class TaskDocRequestDto extends DocumentRequestDto {
+    @Future
     private String executionTerm;
+    @NotNull
     private UUID responsibleExecutiveId;
-    private boolean controlMark;
+    private Boolean controlMark;
+    @NotNull
     private UUID controllerId;
 
     public String getExecutionTerm() {

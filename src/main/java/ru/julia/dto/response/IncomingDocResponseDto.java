@@ -1,10 +1,23 @@
 package ru.julia.dto.response;
 
+import java.util.UUID;
+
 public class IncomingDocResponseDto extends DocumentResponseDto {
+    private UUID id;
     private String sender;
     private String recipient;
-    private int outgoingNumber;
+    private Integer outgoingNumber;
     private String outgoingRegDate;
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getSender() {
         return sender;
@@ -22,11 +35,11 @@ public class IncomingDocResponseDto extends DocumentResponseDto {
         this.recipient = recipient;
     }
 
-    public int getOutgoingNumber() {
+    public Integer getOutgoingNumber() {
         return outgoingNumber;
     }
 
-    public void setOutgoingNumber(int outgoingNumber) {
+    public void setOutgoingNumber(Integer outgoingNumber) {
         this.outgoingNumber = outgoingNumber;
     }
 

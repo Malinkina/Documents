@@ -1,12 +1,12 @@
 package ru.julia.servicelayer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.dto.response.TaskDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
 import ru.julia.infogenerator.TaskDocInfoGenerator;
-import ru.julia.mapper.TaskDocumentMapper;
+import ru.julia.mapper.document.task.TaskDocJpaResponseDtoMapper;
+import ru.julia.mapper.document.task.TaskDocModelJpaMapper;
 import ru.julia.orm.jpamodel.EmployeeJpa;
 import ru.julia.orm.jpamodel.TaskDocJpa;
 import ru.julia.orm.repository.EmployeeRepository;
@@ -21,51 +21,60 @@ import java.util.UUID;
 
 @Component
 public class TaskDocumentService {
-    @Autowired
-    private TaskDocRepository taskDocRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private TaskDocumentMapper mapper;
-    @Autowired
-    private TaskDocInfoGenerator taskDocInfoGenerator;
-    @Autowired
-    private DocumentInfoGenerator documentGenerator;
+    private final TaskDocRepository taskDocRepository;
+    private final EmployeeRepository employeeRepository;
+    private final TaskDocInfoGenerator taskDocInfoGenerator;
+    private final DocumentInfoGenerator documentGenerator;
+    private final TaskDocModelJpaMapper modelJpaMapper;
+    private final TaskDocJpaResponseDtoMapper jpaResponseDtoMapper;
+
+    public TaskDocumentService(TaskDocRepository taskDocRepository,
+                               EmployeeRepository employeeRepository,
+                               TaskDocInfoGenerator taskDocInfoGenerator,
+                               DocumentInfoGenerator documentGenerator,
+                               TaskDocModelJpaMapper modelJpaMapper,
+                               TaskDocJpaResponseDtoMapper jpaResponseDtoMapper)
+    {
+        this.taskDocRepository = taskDocRepository;
+        this.employeeRepository = employeeRepository;
+        this.taskDocInfoGenerator = taskDocInfoGenerator;
+        this.documentGenerator = documentGenerator;
+        this.modelJpaMapper = modelJpaMapper;
+        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
+    }
+
     public void create(TaskDocModel taskDocModel) {
-        UUID responsibleExecutiveId = taskDocModel.getResponsibleExecutiveId();
-        EmployeeJpa responsibleExecutive = employeeRepository.findById(responsibleExecutiveId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Responsible executive with id %s not found".formatted(responsibleExecutiveId))
-                );
-        UUID authorId = taskDocModel.getAuthorId();
-        EmployeeJpa author = employeeRepository.findById(authorId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Author with id %s not found".formatted(authorId))
-                );
-        UUID controllerId = taskDocModel.getControllerId();
-        EmployeeJpa controller = employeeRepository.findById(controllerId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Controller with id %s not found".formatted(controllerId))
-                );
-        if (taskDocModel.getId() == 0) {
+        if (taskDocModel.getId() == null) {
             setDTOMissingFields(taskDocModel);
         }
-        TaskDocJpa taskDocJPA = mapper.modelToJpa(taskDocModel);
-        taskDocJPA.setAuthor(author);
-        taskDocJPA.setResponsibleExecutive(responsibleExecutive);
-        taskDocJPA.setController(controller);
-        taskDocRepository.save(taskDocJPA);
+        TaskDocJpa taskDocJpa = modelJpaMapper.toJpa(taskDocModel);
+        if (taskDocModel.getAuthorId() != null) {
+            EmployeeJpa author = findEmployeeJpa(taskDocModel.getAuthorId(), "author");
+            taskDocJpa.setAuthor(author);
+        }
+
+        if (taskDocModel.getResponsibleExecutiveId() != null) {
+            EmployeeJpa responsibleExecutive = findEmployeeJpa(taskDocModel.getResponsibleExecutiveId(), "responsibleExecutive");
+            taskDocJpa.setResponsibleExecutive(responsibleExecutive);
+        }
+
+        if (taskDocModel.getControllerId() != null) {
+            EmployeeJpa controller = findEmployeeJpa(taskDocModel.getControllerId(), "controller");
+            taskDocJpa.setController(controller);
+        }
+
+        taskDocRepository.save(taskDocJpa);
     }
     public TaskDocResponseDto read(UUID id) {
         Optional<TaskDocJpa> taskDocumentJPA = taskDocRepository.findById(id);
-        return taskDocumentJPA.map(documentJpa -> mapper.jpaToResponseDto(documentJpa))
-                .orElseThrow(() -> new RuntimeException(("Task document with id %s not found".formatted(id))));
+        return taskDocumentJPA.map(jpaResponseDtoMapper::toResponseDto)
+                .orElseThrow(() -> new RuntimeException("Task document with id %s not found".formatted(id)));
     }
 
     public List<TaskDocResponseDto> readAll() {
         List<TaskDocJpa> taskDocJPAS = (List<TaskDocJpa>) taskDocRepository.findAll();
         List<TaskDocResponseDto> taskDocResponseDTOS = new ArrayList<>();
-        taskDocJPAS.forEach(taskDoc -> taskDocResponseDTOS.add(mapper.jpaToResponseDto(taskDoc)));
+        taskDocJPAS.forEach(taskDoc -> taskDocResponseDTOS.add(jpaResponseDtoMapper.toResponseDto(taskDoc)));
         return taskDocResponseDTOS;
     }
 
@@ -73,8 +82,20 @@ public class TaskDocumentService {
         taskDocRepository.deleteById(id);
     }
 
+    public void update(UUID id, TaskDocModel taskDocModel) {
+        TaskDocJpa taskDocJpa = taskDocRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task document with id %s not found".formatted(id)));
+        modelJpaMapper.updateJpaFromModel(taskDocModel, taskDocJpa);
+        taskDocRepository.save(taskDocJpa);
+    }
+
+    private EmployeeJpa findEmployeeJpa(UUID id, String employeeRole) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                "%s with id %s not found".formatted(employeeRole, id)));
+    }
+
     private void setDTOMissingFields(TaskDocModel taskDocModel) {
-        taskDocModel.setId(documentGenerator.generateId());
+        taskDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
             RegNumbersStorage.add(regNumber);

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class DocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public int generateId() {
+    public Integer generateId() {
         return ((int) (Math.random() * 100));
     }
 

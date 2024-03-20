@@ -1,11 +1,12 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.julia.dto.request.IncomingDocRequestDto;
 import ru.julia.dto.response.IncomingDocResponseDto;
-import ru.julia.mapper.IncomingDocumentMapper;
+import ru.julia.mapper.document.incoming.IncomingDocRequestDtoModelMapper;
 import ru.julia.servicelayer.service.IncomingDocumentService;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class IncomingDocController {
     @Autowired
     private IncomingDocumentService service;
     @Autowired
-    private IncomingDocumentMapper mapper;
+    private IncomingDocRequestDtoModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody IncomingDocRequestDto incomingDocRequestDto) {
-        service.create(mapper.requestDtoToModel(incomingDocRequestDto));
+    public void create(@Valid @RequestBody IncomingDocRequestDto incomingDocRequestDto) {
+        service.create(mapper.toModel(incomingDocRequestDto));
     }
 
     @GetMapping
@@ -35,6 +36,12 @@ public class IncomingDocController {
     @ResponseStatus(HttpStatus.OK)
     public IncomingDocResponseDto read(@PathVariable("id") UUID id) {
         return service.read(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable("id") UUID id, @RequestBody IncomingDocRequestDto incomingDocRequestDto) {
+        service.update(id, mapper.toModel(incomingDocRequestDto));
     }
 
     @DeleteMapping("/{id}")

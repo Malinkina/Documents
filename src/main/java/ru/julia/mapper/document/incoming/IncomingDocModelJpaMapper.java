@@ -8,6 +8,5 @@ import ru.julia.servicelayer.model.IncomingDocModel;
 public interface IncomingDocModelJpaMapper {
     IncomingDocJpa toJpa(IncomingDocModel incomingDocModel);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateJpaFromModel(IncomingDocModel incomingDocModel,
-                            @MappingTarget IncomingDocJpa incomingDocJpa);
+    void updateJpaFromModel(IncomingDocModel incomingDocModel, @MappingTarget IncomingDocJpa incomingDocJpa);
 }

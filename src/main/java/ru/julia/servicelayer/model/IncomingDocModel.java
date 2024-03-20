@@ -5,11 +5,8 @@ import java.util.UUID;
 public class IncomingDocModel extends DocumentModel {
     private UUID senderId;
     private UUID recipientId;
-    private int outgoingNumber;
+    private Integer outgoingNumber;
     private String outgoingRegDate;
-
-    private IncomingDocModel() {
-    }
 
     public UUID getSenderId() {
         return senderId;
@@ -27,11 +24,11 @@ public class IncomingDocModel extends DocumentModel {
         this.recipientId = recipientId;
     }
 
-    public int getOutgoingNumber() {
+    public Integer getOutgoingNumber() {
         return outgoingNumber;
     }
 
-    public void setOutgoingNumber(int outgoingNumber) {
+    public void setOutgoingNumber(Integer outgoingNumber) {
         this.outgoingNumber = outgoingNumber;
     }
 
@@ -41,36 +38,5 @@ public class IncomingDocModel extends DocumentModel {
 
     public void setOutgoingRegDate(String outgoingRegDate) {
         this.outgoingRegDate = outgoingRegDate;
-    }
-
-    public static class IncomingDocumentModelBuilder extends DocumentModelBuilder<IncomingDocModel, IncomingDocumentModelBuilder> {
-        private IncomingDocModel incomingDocModel = new IncomingDocModel();
-
-        public IncomingDocumentModelBuilder senderId(UUID senderId) {
-            incomingDocModel.senderId = senderId;
-            return this;
-        }
-        public IncomingDocumentModelBuilder recipientId(UUID recipientId) {
-            incomingDocModel.recipientId = recipientId;
-            return this;
-        }
-        public IncomingDocumentModelBuilder outgoingNumber(int outgoingNumber) {
-            incomingDocModel.outgoingNumber = outgoingNumber;
-            return this;
-        }
-        public IncomingDocumentModelBuilder outgoingRegDate(String outgoingRegDate) {
-            incomingDocModel.outgoingRegDate = outgoingRegDate;
-            return this;
-        }
-
-        @Override
-        protected IncomingDocModel getDocument() {
-            return incomingDocModel;
-        }
-
-        @Override
-        public IncomingDocModel build() {
-            return incomingDocModel;
-        }
     }
 }

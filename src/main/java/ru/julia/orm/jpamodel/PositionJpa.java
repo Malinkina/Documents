@@ -10,7 +10,7 @@ public class PositionJpa {
     @Id
     private UUID id;
     @Column(name = "position_id")
-    private int positionId;
+    private Integer positionId;
     private String name;
 
     public UUID getId() {
@@ -20,10 +20,10 @@ public class PositionJpa {
         this.id = id;
     }
 
-    public int getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
-    public void setPositionId(int positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 

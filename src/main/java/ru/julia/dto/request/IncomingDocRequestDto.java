@@ -1,9 +1,13 @@
 package ru.julia.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.UUID;
 
 public class IncomingDocRequestDto extends DocumentRequestDto {
+    @NotNull
     private UUID senderId;
+    @NotNull
     private UUID recipientId;
 
     public UUID getSenderId() {

@@ -1,11 +1,12 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.julia.dto.request.TaskDocRequestDto;
 import ru.julia.dto.response.TaskDocResponseDto;
-import ru.julia.mapper.TaskDocumentMapper;
+import ru.julia.mapper.document.task.TaskDocRequestDtoModelMapper;
 import ru.julia.servicelayer.service.TaskDocumentService;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class TaskDocController {
     @Autowired
     private TaskDocumentService service;
     @Autowired
-    private TaskDocumentMapper mapper;
+    private TaskDocRequestDtoModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody TaskDocRequestDto taskDocRequestDto) {
-        service.create(mapper.requestDtoToModel(taskDocRequestDto));
+    public void create(@Valid @RequestBody TaskDocRequestDto taskDocRequestDto) {
+        service.create(mapper.toModel(taskDocRequestDto));
     }
 
     @GetMapping
@@ -35,6 +36,11 @@ public class TaskDocController {
     @ResponseStatus(HttpStatus.OK)
     public TaskDocResponseDto read(@PathVariable("id") UUID id) {
         return service.read(id);
+    }
+    @PostMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable("id") UUID id, @RequestBody TaskDocRequestDto taskDocRequestDto) {
+        service.update(id, mapper.toModel(taskDocRequestDto));
     }
 
     @DeleteMapping("/{id}")

@@ -12,7 +12,7 @@ public class IncomingDocJpa extends DocumentJpa {
     @JoinColumn(name = "recipient_id")
     private EmployeeJpa recipient;
     @Column(name = "outgoing_number")
-    private int outgoingNumber;
+    private Integer outgoingNumber;
     @Column(name = "outgoing_reg_date")
     private String outgoingRegDate;
 
@@ -32,11 +32,11 @@ public class IncomingDocJpa extends DocumentJpa {
         this.recipient = recipient;
     }
 
-    public int getOutgoingNumber() {
+    public Integer getOutgoingNumber() {
         return outgoingNumber;
     }
 
-    public void setOutgoingNumber(int outgoingNumber) {
+    public void setOutgoingNumber(Integer outgoingNumber) {
         this.outgoingNumber = outgoingNumber;
     }
 

@@ -1,11 +1,11 @@
 package ru.julia.servicelayer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.dto.response.OutgoingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
-import ru.julia.mapper.OutgoingDocumentMapper;
+import ru.julia.mapper.document.outgoing.OutgoingDocJpaResponseDtoMapper;
+import ru.julia.mapper.document.outgoing.OutgoingDocModelJpaMapper;
 import ru.julia.orm.jpamodel.EmployeeJpa;
 import ru.julia.orm.jpamodel.OutgoingDocJpa;
 import ru.julia.orm.repository.EmployeeRepository;
@@ -20,54 +20,72 @@ import java.util.UUID;
 
 @Component
 public class OutgoingDocumentService {
-    @Autowired
-    private OutgoingDocRepository outgoingDocRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private OutgoingDocumentMapper mapper;
-    @Autowired
-    private DocumentInfoGenerator documentGenerator;
+    private final OutgoingDocRepository outgoingDocRepository;
+    private final EmployeeRepository employeeRepository;
+    private final OutgoingDocModelJpaMapper modelJpaMapper;
+    private final OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper;
+    private final DocumentInfoGenerator documentGenerator;
+
+    public OutgoingDocumentService(OutgoingDocRepository outgoingDocRepository,
+                                   EmployeeRepository employeeRepository,
+                                   OutgoingDocModelJpaMapper modelJpaMapper,
+                                   OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper,
+                                   DocumentInfoGenerator documentGenerator)
+    {
+        this.outgoingDocRepository = outgoingDocRepository;
+        this.employeeRepository = employeeRepository;
+        this.modelJpaMapper = modelJpaMapper;
+        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
+        this.documentGenerator = documentGenerator;
+    }
 
     public void create(OutgoingDocModel outgoingDocModel) {
-        UUID recipientId = outgoingDocModel.getRecipientId();
-        EmployeeJpa recipient = employeeRepository.findById(recipientId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Recipient with id " + recipientId + " not found")
-                );
-        UUID authorId = outgoingDocModel.getAuthorId();
-        EmployeeJpa author = employeeRepository.findById(authorId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Author with id " + authorId + " not found")
-                );
-        if (outgoingDocModel.getId() == 0) {
+        if (outgoingDocModel.getId() == null) {
             setDTOMissingFields(outgoingDocModel);
         }
-        OutgoingDocJpa outgoingDocJPA = mapper.modelToJpa(outgoingDocModel);
-        outgoingDocJPA.setRecipient(recipient);
-        outgoingDocJPA.setAuthor(author);
-        outgoingDocRepository.save(outgoingDocJPA);
+        OutgoingDocJpa outgoingDocJpa = modelJpaMapper.toJpa(outgoingDocModel);;
+        if (outgoingDocModel.getAuthorId() != null) {
+            EmployeeJpa author = findEmployeeJpa(outgoingDocModel.getAuthorId(), "author");
+            outgoingDocJpa.setAuthor(author);
+        }
+        if (outgoingDocModel.getRecipientId() != null) {
+            EmployeeJpa recipient = findEmployeeJpa(outgoingDocModel.getRecipientId(), "recipient");
+            outgoingDocJpa.setRecipient(recipient);
+        }
+        outgoingDocRepository.save(outgoingDocJpa);
     }
 
     public OutgoingDocResponseDto read(UUID id) {
         Optional<OutgoingDocJpa> outgoingDocumentJPA = outgoingDocRepository.findById(id);
-        return outgoingDocumentJPA.map(documentJpa -> mapper.jpaToResponseDto(documentJpa))
+        return outgoingDocumentJPA.map(jpaResponseDtoMapper::toResponseDto)
                 .orElseThrow(() -> new RuntimeException(("Outgoing document with id %s not found".formatted(id))));
     }
 
     public List<OutgoingDocResponseDto> readAll() {
         List<OutgoingDocJpa> outgoingDocJPAS = (List<OutgoingDocJpa>) outgoingDocRepository.findAll();
         List<OutgoingDocResponseDto> outgoingDocResponseDTOS = new ArrayList<>();
-        outgoingDocJPAS.forEach(outgoingDoc -> outgoingDocResponseDTOS.add(mapper.jpaToResponseDto(outgoingDoc)));
+        outgoingDocJPAS.forEach(outgoingDoc -> outgoingDocResponseDTOS.add(jpaResponseDtoMapper.toResponseDto(outgoingDoc)));
         return outgoingDocResponseDTOS;
+    }
+
+    public void update(UUID id, OutgoingDocModel outgoingDocModel) {
+        OutgoingDocJpa outgoingDocJpa = outgoingDocRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(("Incoming document with id %s not found".formatted(id))));
+        modelJpaMapper.updateJpaFromModel(outgoingDocModel, outgoingDocJpa);
+        outgoingDocRepository.save(outgoingDocJpa);
     }
 
     public void delete(UUID id) {
         outgoingDocRepository.deleteById(id);
     }
 
+    private EmployeeJpa findEmployeeJpa(UUID id, String employeeRole) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                "%s with id %s not found".formatted(employeeRole, id)));
+    }
+
     private void setDTOMissingFields(OutgoingDocModel outgoingDocModel) {
-        outgoingDocModel.setId(documentGenerator.generateId());
+        outgoingDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
             RegNumbersStorage.add(regNumber);

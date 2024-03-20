@@ -9,6 +9,6 @@ public class Starter {
     @Autowired
     private DatabaseInitiator databaseInitiator;
     public void start()  {
-        databaseInitiator.initialize();
+        //databaseInitiator.initialize();
     }
 }

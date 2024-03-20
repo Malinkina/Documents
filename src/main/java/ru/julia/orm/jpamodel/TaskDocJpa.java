@@ -13,7 +13,7 @@ public class TaskDocJpa extends DocumentJpa {
     @JoinColumn(name = "responsible_executive_id")
     private EmployeeJpa responsibleExecutive;
     @Column(name = "control_mark")
-    private boolean controlMark;
+    private Boolean controlMark;
     @ManyToOne
     @JoinColumn(name = "controller_id")
     private EmployeeJpa controller;
@@ -42,11 +42,11 @@ public class TaskDocJpa extends DocumentJpa {
         this.responsibleExecutive = responsibleExecutive;
     }
 
-    public boolean isControlMark() {
+    public Boolean isControlMark() {
         return controlMark;
     }
 
-    public void setControlMark(boolean controlMark) {
+    public void setControlMark(Boolean controlMark) {
         this.controlMark = controlMark;
     }
 

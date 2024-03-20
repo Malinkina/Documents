@@ -1,11 +1,24 @@
 package ru.julia.dto.response;
 
+import java.util.UUID;
+
 public class TaskDocResponseDto extends DocumentResponseDto {
+    private UUID id;
     private String issueDate;
     private String executionTerm;
     private String responsibleExecutive;
     private boolean controlMark;
     private String controller;
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getIssueDate() {
         return issueDate;
@@ -31,11 +44,11 @@ public class TaskDocResponseDto extends DocumentResponseDto {
         this.responsibleExecutive = responsibleExecutive;
     }
 
-    public boolean isControlMark() {
+    public Boolean isControlMark() {
         return controlMark;
     }
 
-    public void setControlMark(boolean controlMark) {
+    public void setControlMark(Boolean controlMark) {
         this.controlMark = controlMark;
     }
 
@@ -46,4 +59,5 @@ public class TaskDocResponseDto extends DocumentResponseDto {
     public void setController(String controller) {
         this.controller = controller;
     }
+
 }

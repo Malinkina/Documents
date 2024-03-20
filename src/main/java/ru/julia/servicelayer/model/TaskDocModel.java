@@ -6,9 +6,8 @@ public class TaskDocModel extends DocumentModel {
     private String issueDate;
     private String executionTerm;
     private UUID responsibleExecutiveId;
-    private boolean controlMark;
+    private Boolean controlMark;
     private UUID controllerId;
-    private TaskDocModel() {}
 
     public String getIssueDate() {
         return issueDate;
@@ -34,11 +33,11 @@ public class TaskDocModel extends DocumentModel {
         this.responsibleExecutiveId = responsibleExecutiveId;
     }
 
-    public boolean isControlMark() {
+    public Boolean isControlMark() {
         return controlMark;
     }
 
-    public void setControlMark(boolean controlMark) {
+    public void setControlMark(Boolean controlMark) {
         this.controlMark = controlMark;
     }
 
@@ -48,37 +47,5 @@ public class TaskDocModel extends DocumentModel {
 
     public void setControllerId(UUID controllerId) {
         this.controllerId = controllerId;
-    }
-    public static class TaskDocumentModelBuilder extends DocumentModelBuilder<TaskDocModel, TaskDocumentModelBuilder> {
-        private TaskDocModel taskDocModel = new TaskDocModel();
-        public TaskDocumentModelBuilder issueDate(String issueDate) {
-            taskDocModel.issueDate = issueDate;
-            return this;
-        }
-        public TaskDocumentModelBuilder executionTerm(String executionTerm) {
-            taskDocModel.executionTerm = executionTerm;
-            return this;
-        }
-        public TaskDocumentModelBuilder responsibleExecutiveId(UUID responsibleExecutiveId) {
-            taskDocModel.responsibleExecutiveId = responsibleExecutiveId;
-            return this;
-        }
-        public TaskDocumentModelBuilder controlMark(boolean controlMark) {
-            taskDocModel.controlMark = controlMark;
-            return this;
-        }
-        public TaskDocumentModelBuilder controllerId(UUID controllerId) {
-            taskDocModel.controllerId = controllerId;
-            return this;
-        }
-        @Override
-        protected TaskDocModel getDocument() {
-            return taskDocModel;
-        }
-
-        @Override
-        public TaskDocModel build() {
-            return taskDocModel;
-        }
     }
 }

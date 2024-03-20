@@ -8,7 +8,7 @@ import ru.julia.xml.xmlmodel.EmployeeXml;
 public class IncomingDocument extends Document {
     private EmployeeXml sender;
     private EmployeeXml recipient;
-    private int outgoingNumber;
+    private Integer outgoingNumber;
     private String outgoingRegDate;
 
     private IncomingDocument() {
@@ -22,7 +22,7 @@ public class IncomingDocument extends Document {
         return recipient;
     }
 
-    public int getOutgoingNumber() {
+    public Integer getOutgoingNumber() {
         return outgoingNumber;
     }
 
@@ -51,7 +51,7 @@ public class IncomingDocument extends Document {
             return this;
         }
 
-        public IncomingDocumentBuilder outgoingNumber(int outgoingNumber) {
+        public IncomingDocumentBuilder outgoingNumber(Integer outgoingNumber) {
             incomingDocument.outgoingNumber = outgoingNumber;
             return this;
         }

@@ -21,8 +21,8 @@ public class IncomingDocInfoGenerator {
     public EmployeeXml generateRecipient() {
         return employeeInfoGenerator.generateEmployee();
     }
-    public int generateOutgoingNumber() {
-        return ((int) (Math.random() * 20));
+    public Integer generateOutgoingNumber() {
+        return (Integer) ((int) (Math.random() * 100));
     }
     public String generateRegDate() {
         LocalDate localDate = LocalDate.now();

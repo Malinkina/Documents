@@ -1,7 +1,6 @@
 
 package ru.julia.servicelayer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.dto.response.DepartmentResponseDto;
 import ru.julia.mapper.department.DepartmentJpaResponseDtoMapper;
@@ -19,15 +18,20 @@ import java.util.UUID;
 
 @Component
 public class DepartmentService {
-    @Autowired
-    private OrganizationRepository organizationRepository;
-    @Autowired
-    private DepartmentRepository departmentRepository;
-    @Autowired
-    private DepartmentJpaResponseDtoMapper departmentJpaResponseDtoMapper;
+    private final OrganizationRepository organizationRepository;
+    private final DepartmentRepository departmentRepository;
+    private final DepartmentJpaResponseDtoMapper departmentJpaResponseDtoMapper;
+    private final DepartmentModelJpaMapper modelJpaMapper;
 
-    @Autowired
-    private DepartmentModelJpaMapper modelJpaMapper;
+    public DepartmentService(OrganizationRepository organizationRepository,
+                             DepartmentRepository departmentRepository,
+                             DepartmentJpaResponseDtoMapper departmentJpaResponseDtoMapper,
+                             DepartmentModelJpaMapper modelJpaMapper) {
+        this.organizationRepository = organizationRepository;
+        this.departmentRepository = departmentRepository;
+        this.departmentJpaResponseDtoMapper = departmentJpaResponseDtoMapper;
+        this.modelJpaMapper = modelJpaMapper;
+    }
 
     public void create(DepartmentModel departmentModel) {
         UUID organizationId = departmentModel.getOrganizationId();
@@ -45,8 +49,7 @@ public class DepartmentService {
 
     public DepartmentResponseDto read(UUID id) {
         Optional<DepartmentJpa> departmentJpa = departmentRepository.findById(id);
-        return departmentJpa.map(
-                department -> departmentJpaResponseDtoMapper.toResponseDto(department))
+        return departmentJpa.map(departmentJpaResponseDtoMapper::toResponseDto)
                 .orElseThrow(() -> new RuntimeException("Department with id %s not found".formatted(id)));
     }
 

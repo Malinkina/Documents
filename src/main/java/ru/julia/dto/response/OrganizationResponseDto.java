@@ -1,12 +1,22 @@
 package ru.julia.dto.response;
 
 import java.util.List;
+import java.util.UUID;
 
 public class OrganizationResponseDto {
+    private UUID id;
     private String fullName;
     private String shortName;
     private String manager;
     private List<String> phoneNumbers;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getFullName() {
         return fullName;

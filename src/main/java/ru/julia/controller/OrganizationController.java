@@ -1,5 +1,6 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,12 @@ public class OrganizationController {
     private OrganizationService organizationService;
 
     @Autowired
-    private OrganizationRequestDtoModelMapper organizationRequestDTOModelMapper;
-
+    private OrganizationRequestDtoModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody OrganizationRequestDto organizationRequestDto) {
-        organizationService.create(organizationRequestDTOModelMapper.toModel(organizationRequestDto));
+    public void create(@Valid @RequestBody OrganizationRequestDto organizationRequestDto) {
+        organizationService.create(mapper.toModel(organizationRequestDto));
     }
 
     @GetMapping
@@ -42,7 +42,7 @@ public class OrganizationController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("id") UUID id, @RequestBody OrganizationRequestDto organizationRequestDto) {
-        organizationService.update(id, organizationRequestDTOModelMapper.toModel(organizationRequestDto));
+        organizationService.update(id, mapper.toModel(organizationRequestDto));
     }
 
     @DeleteMapping("/{id}")

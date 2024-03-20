@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class PositionModel {
     private UUID id;
-    private int positionId;
+    private Integer positionId;
     private String name;
 
     public UUID getId() {
@@ -15,11 +15,11 @@ public class PositionModel {
         this.id = id;
     }
 
-    public int getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(int positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 

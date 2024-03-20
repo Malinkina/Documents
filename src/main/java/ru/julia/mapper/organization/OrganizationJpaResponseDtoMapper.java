@@ -12,11 +12,18 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrganizationJpaResponseDtoMapper {
+
+    String DELIMITER = ",";
+
     @Mapping(source = "phoneNumbers", target = "phoneNumbers", qualifiedByName = "stringPhoneNumbersToList")
     OrganizationResponseDto toResponseDto(OrganizationJpa organizationJpa);
 
     @Named("stringPhoneNumbersToList")
-    static List<String> stringPhoneNumbersToList(String phoneNumbers) {
-        return Arrays.asList(phoneNumbers.split(","));
+    default List<String> stringPhoneNumbersToList(String phoneNumbers) {
+        if (phoneNumbers == null) {
+            return List.of();
+        }
+        String[] splitPhoneNumbers = phoneNumbers.split(DELIMITER);
+        return Arrays.stream(splitPhoneNumbers).map(String::trim).toList();
     }
 }

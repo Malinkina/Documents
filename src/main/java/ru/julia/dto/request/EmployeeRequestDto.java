@@ -1,16 +1,31 @@
 package ru.julia.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.UUID;
 
 public class EmployeeRequestDto {
+    @NotNull
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String surname;
+    @NotNull
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String name;
+    @NotNull
+    @Pattern(regexp = "[a-zA-Z\\s]+")
     private String patronymic;
     private String photo;
+    @Past
     private String dateOfBirth;
+    @NotNull
     private String phoneNumber;
+    @NotNull
     private UUID departmentId;
+    @NotNull
     private UUID organizationId;
+    @NotNull
     private UUID positionId;
 
     public String getSurname() {

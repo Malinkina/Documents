@@ -9,7 +9,7 @@ public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
     private EmployeeXml responsibleExecutive;
-    private boolean controlMark;
+    private Boolean controlMark;
     private EmployeeXml controller;
 
     private TaskDocument() {
@@ -27,7 +27,7 @@ public class TaskDocument extends Document {
         return responsibleExecutive;
     }
 
-    public boolean isControlMark() {
+    public Boolean isControlMark() {
         return controlMark;
     }
 
@@ -59,7 +59,7 @@ public class TaskDocument extends Document {
             return this;
         }
 
-        public TaskDocumentBuilder controlMark(boolean controlMark) {
+        public TaskDocumentBuilder controlMark(Boolean controlMark) {
             taskDocument.controlMark = controlMark;
             return this;
         }
