@@ -13,7 +13,6 @@ public class IncomingDocumentFactory extends AbstractDocumentFactory<IncomingDoc
     @Autowired
     private IncomingDocInfoGenerator incomingDocInfoGenerator;
 
-
     @Override
     public IncomingDocument.IncomingDocumentBuilder createBuilder() {
         return new IncomingDocument.IncomingDocumentBuilder();
@@ -25,6 +24,6 @@ public class IncomingDocumentFactory extends AbstractDocumentFactory<IncomingDoc
                 .sender(incomingDocInfoGenerator.generateSender())
                 .recipient(incomingDocInfoGenerator.generateRecipient())
                 .outgoingNumber(incomingDocInfoGenerator.generateOutgoingNumber())
-                .outgoingRegDate(incomingDocInfoGenerator.generateRegDate());
+                .outgoingRegDate(incomingDocInfoGenerator.generateOutgoingRegDate());
     }
 }

@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.dto.request.EmployeeRequestDto;
-import ru.julia.dto.response.EmployeeResponseDto;
+import ru.julia.controller.dto.request.EmployeeRequestDto;
+import ru.julia.controller.dto.response.EmployeeResponseDto;
 import ru.julia.mapper.employee.EmployeeRequestDtoModelMapper;
 import ru.julia.servicelayer.service.EmployeeService;
 
@@ -21,7 +21,7 @@ public class EmployeeController {
     private EmployeeRequestDtoModelMapper mapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void create(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
         service.create(mapper.toModel(employeeRequestDto));
     }
@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") UUID id) {
         service.delete(id);
     }

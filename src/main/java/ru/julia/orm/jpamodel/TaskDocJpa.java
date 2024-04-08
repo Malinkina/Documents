@@ -2,13 +2,15 @@ package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "task_document")
 public class TaskDocJpa extends DocumentJpa {
     @Column(name = "issue_date")
-    private String issueDate;
+    private LocalDate issueDate;
     @Column(name = "execution_term")
-    private String executionTerm;
+    private LocalDate executionTerm;
     @ManyToOne
     @JoinColumn(name = "responsible_executive_id")
     private EmployeeJpa responsibleExecutive;
@@ -18,19 +20,19 @@ public class TaskDocJpa extends DocumentJpa {
     @JoinColumn(name = "controller_id")
     private EmployeeJpa controller;
 
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
-    public String getExecutionTerm() {
+    public LocalDate getExecutionTerm() {
         return executionTerm;
     }
 
-    public void setExecutionTerm(String executionTerm) {
+    public void setExecutionTerm(LocalDate executionTerm) {
         this.executionTerm = executionTerm;
     }
 
@@ -42,7 +44,7 @@ public class TaskDocJpa extends DocumentJpa {
         this.responsibleExecutive = responsibleExecutive;
     }
 
-    public Boolean isControlMark() {
+    public Boolean getControlMark() {
         return controlMark;
     }
 

@@ -18,7 +18,7 @@ public interface TaskDocToModelMapper {
     TaskDocModel toModel(TaskDocument taskDocument);
 
     @Named("employeeToUUID")
-    static UUID mapEmployee(EmployeeXml employee) {
+    default UUID mapEmployee(EmployeeXml employee) {
         return employee.getId();
     }
 }

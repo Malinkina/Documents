@@ -2,8 +2,8 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.PositionResponseDto;
-import ru.julia.mapper.position.PositionJpaResponseDTOMapper;
+import ru.julia.controller.dto.response.PositionResponseDto;
+import ru.julia.mapper.position.PositionJpaResponseDtoMapper;
 import ru.julia.mapper.position.PositionModelJpaMapper;
 import ru.julia.orm.jpamodel.PositionJpa;
 import ru.julia.orm.repository.PositionRepository;
@@ -18,11 +18,11 @@ import java.util.UUID;
 public class PositionService {
     private final PositionRepository positionRepository;
     private final PositionModelJpaMapper modelJpaMapper;
-    private final PositionJpaResponseDTOMapper jpaResponseDtoMapper;
+    private final PositionJpaResponseDtoMapper jpaResponseDtoMapper;
 
     public PositionService(PositionRepository positionRepository,
                            PositionModelJpaMapper modelJpaMapper,
-                           PositionJpaResponseDTOMapper jpaResponseDtoMapper) {
+                           PositionJpaResponseDtoMapper jpaResponseDtoMapper) {
         this.positionRepository = positionRepository;
         this.modelJpaMapper = modelJpaMapper;
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;

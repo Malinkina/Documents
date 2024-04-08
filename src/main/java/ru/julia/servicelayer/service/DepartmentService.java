@@ -2,7 +2,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.DepartmentResponseDto;
+import ru.julia.controller.dto.response.DepartmentResponseDto;
 import ru.julia.mapper.department.DepartmentJpaResponseDtoMapper;
 import ru.julia.mapper.department.DepartmentModelJpaMapper;
 import ru.julia.orm.jpamodel.DepartmentJpa;
@@ -65,7 +65,7 @@ public class DepartmentService {
     public void update(UUID id, DepartmentModel departmentModel) {
         DepartmentJpa existingDepartment = departmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Department with id %s not found".formatted(id)));
-        modelJpaMapper.updateDepartmentJpaFromModel(departmentModel, existingDepartment);
+        modelJpaMapper.updateJpaFromModel(departmentModel, existingDepartment);
         departmentRepository.save(existingDepartment);
     }
 

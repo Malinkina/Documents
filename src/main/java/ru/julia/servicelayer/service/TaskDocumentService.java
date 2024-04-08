@@ -1,7 +1,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.TaskDocResponseDto;
+import ru.julia.controller.dto.response.TaskDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
 import ru.julia.infogenerator.TaskDocInfoGenerator;
@@ -27,20 +27,22 @@ public class TaskDocumentService {
     private final DocumentInfoGenerator documentGenerator;
     private final TaskDocModelJpaMapper modelJpaMapper;
     private final TaskDocJpaResponseDtoMapper jpaResponseDtoMapper;
+    private final RegNumbersStorage storage;
 
     public TaskDocumentService(TaskDocRepository taskDocRepository,
                                EmployeeRepository employeeRepository,
                                TaskDocInfoGenerator taskDocInfoGenerator,
                                DocumentInfoGenerator documentGenerator,
                                TaskDocModelJpaMapper modelJpaMapper,
-                               TaskDocJpaResponseDtoMapper jpaResponseDtoMapper)
-    {
+                               TaskDocJpaResponseDtoMapper jpaResponseDtoMapper,
+                               RegNumbersStorage storage) {
         this.taskDocRepository = taskDocRepository;
         this.employeeRepository = employeeRepository;
         this.taskDocInfoGenerator = taskDocInfoGenerator;
         this.documentGenerator = documentGenerator;
         this.modelJpaMapper = modelJpaMapper;
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;
+        this.storage = storage;
     }
 
     public void create(TaskDocModel taskDocModel) {
@@ -98,7 +100,7 @@ public class TaskDocumentService {
         taskDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
-            RegNumbersStorage.add(regNumber);
+            storage.add(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }

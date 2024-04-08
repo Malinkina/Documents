@@ -1,7 +1,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.OutgoingDocResponseDto;
+import ru.julia.controller.dto.response.OutgoingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
 import ru.julia.mapper.document.outgoing.OutgoingDocJpaResponseDtoMapper;
@@ -25,18 +25,20 @@ public class OutgoingDocumentService {
     private final OutgoingDocModelJpaMapper modelJpaMapper;
     private final OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper;
     private final DocumentInfoGenerator documentGenerator;
+    private final RegNumbersStorage storage;
 
     public OutgoingDocumentService(OutgoingDocRepository outgoingDocRepository,
                                    EmployeeRepository employeeRepository,
                                    OutgoingDocModelJpaMapper modelJpaMapper,
                                    OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper,
-                                   DocumentInfoGenerator documentGenerator)
-    {
+                                   DocumentInfoGenerator documentGenerator,
+                                   RegNumbersStorage storage) {
         this.outgoingDocRepository = outgoingDocRepository;
         this.employeeRepository = employeeRepository;
         this.modelJpaMapper = modelJpaMapper;
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;
         this.documentGenerator = documentGenerator;
+        this.storage = storage;
     }
 
     public void create(OutgoingDocModel outgoingDocModel) {
@@ -88,7 +90,7 @@ public class OutgoingDocumentService {
         outgoingDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
-            RegNumbersStorage.add(regNumber);
+            storage.add(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }

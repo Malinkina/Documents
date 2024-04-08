@@ -1,7 +1,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.IncomingDocResponseDto;
+import ru.julia.controller.dto.response.IncomingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
 import ru.julia.infogenerator.DocumentInfoGenerator;
 import ru.julia.infogenerator.IncomingDocInfoGenerator;
@@ -28,19 +28,22 @@ public class IncomingDocumentService {
     private final DocumentInfoGenerator documentGenerator;
     private final IncomingDocModelJpaMapper modelJpaMapper;
     private final IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper;
+    private final RegNumbersStorage storage;
+
     public IncomingDocumentService(IncomingDocRepository incomingDocRepository,
                                    EmployeeRepository employeeRepository,
                                    IncomingDocInfoGenerator incomingDocumentGenerator,
                                    DocumentInfoGenerator documentGenerator,
                                    IncomingDocModelJpaMapper modelJpaMapper,
-                                   IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper)
-    {
+                                   IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper,
+                                   RegNumbersStorage storage) {
         this.incomingDocRepository = incomingDocRepository;
         this.employeeRepository = employeeRepository;
         this.incomingDocumentGenerator = incomingDocumentGenerator;
         this.documentGenerator = documentGenerator;
         this.modelJpaMapper = modelJpaMapper;
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;
+        this.storage = storage;
     }
 
     public void create(IncomingDocModel incomingDocModel) {
@@ -96,13 +99,13 @@ public class IncomingDocumentService {
         incomingDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
-            RegNumbersStorage.add(regNumber);
+            storage.add(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }
         incomingDocModel.setRegNumber(regNumber);
         incomingDocModel.setRegDate(LocalDate.now());
         incomingDocModel.setOutgoingNumber(incomingDocumentGenerator.generateOutgoingNumber());
-        incomingDocModel.setOutgoingRegDate(incomingDocumentGenerator.generateRegDate());
+        incomingDocModel.setOutgoingRegDate(incomingDocumentGenerator.generateOutgoingRegDate());
     }
 }

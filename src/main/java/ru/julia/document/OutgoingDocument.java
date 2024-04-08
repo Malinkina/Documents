@@ -28,7 +28,7 @@ public class OutgoingDocument extends Document {
      * Класс присваивает значения полям класса {@link OutgoingDocument}
      */
     public static class OutgoingDocumentBuilder extends DocumentBuilder<OutgoingDocument, OutgoingDocumentBuilder> {
-        OutgoingDocument outgoingDocument = new OutgoingDocument();
+        private OutgoingDocument outgoingDocument = new OutgoingDocument();
 
         public OutgoingDocumentBuilder recipient(EmployeeXml recipient) {
             outgoingDocument.recipient = recipient;

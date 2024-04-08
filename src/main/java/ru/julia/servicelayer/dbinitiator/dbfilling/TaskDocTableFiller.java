@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class TaskDocTableFiller implements TableFiller {
     @Autowired
-    private DocumentsGenerator<TaskDocumentFactory> generator;
+    private DocumentsGenerator generator;
     @Autowired
     private TaskDocumentService service;
     @Autowired
@@ -23,8 +23,6 @@ public class TaskDocTableFiller implements TableFiller {
     @Override
     public void fill() {
         List<Document> documents = generator.generateDocuments(TaskDocumentFactory.class, 1);
-        for (Document document : documents) {
-            service.create(mapper.toModel((TaskDocument) document));
-        }
+        documents.forEach(document -> service.create(mapper.toModel((TaskDocument) document)));
     }
 }

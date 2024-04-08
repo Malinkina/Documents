@@ -4,9 +4,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.dto.request.PositionRequestDto;
-import ru.julia.dto.response.PositionResponseDto;
-import ru.julia.mapper.position.PositionRequestDTOModelMapper;
+import ru.julia.controller.dto.request.PositionRequestDto;
+import ru.julia.controller.dto.response.PositionResponseDto;
+import ru.julia.mapper.position.PositionRequestDtoModelMapper;
 import ru.julia.servicelayer.service.PositionService;
 
 import java.util.List;
@@ -18,10 +18,10 @@ public class PositionController {
     @Autowired
     private PositionService service;
     @Autowired
-    private PositionRequestDTOModelMapper mapper;
+    private PositionRequestDtoModelMapper mapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void create(@Valid @RequestBody PositionRequestDto positionRequestDto) {
         service.create(mapper.toModel(positionRequestDto));
     }
@@ -44,7 +44,7 @@ public class PositionController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") UUID id) {
         service.delete(id);
     }

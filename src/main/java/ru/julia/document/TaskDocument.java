@@ -2,12 +2,14 @@ package ru.julia.document;
 
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
+import java.time.LocalDate;
+
 /**
  * Класс описывает документ-поручение
  */
 public class TaskDocument extends Document {
-    private String issueDate;
-    private String executionTerm;
+    private LocalDate issueDate;
+    private LocalDate executionTerm;
     private EmployeeXml responsibleExecutive;
     private Boolean controlMark;
     private EmployeeXml controller;
@@ -15,11 +17,11 @@ public class TaskDocument extends Document {
     private TaskDocument() {
     }
 
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public String getExecutionTerm() {
+    public LocalDate getExecutionTerm() {
         return executionTerm;
     }
 
@@ -44,12 +46,12 @@ public class TaskDocument extends Document {
      */
     public static class TaskDocumentBuilder extends DocumentBuilder<TaskDocument, TaskDocumentBuilder>{
         TaskDocument taskDocument = new TaskDocument();
-        public TaskDocumentBuilder issueDate(String issueDate) {
+        public TaskDocumentBuilder issueDate(LocalDate issueDate) {
             taskDocument.issueDate = issueDate;
             return this;
         }
 
-        public TaskDocumentBuilder executionTerm(String executionTerm) {
+        public TaskDocumentBuilder executionTerm(LocalDate executionTerm) {
             taskDocument.executionTerm = executionTerm;
             return this;
         }

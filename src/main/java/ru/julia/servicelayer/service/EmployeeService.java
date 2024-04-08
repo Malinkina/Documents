@@ -1,7 +1,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.EmployeeResponseDto;
+import ru.julia.controller.dto.response.EmployeeResponseDto;
 import ru.julia.mapper.employee.EmployeeJpaResponseDtoMapper;
 import ru.julia.mapper.employee.EmployeeModelJpaMapper;
 import ru.julia.orm.jpamodel.DepartmentJpa;

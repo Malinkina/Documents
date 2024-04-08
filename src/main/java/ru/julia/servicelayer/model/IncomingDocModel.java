@@ -1,12 +1,13 @@
 package ru.julia.servicelayer.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class IncomingDocModel extends DocumentModel {
     private UUID senderId;
     private UUID recipientId;
     private Integer outgoingNumber;
-    private String outgoingRegDate;
+    private LocalDate outgoingRegDate;
 
     public UUID getSenderId() {
         return senderId;
@@ -32,11 +33,11 @@ public class IncomingDocModel extends DocumentModel {
         this.outgoingNumber = outgoingNumber;
     }
 
-    public String getOutgoingRegDate() {
+    public LocalDate getOutgoingRegDate() {
         return outgoingRegDate;
     }
 
-    public void setOutgoingRegDate(String outgoingRegDate) {
+    public void setOutgoingRegDate(LocalDate outgoingRegDate) {
         this.outgoingRegDate = outgoingRegDate;
     }
 }

@@ -17,7 +17,7 @@ public interface OutgoingDocToModelMapper {
     OutgoingDocModel toModel(OutgoingDocument outgoingDocument);
 
     @Named("employeeToUUID")
-    static UUID mapEmployee(EmployeeXml employee) {
+    default UUID mapEmployee(EmployeeXml employee) {
         return employee.getId();
     }
 }
