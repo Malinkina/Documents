@@ -1,4 +1,4 @@
-package ru.julia.orm;
+package ru.julia;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories
@@ -31,9 +32,12 @@ public class DataSourceConfiguration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        Properties properties = new Properties();
+        properties.put("hibernate.hbm2ddl.auto", "validate");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setJpaProperties(properties);
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("ru.julia.orm");
         factory.setDataSource(dataSource());
