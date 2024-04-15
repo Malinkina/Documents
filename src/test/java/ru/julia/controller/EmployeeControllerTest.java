@@ -2,6 +2,7 @@ package ru.julia.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.julia.controller.dto.request.DepartmentRequestDto;
 import ru.julia.controller.dto.request.EmployeeRequestDto;
 import ru.julia.controller.dto.response.EmployeeResponseDto;
 import ru.julia.controller.dto.response.ErrorDto;
@@ -82,13 +82,16 @@ class EmployeeControllerTest {
         private static Stream<Arguments> provideEmployeeWithNullField() {
             ErrorDto errorDto = new ErrorDto();
             errorDto.setErrors(new ArrayList<>());
-            errorDto.getErrors().add("fullName must not be null");
-            errorDto.getErrors().add("shortName must not be null");
-            errorDto.getErrors().add("manager must not be null");
-            errorDto.getErrors().add("phoneNumbers must not be null");
+            errorDto.getErrors().add("surname must not be null");
+            errorDto.getErrors().add("name must not be null");
+            errorDto.getErrors().add("patronymic must not be null");
+            errorDto.getErrors().add("dateOfBirth must not be null");
+            errorDto.getErrors().add("phoneNumber must not be null");
+            errorDto.getErrors().add("departmentId must not be null");
             errorDto.getErrors().add("organizationId must not be null");
+            errorDto.getErrors().add("positionId must not be null");
             return Stream.of(
-                    Arguments.of(new DepartmentRequestDto(), errorDto)
+                    Arguments.of(new EmployeeRequestDto(), errorDto)
             );
         }
     }
@@ -165,6 +168,7 @@ class EmployeeControllerTest {
 
     private String mapToJson(Object o) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.writeValueAsString(o);
     }
 }
