@@ -1,12 +1,13 @@
 package ru.julia.document;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 
-/**
- * Класс описывает документ-поручение
- */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class TaskDocument extends Document {
     private LocalDate issueDate;
     private LocalDate executionTerm;
@@ -14,36 +15,6 @@ public class TaskDocument extends Document {
     private Boolean controlMark;
     private EmployeeXml controller;
 
-    private TaskDocument() {
-    }
-
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
-
-    public LocalDate getExecutionTerm() {
-        return executionTerm;
-    }
-
-    public EmployeeXml getResponsibleExecutive() {
-        return responsibleExecutive;
-    }
-
-    public Boolean isControlMark() {
-        return controlMark;
-    }
-
-    public EmployeeXml getController() {
-        return controller;
-    }
-
-    public String toString() {
-        return "Поручение № " + super.toString();
-    }
-
-    /**
-     * Класс присваивает значения полям класса {@link TaskDocument}
-     */
     public static class TaskDocumentBuilder extends DocumentBuilder<TaskDocument, TaskDocumentBuilder>{
         TaskDocument taskDocument = new TaskDocument();
         public TaskDocumentBuilder issueDate(LocalDate issueDate) {

@@ -68,6 +68,7 @@ class TaskDocumentFactoryTest {
                 .regNumber(REG_NUMBER)
                 .regDate(REG_DATE)
                 .author(EMPLOYEE)
+                .controlMark(false)
                 .build();
         assertEquals(expected, actual);
     }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class EmployeeModelJpaMapperTest {
     private static final EmployeeModelJpaMapper MAPPER = Mappers.getMapper(EmployeeModelJpaMapper.class);
@@ -25,49 +24,42 @@ class EmployeeModelJpaMapperTest {
     private static final String PATRONYMIC_JPA = "Petrovich";
     private static final String PHOTO_JPA = "Cool photo";
     private static final LocalDate DATE_OF_BIRTH_JPA = LocalDate.of(1995, 10, 10);
-    private static final String PHONE_NUMBER_JPA = "+7111111111";
+    private static final String PHONE_NUMBER_JPA = "+799999999";
 
     @Test
     void toJpa() {
         EmployeeModel model = createEmployeeModel();
-        EmployeeJpa jpa = MAPPER.toJpa(model);
-        assertEquals(ID, jpa.getId());
-        assertEquals(SURNAME_MODEL, jpa.getSurname());
-        assertEquals(NAME_MODEL, jpa.getName());
-        assertEquals(PATRONYMIC_MODEL, jpa.getPatronymic());
-        assertEquals(PHOTO_MODEL, jpa.getPhoto());
-        assertEquals(DATE_OF_BIRTH_MODEL, jpa.getDateOfBirth());
-        assertEquals(PHONE_NUMBER_MODEL, jpa.getPhoneNumber());
+        EmployeeJpa actual = MAPPER.toJpa(model);
+        EmployeeJpa expected = new EmployeeJpa(
+                ID, SURNAME_MODEL, NAME_MODEL, PATRONYMIC_MODEL, PHOTO_MODEL, DATE_OF_BIRTH_MODEL, PHONE_NUMBER_JPA,
+                null, null, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateJpaFromModel_whenAllFields_thenAllFieldsMapped() {
-        EmployeeJpa jpa = createEmployeeJpa();
         EmployeeModel model = createEmployeeModel();
-        MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(SURNAME_MODEL, jpa.getSurname());
-        assertEquals(NAME_MODEL, jpa.getName());
-        assertEquals(PATRONYMIC_MODEL, jpa.getPatronymic());
-        assertEquals(PHOTO_MODEL, jpa.getPhoto());
-        assertEquals(DATE_OF_BIRTH_MODEL, jpa.getDateOfBirth());
-        assertEquals(PHONE_NUMBER_MODEL, jpa.getPhoneNumber());
+        EmployeeJpa actual = createEmployeeJpa();
+        MAPPER.updateJpaFromModel(model, actual);
+        EmployeeJpa expected = new EmployeeJpa(
+                ID, SURNAME_MODEL, NAME_MODEL, PATRONYMIC_MODEL, PHOTO_MODEL, DATE_OF_BIRTH_MODEL, PHONE_NUMBER_JPA,
+                null, null, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateJpaFromModel_whenOneField_thenOnlyOneFieldMapped() {
-        EmployeeJpa jpa = createEmployeeJpa();
         EmployeeModel model = new EmployeeModel();
-        model.setId(ID);
-        model.setPhoneNumber(PHONE_NUMBER_MODEL);
-        MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(SURNAME_JPA, jpa.getSurname());
-        assertEquals(NAME_JPA, jpa.getName());
-        assertEquals(PATRONYMIC_JPA, jpa.getPatronymic());
-        assertEquals(PHOTO_JPA, jpa.getPhoto());
-        assertEquals(DATE_OF_BIRTH_JPA, jpa.getDateOfBirth());
-        assertEquals(PHONE_NUMBER_MODEL, jpa.getPhoneNumber());
+        model.setSurname(SURNAME_MODEL);
+        EmployeeJpa actual = createEmployeeJpa();
+        MAPPER.updateJpaFromModel(model, actual);
+        EmployeeJpa expected = new EmployeeJpa(
+                ID, SURNAME_MODEL, NAME_JPA, PATRONYMIC_JPA, PHOTO_JPA, DATE_OF_BIRTH_JPA, PHONE_NUMBER_JPA,
+                null, null, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -76,13 +68,11 @@ class EmployeeModelJpaMapperTest {
         model.setPhoto(null);
         EmployeeJpa jpa = createEmployeeJpa();
         MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(SURNAME_MODEL, jpa.getSurname());
-        assertEquals(NAME_MODEL, jpa.getName());
-        assertEquals(PATRONYMIC_MODEL, jpa.getPatronymic());
-        assertEquals(DATE_OF_BIRTH_MODEL, jpa.getDateOfBirth());
-        assertEquals(PHONE_NUMBER_MODEL, jpa.getPhoneNumber());
-        assertNotNull(jpa.getPhoto());
+        EmployeeJpa expected = new EmployeeJpa(
+                ID, SURNAME_MODEL, NAME_MODEL, PATRONYMIC_MODEL, PHOTO_JPA, DATE_OF_BIRTH_MODEL, PHONE_NUMBER_MODEL,
+                null, null, null
+        );
+        assertEquals(expected, jpa);
     }
 
     private static EmployeeJpa createEmployeeJpa() {

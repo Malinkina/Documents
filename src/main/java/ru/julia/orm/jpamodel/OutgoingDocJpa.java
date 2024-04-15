@@ -1,29 +1,19 @@
 package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "outgoing_document")
+@Data
+@NoArgsConstructor
 public class OutgoingDocJpa extends DocumentJpa {
     @ManyToOne
     @JoinColumn(name = "recipient_id")
     private EmployeeJpa recipient;
     @Column(name = "delivery_type")
     private String deliveryType;
-
-    public EmployeeJpa getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(EmployeeJpa recipient) {
-        this.recipient = recipient;
-    }
-
-    public String getDeliveryType() {
-        return deliveryType;
-    }
-
-    public void setDeliveryType(String deliveryType) {
-        this.deliveryType = deliveryType;
-    }
 }

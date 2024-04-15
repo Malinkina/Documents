@@ -51,7 +51,6 @@ class IncomingDocumentFactoryTest {
     @Test
     void create() {
         //GIVEN
-        IncomingDocument.IncomingDocumentBuilder builder = new IncomingDocument.IncomingDocumentBuilder();
         when(documentInfoGenerator.generateId()).thenReturn(ID);
         when(documentInfoGenerator.generateName()).thenReturn(NAME);
         when(documentInfoGenerator.generateText()).thenReturn(TEXT);
@@ -61,13 +60,14 @@ class IncomingDocumentFactoryTest {
         //WHEN
         IncomingDocument actual = factory.create();
         //THEN
-        IncomingDocument expected = builder
+        IncomingDocument expected = new IncomingDocument.IncomingDocumentBuilder()
                 .documentId(ID)
                 .name(NAME)
                 .text(TEXT)
                 .regNumber(REG_NUMBER)
                 .regDate(REG_DATE)
                 .author(EMPLOYEE)
+                .outgoingNumber(0)
                 .build();
         assertEquals(expected, actual);
     }

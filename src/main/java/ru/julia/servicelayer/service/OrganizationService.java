@@ -31,11 +31,13 @@ public class OrganizationService {
         this.modelJpaMapper = modelJpaMapper;
     }
 
-    public void create(OrganizationModel organizationModel) {
+    public UUID create(OrganizationModel organizationModel) {
         if (organizationModel.getId() == null) {
             organizationModel.setId(UUID.randomUUID());
         }
-        organizationRepository.save(organizationModelJpaMapper.toJpa(organizationModel));
+        OrganizationJpa organizationJpa = organizationModelJpaMapper.toJpa(organizationModel);
+        organizationRepository.save(organizationJpa);
+        return organizationJpa.getId();
     }
 
     public OrganizationResponseDto read(UUID id) {

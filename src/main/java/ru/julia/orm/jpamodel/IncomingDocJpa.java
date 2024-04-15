@@ -1,11 +1,19 @@
 package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "incoming_document")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class IncomingDocJpa extends DocumentJpa {
     @ManyToOne
     @JoinColumn(name = "sender_id")
@@ -17,36 +25,4 @@ public class IncomingDocJpa extends DocumentJpa {
     private Integer outgoingNumber;
     @Column(name = "outgoing_reg_date")
     private LocalDate outgoingRegDate;
-
-    public EmployeeJpa getSender() {
-        return sender;
-    }
-
-    public void setSender(EmployeeJpa sender) {
-        this.sender = sender;
-    }
-
-    public EmployeeJpa getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(EmployeeJpa recipient) {
-        this.recipient = recipient;
-    }
-
-    public Integer getOutgoingNumber() {
-        return outgoingNumber;
-    }
-
-    public void setOutgoingNumber(Integer outgoingNumber) {
-        this.outgoingNumber = outgoingNumber;
-    }
-
-    public LocalDate getOutgoingRegDate() {
-        return outgoingRegDate;
-    }
-
-    public void setOutgoingRegDate(LocalDate outgoingRegDate) {
-        this.outgoingRegDate = outgoingRegDate;
-    }
 }

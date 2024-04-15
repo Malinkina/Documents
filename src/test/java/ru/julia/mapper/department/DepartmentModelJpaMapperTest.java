@@ -23,57 +23,51 @@ class DepartmentModelJpaMapperTest {
     private static final String PHONE_1_MODEL = "+71233112";
     private static final String PHONE_2_MODEL = "+745125458";
     private static final List<String> PHONE_NUMBERS_MODEL = Arrays.asList(PHONE_1_MODEL, PHONE_2_MODEL);
-    private static final String PHONE_NUMBERS_JPA = "+71111111,+745612115";
+    private static final String PHONE_NUMBERS_JPA = "+71233112,+745125458";
 
-    //todo fields
     @Test
     void toJpa() {
         DepartmentModel model = createDepartmentModel();
-        DepartmentJpa jpa = MAPPER.toJpa(model);
-        assertEquals(ID, jpa.getId());
-        assertEquals(FUlL_NAME_MODEL, jpa.getFullName());
-        assertEquals(SHORT_NAME_MODEL, jpa.getShortName());
-        assertEquals(MANAGER_MODEL, jpa.getManager());
+        DepartmentJpa actual = MAPPER.toJpa(model);
+        DepartmentJpa expected = new DepartmentJpa(
+                ID, FUlL_NAME_MODEL, SHORT_NAME_MODEL, MANAGER_MODEL, PHONE_NUMBERS_JPA, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateDepartmentJpaFromModel_whenAllFields_thenAllMapped() {
         DepartmentModel model = createDepartmentModel();
-        DepartmentJpa jpa = createDepartmentJpa();
-        MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(FUlL_NAME_MODEL, jpa.getFullName());
-        assertEquals(SHORT_NAME_MODEL, jpa.getShortName());
-        assertEquals(MANAGER_MODEL, jpa.getManager());
-        assertTrue(jpa.getPhoneNumbers().contains(PHONE_1_MODEL));
+        DepartmentJpa actual = createDepartmentJpa();
+        MAPPER.updateJpaFromModel(model, actual);
+        DepartmentJpa expected = new DepartmentJpa(
+                ID, FUlL_NAME_MODEL, SHORT_NAME_MODEL, MANAGER_MODEL, PHONE_NUMBERS_JPA, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateDepartmentJpaFromModel_whenOneField_thenOnlyOneFieldMapped() {
         DepartmentModel model = new DepartmentModel();
-        model.setId(ID);
         model.setFullName(FUlL_NAME_MODEL);
-        DepartmentJpa jpa = createDepartmentJpa();
-        MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(FUlL_NAME_MODEL, jpa.getFullName());
-        assertNotEquals(SHORT_NAME_MODEL, jpa.getShortName());
-        assertNotEquals(MANAGER_MODEL, jpa.getManager());
-        assertFalse(jpa.getPhoneNumbers().contains(PHONE_1_MODEL));
+        DepartmentJpa actual = createDepartmentJpa();
+        MAPPER.updateJpaFromModel(model, actual);
+        DepartmentJpa expected = new DepartmentJpa(
+                ID, FUlL_NAME_MODEL, SHORT_NAME_JPA, MANAGER_JPA, PHONE_NUMBERS_JPA, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateDepartmentJpaFromModel_whenNull_thenNotMapped() {
         DepartmentModel model = createDepartmentModel();
         model.setFullName(null);
-        DepartmentJpa jpa = createDepartmentJpa();
-        MAPPER.updateJpaFromModel(model, jpa);
-        assertEquals(ID, jpa.getId());
-        assertEquals(FULL_NAME_JPA, jpa.getFullName());
-        assertEquals(SHORT_NAME_MODEL, jpa.getShortName());
-        assertEquals(MANAGER_MODEL, jpa.getManager());
-        assertTrue(jpa.getPhoneNumbers().contains(PHONE_1_MODEL));
-        assertNotNull(jpa.getFullName());
+        DepartmentJpa actual = createDepartmentJpa();
+        MAPPER.updateJpaFromModel(model, actual);
+        DepartmentJpa expected = new DepartmentJpa(
+                ID, FULL_NAME_JPA, SHORT_NAME_MODEL, MANAGER_MODEL, PHONE_NUMBERS_JPA, null
+        );
+        assertEquals(expected, actual);
     }
 
     @Test

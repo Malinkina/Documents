@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.julia.xml.XmlReader;
 import ru.julia.xml.xmlmodel.EmployeeXml;
-import ru.julia.xml.xmlmodel.OrgUnits;
+import ru.julia.xml.xmlmodel.wrapper.EmployeeWrapper;
 
 import java.util.UUID;
 
@@ -23,7 +23,7 @@ class EmployeeInfoGeneratorTest {
 
     @Test
     void generateEmployee() {
-        OrgUnits orgUnits = new OrgUnits();
+        EmployeeWrapper orgUnits = new EmployeeWrapper();
         orgUnits.getEmployees().add(createFirstEmployee());
         orgUnits.getEmployees().add(createSecondEmployee());
         Mockito.when(reader.readEmployee()).thenReturn(orgUnits);

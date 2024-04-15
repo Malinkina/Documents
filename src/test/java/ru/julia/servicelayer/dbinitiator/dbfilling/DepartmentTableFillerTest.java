@@ -11,7 +11,7 @@ import ru.julia.servicelayer.model.DepartmentModel;
 import ru.julia.servicelayer.service.DepartmentService;
 import ru.julia.xml.XmlReader;
 import ru.julia.xml.xmlmodel.DepartmentXml;
-import ru.julia.xml.xmlmodel.OrgUnits;
+import ru.julia.xml.xmlmodel.wrapper.DepartmentWrapper;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ class DepartmentTableFillerTest {
 
     @Test
     void fill() {
-        OrgUnits orgUnits = new OrgUnits();
-        when(reader.readDepartment()).thenReturn(orgUnits);
-        List<DepartmentXml> departments = orgUnits.getDepartments();
+        DepartmentWrapper wrappedDepts = new DepartmentWrapper();
+        when(reader.readDepartment()).thenReturn(wrappedDepts);
+        List<DepartmentXml> departments = wrappedDepts.getDepartments();
         DepartmentXml departmentXml = new DepartmentXml();
         departments.add(departmentXml);
         departments.add(departmentXml);
