@@ -2,8 +2,7 @@ package ru.julia.infogenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.document.DeliveryTypes;
-import ru.julia.document.OutgoingDocument;
+import ru.julia.document.DeliveryType;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.util.Random;
@@ -19,7 +18,7 @@ public class OutgoingDocInfoGenerator {
     }
 
     public String generateDeliveryType() {
-        DeliveryTypes[] deliveryTypes = DeliveryTypes.values();
+        DeliveryType[] deliveryTypes = DeliveryType.values();
         return deliveryTypes[new Random().nextInt(deliveryTypes.length)].getValue();
     }
 }

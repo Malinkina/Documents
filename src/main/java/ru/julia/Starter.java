@@ -12,6 +12,6 @@ public class Starter {
     private DatabaseInitiator databaseInitiator;
     @EventListener(ApplicationReadyEvent.class)
     public void start() {
-        databaseInitiator.initialize();
+        //databaseInitiator.initialize();
     }
 }

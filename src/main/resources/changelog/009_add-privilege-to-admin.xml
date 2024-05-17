@@ -1,0 +1,34 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="9" author="Julia">
+        <sql dbms="postgresql">
+            insert into role_privilege (role_id, privilege)
+            values
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'READ_DOCUMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'CREATE_DOCUMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'UPDATE_DOCUMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'DELETE_DOCUMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'READ_ORGANIZATION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'CREATE_ORGANIZATION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'UPDATE_ORGANIZATION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'DELETE_ORGANIZATION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'READ_DEPARTMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'CREATE_DEPARTMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'UPDATE_DEPARTMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'DELETE_DEPARTMENT'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'READ_POSITION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'CREATE_POSITION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'UPDATE_POSITION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'DELETE_POSITION'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'READ_EMPLOYEE'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'CREATE_EMPLOYEE'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'UPDATE_EMPLOYEE'),
+                ('cabbbc4f-c397-415d-8e84-145224fda540', 'DELETE_EMPLOYEE')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

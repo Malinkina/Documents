@@ -44,6 +44,6 @@ class OrganizationControllerTest {
     }
 
     @Test
-    void deleteOrg() {
+    void delete() {
     }
 }

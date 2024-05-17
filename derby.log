@@ -5,7 +5,7 @@ on database directory C:\Users\Юлия\IdeaProjects\Documents\test with class l
 Loaded from file:/C:/Users/%d0%ae%d0%bb%d0%b8%d1%8f/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=19.0.2+7-44
-user.dir=C:\Users\Юлия\IdeaProjects\Documents
+userJpa.dir=C:\Users\Юлия\IdeaProjects\Documents
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

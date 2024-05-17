@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.julia.document.DeliveryTypes;
+import ru.julia.document.DeliveryType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,9 +30,9 @@ class OutgoingDocInfoGeneratorTest {
     @Test
     void generateDeliveryType() {
         String deliveryType = outgoingDocInfoGenerator.generateDeliveryType();
-        List<DeliveryTypes> deliveryTypesList = Arrays.asList(DeliveryTypes.values());
+        List<DeliveryType> deliveryTypeList = Arrays.asList(DeliveryType.values());
         List<String> deliveryTypes = new ArrayList<>();
-        deliveryTypesList.forEach(type -> deliveryTypes.add(type.getValue()));
+        deliveryTypeList.forEach(type -> deliveryTypes.add(type.getValue()));
         assertTrue(deliveryTypes.contains(deliveryType));
     }
 }

@@ -1,4 +1,4 @@
-package ru.julia;
+package ru.julia.orm;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "ru.julia.orm.repository")
 public class DataSourceConfiguration {
     @Bean
     public DataSource dataSource() {
