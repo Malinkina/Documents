@@ -10,6 +10,7 @@ import ru.julia.servicelayer.dbinitiator.DatabaseInitiator;
 public class Starter {
     @Autowired
     private DatabaseInitiator databaseInitiator;
+
     @EventListener(ApplicationReadyEvent.class)
     public void start() {
         //databaseInitiator.initialize();

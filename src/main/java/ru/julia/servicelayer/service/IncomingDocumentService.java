@@ -12,7 +12,7 @@ import ru.julia.orm.jpamodel.EmployeeJpa;
 import ru.julia.orm.jpamodel.IncomingDocJpa;
 import ru.julia.orm.repository.EmployeeRepository;
 import ru.julia.orm.repository.IncomingDocRepository;
-import ru.julia.servicelayer.RegNumbersStorage;
+import ru.julia.servicelayer.RegNumbersCheck;
 import ru.julia.servicelayer.model.IncomingDocModel;
 
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class IncomingDocumentService {
     private final DocumentInfoGenerator documentInfoGenerator;
     private final IncomingDocModelJpaMapper modelJpaMapper;
     private final IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper;
-    private final RegNumbersStorage storage;
+    private final RegNumbersCheck regNumbersCheck;
     private final CurrentEmployeeService employeeService;
 
     public UUID create(IncomingDocModel incomingDocModel) {
@@ -71,7 +71,7 @@ public class IncomingDocumentService {
         incomingDocModel.setDocId(documentInfoGenerator.generateId());
         String regNumber = documentInfoGenerator.generateRegNumber();
         try {
-            storage.add(regNumber);
+            regNumbersCheck.check(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }

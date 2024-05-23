@@ -12,7 +12,7 @@ import ru.julia.orm.jpamodel.EmployeeJpa;
 import ru.julia.orm.jpamodel.TaskDocJpa;
 import ru.julia.orm.repository.EmployeeRepository;
 import ru.julia.orm.repository.TaskDocRepository;
-import ru.julia.servicelayer.RegNumbersStorage;
+import ru.julia.servicelayer.RegNumbersCheck;
 import ru.julia.servicelayer.model.TaskDocModel;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class TaskDocumentService {
     private final DocumentInfoGenerator documentGenerator;
     private final TaskDocModelJpaMapper modelJpaMapper;
     private final TaskDocJpaResponseDtoMapper jpaResponseDtoMapper;
-    private final RegNumbersStorage storage;
+    private final RegNumbersCheck regNumbersCheck;
     private final CurrentEmployeeService employeeService;
 
     public UUID create(TaskDocModel taskDocModel) {
@@ -70,7 +70,7 @@ public class TaskDocumentService {
         taskDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
         try {
-            storage.add(regNumber);
+            regNumbersCheck.check(regNumber);
         } catch (DocumentExistsException e) {
             throw new RuntimeException(e);
         }

@@ -17,10 +17,10 @@ public final class DocumentsGenerator {
     @Autowired
     private List<DocumentFactory<?>> factories;
     @Autowired
-    private RegNumbersStorage storage;
+    private RegNumbersCheck storage;
 
     /**
-     * Метод генерирует документы и передает в хранилище {@link RegNumbersStorage}
+     * Метод генерирует документы и передает в хранилище {@link RegNumbersCheck}
      */
     public <T> List<Document> generateDocuments(Class<T> factoryType, int quantity) {
         DocumentFactory<?> factory = getFactory(factoryType);
@@ -28,7 +28,7 @@ public final class DocumentsGenerator {
         for (int i = 0; i < quantity; i++) {
             Document document = factory.create();
             try {
-                storage.add(document.getRegNumber());
+                storage.check(document.getRegNumber());
             } catch (DocumentExistsException e) {
                 throw new RuntimeException(
                         "Document with registration number %s already exists".formatted(document.getRegNumber())
