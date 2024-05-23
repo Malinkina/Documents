@@ -1,5 +1,6 @@
 package ru.julia.servicelayer.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.julia.controller.dto.response.EmployeeResponseDto;
 import ru.julia.mapper.employee.EmployeeJpaResponseDtoMapper;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 public class EmployeeService {
     private final OrganizationRepository organizationRepository;
     private final DepartmentRepository departmentRepository;
@@ -27,20 +29,6 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeModelJpaMapper modelJpaMapper;
     private final EmployeeJpaResponseDtoMapper jpaResponseDtoMapper;
-    public EmployeeService(OrganizationRepository organizationRepository,
-                           DepartmentRepository departmentRepository,
-                           PositionRepository positionRepository,
-                           EmployeeRepository employeeRepository,
-                           EmployeeModelJpaMapper modelJpaMapper,
-                           EmployeeJpaResponseDtoMapper jpaResponseDtoMapper)
-    {
-        this.organizationRepository = organizationRepository;
-        this.departmentRepository = departmentRepository;
-        this.positionRepository = positionRepository;
-        this.employeeRepository = employeeRepository;
-        this.modelJpaMapper = modelJpaMapper;
-        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
-    }
 
     public UUID create(EmployeeModel employeeModel) {
         UUID organizationId = employeeModel.getOrganizationId();

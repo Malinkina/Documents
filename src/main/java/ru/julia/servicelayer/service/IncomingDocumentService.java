@@ -1,5 +1,6 @@
 package ru.julia.servicelayer.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.julia.controller.dto.response.IncomingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
@@ -21,48 +22,23 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 public class IncomingDocumentService {
     private final IncomingDocRepository incomingDocRepository;
     private final EmployeeRepository employeeRepository;
     private final IncomingDocInfoGenerator incomingDocumentGenerator;
-    private final DocumentInfoGenerator documentGenerator;
+    private final DocumentInfoGenerator documentInfoGenerator;
     private final IncomingDocModelJpaMapper modelJpaMapper;
     private final IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper;
     private final RegNumbersStorage storage;
-
-    public IncomingDocumentService(IncomingDocRepository incomingDocRepository,
-                                   EmployeeRepository employeeRepository,
-                                   IncomingDocInfoGenerator incomingDocumentGenerator,
-                                   DocumentInfoGenerator documentGenerator,
-                                   IncomingDocModelJpaMapper modelJpaMapper,
-                                   IncomingDocJpaResponseDtoMapper jpaResponseDtoMapper,
-                                   RegNumbersStorage storage) {
-        this.incomingDocRepository = incomingDocRepository;
-        this.employeeRepository = employeeRepository;
-        this.incomingDocumentGenerator = incomingDocumentGenerator;
-        this.documentGenerator = documentGenerator;
-        this.modelJpaMapper = modelJpaMapper;
-        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
-        this.storage = storage;
-    }
+    private final CurrentEmployeeService employeeService;
 
     public UUID create(IncomingDocModel incomingDocModel) {
         if (incomingDocModel.getId() == null) {
             setDtoMissingFields(incomingDocModel);
         }
         IncomingDocJpa incomingDocJpa = modelJpaMapper.toJpa(incomingDocModel);
-        if (incomingDocModel.getAuthorId() != null) {
-            EmployeeJpa author = findEmployeeJpa(incomingDocModel.getAuthorId(), "author");
-            incomingDocJpa.setAuthor(author);
-        }
-        if (incomingDocModel.getRecipientId() != null) {
-            EmployeeJpa recipient = findEmployeeJpa(incomingDocModel.getRecipientId(), "recipient");
-            incomingDocJpa.setRecipient(recipient);
-        }
-        if (incomingDocModel.getSenderId() != null) {
-            EmployeeJpa sender = findEmployeeJpa(incomingDocModel.getSenderId(), "sender");
-            incomingDocJpa.setSender(sender);
-        }
+        setEmployees(incomingDocModel, incomingDocJpa);
         incomingDocRepository.save(incomingDocJpa);
         return incomingDocJpa.getId();
     }
@@ -91,14 +67,9 @@ public class IncomingDocumentService {
         incomingDocRepository.deleteById(id);
     }
 
-    private EmployeeJpa findEmployeeJpa(UUID id, String employeeRole) {
-        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
-                "%s with id %s not found".formatted(employeeRole, id)));
-    }
-
     private void setDtoMissingFields(IncomingDocModel incomingDocModel) {
-        incomingDocModel.setDocId(documentGenerator.generateId());
-        String regNumber = documentGenerator.generateRegNumber();
+        incomingDocModel.setDocId(documentInfoGenerator.generateId());
+        String regNumber = documentInfoGenerator.generateRegNumber();
         try {
             storage.add(regNumber);
         } catch (DocumentExistsException e) {
@@ -108,5 +79,19 @@ public class IncomingDocumentService {
         incomingDocModel.setRegDate(LocalDate.now());
         incomingDocModel.setOutgoingNumber(incomingDocumentGenerator.generateOutgoingNumber());
         incomingDocModel.setOutgoingRegDate(incomingDocumentGenerator.generateOutgoingRegDate());
+    }
+
+    private void setEmployees(IncomingDocModel incomingDocModel, IncomingDocJpa incomingDocJpa) {
+        EmployeeJpa author = employeeService.getCurrentUser();
+        EmployeeJpa recipient = findEmployeeJpa(incomingDocModel.getRecipientId());
+        EmployeeJpa sender = findEmployeeJpa(incomingDocModel.getSenderId());
+        incomingDocJpa.setAuthor(author);
+        incomingDocJpa.setRecipient(recipient);
+        incomingDocJpa.setSender(sender);
+    }
+
+    private EmployeeJpa findEmployeeJpa(UUID id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                "Employee with id %s not found".formatted(id)));
     }
 }

@@ -1,5 +1,6 @@
 package ru.julia.servicelayer.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.julia.controller.dto.response.OutgoingDocResponseDto;
 import ru.julia.exception.DocumentExistsException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 public class OutgoingDocumentService {
     private final OutgoingDocRepository outgoingDocRepository;
     private final EmployeeRepository employeeRepository;
@@ -26,34 +28,14 @@ public class OutgoingDocumentService {
     private final OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper;
     private final DocumentInfoGenerator documentGenerator;
     private final RegNumbersStorage storage;
-
-    public OutgoingDocumentService(OutgoingDocRepository outgoingDocRepository,
-                                   EmployeeRepository employeeRepository,
-                                   OutgoingDocModelJpaMapper modelJpaMapper,
-                                   OutgoingDocJpaResponseDtoMapper jpaResponseDtoMapper,
-                                   DocumentInfoGenerator documentGenerator,
-                                   RegNumbersStorage storage) {
-        this.outgoingDocRepository = outgoingDocRepository;
-        this.employeeRepository = employeeRepository;
-        this.modelJpaMapper = modelJpaMapper;
-        this.jpaResponseDtoMapper = jpaResponseDtoMapper;
-        this.documentGenerator = documentGenerator;
-        this.storage = storage;
-    }
+    private final CurrentEmployeeService employeeService;
 
     public UUID create(OutgoingDocModel outgoingDocModel) {
         if (outgoingDocModel.getId() == null) {
             setDTOMissingFields(outgoingDocModel);
         }
-        OutgoingDocJpa outgoingDocJpa = modelJpaMapper.toJpa(outgoingDocModel);;
-        if (outgoingDocModel.getAuthorId() != null) {
-            EmployeeJpa author = findEmployeeJpa(outgoingDocModel.getAuthorId(), "author");
-            outgoingDocJpa.setAuthor(author);
-        }
-        if (outgoingDocModel.getRecipientId() != null) {
-            EmployeeJpa recipient = findEmployeeJpa(outgoingDocModel.getRecipientId(), "recipient");
-            outgoingDocJpa.setRecipient(recipient);
-        }
+        OutgoingDocJpa outgoingDocJpa = modelJpaMapper.toJpa(outgoingDocModel);
+        setEmployees(outgoingDocModel, outgoingDocJpa);
         outgoingDocRepository.save(outgoingDocJpa);
         return outgoingDocJpa.getId();
     }
@@ -82,11 +64,6 @@ public class OutgoingDocumentService {
         outgoingDocRepository.deleteById(id);
     }
 
-    private EmployeeJpa findEmployeeJpa(UUID id, String employeeRole) {
-        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
-                "%s with id %s not found".formatted(employeeRole, id)));
-    }
-
     private void setDTOMissingFields(OutgoingDocModel outgoingDocModel) {
         outgoingDocModel.setDocId(documentGenerator.generateId());
         String regNumber = documentGenerator.generateRegNumber();
@@ -97,5 +74,17 @@ public class OutgoingDocumentService {
         }
         outgoingDocModel.setRegNumber(regNumber);
         outgoingDocModel.setRegDate(documentGenerator.generateRegDate());
+    }
+
+    private void setEmployees(OutgoingDocModel outgoingDocModel, OutgoingDocJpa outgoingDocJpa) {
+        EmployeeJpa author = employeeService.getCurrentUser();
+        EmployeeJpa recipient = findEmployeeJpa(outgoingDocModel.getRecipientId());
+        outgoingDocJpa.setAuthor(author);
+        outgoingDocJpa.setRecipient(recipient);
+    }
+
+    private EmployeeJpa findEmployeeJpa(UUID id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                "Employee with id %s not found".formatted(id)));
     }
 }
