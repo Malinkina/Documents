@@ -1,14 +1,23 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import ru.julia.staff.Employee;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
+ * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
+ */
 public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;
     private String text;
     private String regNumber;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    private String author;
+    private Employee author;
 
     public int getId() {
         return id;
@@ -30,7 +39,7 @@ public abstract class Document implements Comparable<Document> {
         return regDate;
     }
 
-    public String getAuthor() {
+    public Employee getAuthor() {
         return author;
     }
 
@@ -54,7 +63,7 @@ public abstract class Document implements Comparable<Document> {
         this.regDate = regDate;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Employee author) {
         this.author = author;
     }
 
@@ -65,41 +74,45 @@ public abstract class Document implements Comparable<Document> {
                 regDateComparison : this.regNumber.compareTo(document.getRegNumber());
     }
 
+    public String toString() {
+        return getRegNumber()
+                + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                + ". " + getName();
+    }
+    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder> {
 
-    /*public static class DocumentBuilder {
+        protected abstract T getDocument();
 
-        public DocumentBuilder setId(int id) {
-            document.id = id;
-            return this;
+        public B id(int id) {
+            getDocument().setId(id);
+            return (B) this;
         }
 
-        public DocumentBuilder setName(String name) {
-            document.name = name;
-            return this;
+        public B name(String name) {
+            getDocument().setName(name);
+            return (B) this;
         }
 
-        public DocumentBuilder setText(String text) {
-            document.text = text;
-            return this;
+        public B text(String text) {
+            getDocument().setText(text);
+            return (B) this;
         }
 
-        public DocumentBuilder setRegNumber(int regNumber) {
-            document.regNumber = regNumber;
-            return this;
+        public B regNumber(String regNumber) {
+            getDocument().setRegNumber(regNumber);
+            return (B) this;
         }
 
-        public DocumentBuilder setRegDate(String regDate) {
-            document.regDate = regDate;
-            return this;
+        public B regDate(LocalDate regDate) {
+            getDocument().setRegDate(regDate);
+            return (B) this;
         }
 
-        public DocumentBuilder setAuthor(String author) {
-            document.author = author;
-            return this;
+        public B author(Employee author) {
+            getDocument().setAuthor(author);
+            return (B) this;
         }
-        public Document build() {
-            return document;
-        }
-    }*/
+        public abstract T build();
+    }
 }
 

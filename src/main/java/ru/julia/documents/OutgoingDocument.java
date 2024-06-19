@@ -1,72 +1,44 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Employee;
 
+/**
+ * Класс описывает исходящий документ
+ */
 public class OutgoingDocument extends Document {
-    private String recipient;
+    private Employee recipient;
     private String deliveryType;
 
     private OutgoingDocument() {
     }
 
-    public static OutgoingDocumentBuilder newBuilder() {
-        return new OutgoingDocument().new OutgoingDocumentBuilder();
-    }
-
     public String toString() {
-        return "Исходящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Исходящий № " + super.toString();
     }
 
-    public class OutgoingDocumentBuilder {
-        private OutgoingDocumentBuilder() {
-        }
+    /**
+     * Класс присваивает значения полям класса {@link OutgoingDocument}
+     */
+    public static class OutgoingDocumentBuilder extends DocumentBuilder<OutgoingDocument, OutgoingDocumentBuilder> {
+        OutgoingDocument outgoingDocument = new OutgoingDocument();
 
-        public OutgoingDocumentBuilder id(int id) {
-            setId(id);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder author(String author) {
-            setAuthor(author);
-            return this;
-        }
-
-        public OutgoingDocumentBuilder recipient(String recipient) {
-            OutgoingDocument.this.recipient = recipient;
+        public OutgoingDocumentBuilder recipient(Employee recipient) {
+            outgoingDocument.recipient = recipient;
             return this;
         }
 
         public OutgoingDocumentBuilder deliveryType(String deliveryType) {
-            OutgoingDocument.this.deliveryType = deliveryType;
+            outgoingDocument.deliveryType = deliveryType;
             return this;
         }
+        @Override
+        protected OutgoingDocument getDocument() {
+            return outgoingDocument;
+        }
 
+        @Override
         public OutgoingDocument build() {
-            return OutgoingDocument.this;
+            return outgoingDocument;
         }
     }
-
 }

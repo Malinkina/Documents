@@ -1,24 +1,30 @@
 package ru.julia.factories;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.julia.documents.TaskDocument;
-import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.TaskDocumentInfoGenerator;
 
-public class TaskDocumentFactory implements DocumentFactory {
+/**
+ * Класс создает объект класса {@link TaskDocument}
+ */
+@Component
+public class TaskDocumentFactory extends AbstractDocumentFactory<TaskDocument, TaskDocument.TaskDocumentBuilder>{
+    @Autowired
+    private TaskDocumentInfoGenerator taskDocumentInfoGenerator;
+
     @Override
-    public TaskDocument create() {
-        return TaskDocument.newBuilder()
-                .id(DocumentInfoGenerator.generateId())
-                .name(DocumentInfoGenerator.generateName())
-                .text(DocumentInfoGenerator.generateText())
-                .regNumber(DocumentInfoGenerator.generateRegNumber())
-                .regDate(DocumentInfoGenerator.generateRegDate())
-                .author(DocumentInfoGenerator.generateAuthor())
-                .issueDate(TaskDocumentInfoGenerator.generateIssueDate())
-                .executionTerm(TaskDocumentInfoGenerator.generateExecutionTerm())
-                .responsibleExecutive(TaskDocumentInfoGenerator.generateResponsibleExecutive())
-                .controlMark(TaskDocumentInfoGenerator.generateControlMark())
-                .controller(TaskDocumentInfoGenerator.generateController())
-                .build();
+    public TaskDocument.TaskDocumentBuilder createBuilder() {
+        return new TaskDocument.TaskDocumentBuilder();
+    }
+
+    @Override
+    public void fill(TaskDocument.TaskDocumentBuilder builder) {
+        builder
+                .issueDate(taskDocumentInfoGenerator.generateIssueDate())
+                .executionTerm(taskDocumentInfoGenerator.generateExecutionTerm())
+                .responsibleExecutive(taskDocumentInfoGenerator.generateResponsibleExecutive())
+                .controlMark(taskDocumentInfoGenerator.generateControlMark())
+                .controller(taskDocumentInfoGenerator.generateController());
     }
 }

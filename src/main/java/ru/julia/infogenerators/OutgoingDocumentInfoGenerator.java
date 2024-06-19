@@ -1,30 +1,27 @@
 package ru.julia.infogenerators;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.julia.DeliveryTypes;
-import ru.julia.representatives.ExternalRepresentatives;
+import ru.julia.documents.OutgoingDocument;
+import ru.julia.staff.Employee;
 
+import java.util.Random;
+
+/**
+ * Класс создает и возвращает объект класса {@link OutgoingDocument}
+ */
+@Component
 public class OutgoingDocumentInfoGenerator {
-    public static String generateRecipient() {
-        return ExternalRepresentatives.representatives.get((int) (Math.random() * 3));
+    @Autowired
+    EmployeeInfoGenerator employeeInfoGenerator;
+
+    public Employee generateRecipient() {
+        return employeeInfoGenerator.generateEmployee();
     }
 
-    public static String generateDeliveryType() {
+    public String generateDeliveryType() {
         DeliveryTypes[] deliveryTypes = DeliveryTypes.values();
-        String deliveryType = deliveryTypes[(int) (Math.random() * 3)].toString();
-        switch (deliveryType) {
-            case "MAIL" -> {
-                return "почтой";
-            }
-            case "EMAIL" -> {
-                return "емаилом";
-            }
-            case "PIGEON" -> {
-                return "голубем";
-            }
-            case "UZEDO" -> {
-                return "юзэдой";
-            }
-        }
-        return null;
+        return deliveryTypes[new Random().nextInt(deliveryTypes.length)].getValue();
     }
 }

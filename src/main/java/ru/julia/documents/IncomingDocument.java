@@ -1,85 +1,58 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Employee;
 
+/**
+ * Класс описывает входящий документ
+ **/
 public class IncomingDocument extends Document {
-    private String sender;
-    private String recipient;
+    private Employee sender;
+    private Employee recipient;
     private int outgoingNumber;
     private String outgoingRegDate;
 
     private IncomingDocument() {
     }
 
-    public static IncomingDocumentBuilder newBuilder() {
-        return new IncomingDocument().new IncomingDocumentBuilder();
-    }
-
     @Override
     public String toString() {
-        return "Входящий № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Входящий № " + super.toString();
     }
 
-
-    public class IncomingDocumentBuilder {
-        private IncomingDocumentBuilder() {
-        }
-
-        public IncomingDocumentBuilder id(int id) {
-            setId(id);
+    /**
+     * Класс присваивает значения полям класса {@link IncomingDocument}
+     */
+    public static class IncomingDocumentBuilder extends DocumentBuilder<IncomingDocument, IncomingDocumentBuilder> {
+        private IncomingDocument incomingDocument = new IncomingDocument();
+       
+        public IncomingDocumentBuilder sender(Employee sender) {
+            incomingDocument.sender = sender;
             return this;
         }
 
-        public IncomingDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public IncomingDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public IncomingDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public IncomingDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public IncomingDocumentBuilder author(String author) {
-            setAuthor(author);
-            return this;
-        }
-
-        public IncomingDocumentBuilder sender(String sender) {
-            IncomingDocument.this.sender = sender;
-            return this;
-        }
-
-        public IncomingDocumentBuilder recipient(String recipient) {
-            IncomingDocument.this.recipient = recipient;
+        public IncomingDocumentBuilder recipient(Employee recipient) {
+            incomingDocument.recipient = recipient;
             return this;
         }
 
         public IncomingDocumentBuilder outgoingNumber(int outgoingNumber) {
-            IncomingDocument.this.outgoingNumber = outgoingNumber;
+            incomingDocument.outgoingNumber = outgoingNumber;
             return this;
         }
 
         public IncomingDocumentBuilder outgoingRegDate(String outgoingRegDate) {
-            IncomingDocument.this.outgoingRegDate = outgoingRegDate;
+            incomingDocument.outgoingRegDate = outgoingRegDate;
             return this;
         }
 
+        @Override
+        protected IncomingDocument getDocument() {
+            return incomingDocument;
+        }
+
+        @Override
         public IncomingDocument build() {
-            return IncomingDocument.this;
+            return incomingDocument;
         }
     }
 }

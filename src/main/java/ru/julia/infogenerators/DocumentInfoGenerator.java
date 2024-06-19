@@ -1,32 +1,41 @@
 package ru.julia.infogenerators;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import ru.julia.representatives.InternalRepresentatives;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.julia.documents.Document;
+import ru.julia.staff.Employee;
 
 import java.time.LocalDate;
 
+/**
+ * Класс генерирует значения для полей класса {@link Document}
+ */
+@Component
 public class DocumentInfoGenerator {
-    public static int generateId() {
+    @Autowired
+    EmployeeInfoGenerator employeeInfoGenerator;
+    public int generateId() {
         return ((int) (Math.random() * 100));
     }
 
-    public static String generateName() {
+    public String generateName() {
         return RandomStringUtils.randomAlphabetic(5);
     }
 
-    public static String generateText() {
+    public String generateText() {
         return RandomStringUtils.randomAlphabetic(20);
     }
 
-    public static String generateRegNumber() {
+    public String generateRegNumber() {
         return RandomStringUtils.randomAlphabetic(3).toLowerCase();
     }
 
-    public static LocalDate generateRegDate() {
+    public LocalDate generateRegDate() {
         return LocalDate.now();
-    } // .getTime()
+    }
 
-    public static String generateAuthor() {
-        return InternalRepresentatives.representatives.get((int) (Math.random() * 4));
+    public Employee generateAuthor() {
+        return employeeInfoGenerator.generateEmployee();
     }
 }

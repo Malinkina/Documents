@@ -1,20 +1,27 @@
 package ru.julia.factories;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.julia.documents.OutgoingDocument;
-import ru.julia.infogenerators.DocumentInfoGenerator;
 import ru.julia.infogenerators.OutgoingDocumentInfoGenerator;
 
-public class OutgoingDocumentFactory implements DocumentFactory {
-    public OutgoingDocument create() {
-        return OutgoingDocument.newBuilder()
-                .id(DocumentInfoGenerator.generateId())
-                .name(DocumentInfoGenerator.generateName())
-                .text(DocumentInfoGenerator.generateText())
-                .regNumber(DocumentInfoGenerator.generateRegNumber())
-                .regDate(DocumentInfoGenerator.generateRegDate())
-                .author(DocumentInfoGenerator.generateAuthor())
-                .recipient(OutgoingDocumentInfoGenerator.generateRecipient())
-                .deliveryType(OutgoingDocumentInfoGenerator.generateDeliveryType())
-                .build();
+/**
+ * Класс создает объект класса {@link OutgoingDocument}
+ */
+@Component
+public class OutgoingDocumentFactory extends AbstractDocumentFactory<OutgoingDocument, OutgoingDocument.OutgoingDocumentBuilder> {
+    @Autowired
+    private OutgoingDocumentInfoGenerator outgoingDocumentInfoGenerator;
+
+    @Override
+    public OutgoingDocument.OutgoingDocumentBuilder createBuilder() {
+        return new OutgoingDocument.OutgoingDocumentBuilder();
+    }
+
+    @Override
+    public void fill(OutgoingDocument.OutgoingDocumentBuilder builder) {
+        builder
+                .recipient(outgoingDocumentInfoGenerator.generateRecipient())
+                .deliveryType(outgoingDocumentInfoGenerator.generateDeliveryType());
     }
 }

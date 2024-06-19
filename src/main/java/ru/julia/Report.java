@@ -1,31 +1,23 @@
 package ru.julia;
 
+import org.springframework.stereotype.Component;
 import ru.julia.documents.Document;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Показывает отчет по сгенерируемым документам
+ */
+@Component
 public final class Report {
-    private static volatile Report instance;
-
-    private Report() {
-    }
-
-    public static Report getInstance() {
-        if (instance == null) {
-            synchronized (Report.class) {
-                if (instance == null) {
-                    instance = new Report();
-                }
-            }
-        }
-        return instance;
-    }
-
-    public void reportGeneratedDocs(List<Document> documents) {
+    public Map<String, List<Document>> reportGeneratedDocuments(List<Document> documents) {
         Map<String, List<Document>> authorAndDocument = documents.stream()
                 .sorted()
-                .collect(Collectors.groupingBy(Document::getAuthor));
+                .collect(Collectors.groupingBy(d -> d.getAuthor().toString()));
         List<String> authors = new ArrayList<>(authorAndDocument.keySet());
         Collections.sort(authors);
         for (String key : authors) {
@@ -35,5 +27,6 @@ public final class Report {
                 System.out.println("\t" + doc.toString());
             }
         }
+        return authorAndDocument;
     }
 }

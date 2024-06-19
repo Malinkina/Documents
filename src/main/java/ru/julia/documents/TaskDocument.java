@@ -1,89 +1,62 @@
 package ru.julia.documents;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import ru.julia.staff.Employee;
 
+/**
+ * Класс описывает документ-поручение
+ */
 public class TaskDocument extends Document {
     private String issueDate;
     private String executionTerm;
-    private String responsibleExecutive;
+    private Employee responsibleExecutive;
     private boolean controlMark;
-    private String controller;
+    private Employee controller;
 
     private TaskDocument() {
     }
 
-    public static TaskDocumentBuilder newBuilder() {
-        return new TaskDocument().new TaskDocumentBuilder();
-    }
-
     public String toString() {
-        return "Поручение № " + super.getRegNumber()
-                + " от " + super.getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + super.getName();
+        return "Поручение № " + super.toString();
     }
 
-    public class TaskDocumentBuilder {
-        private TaskDocumentBuilder() {
-        }
-
-        public TaskDocumentBuilder id(int id) {
-            setId(id);
-            return this;
-        }
-
-        public TaskDocumentBuilder name(String name) {
-            setName(name);
-            return this;
-        }
-
-        public TaskDocumentBuilder text(String text) {
-            setText(text);
-            return this;
-        }
-
-        public TaskDocumentBuilder regNumber(String regNumber) {
-            setRegNumber(regNumber);
-            return this;
-        }
-
-        public TaskDocumentBuilder regDate(LocalDate regDate) {
-            setRegDate(regDate);
-            return this;
-        }
-
-        public TaskDocumentBuilder author(String author) {
-            setAuthor(author);
-            return this;
-        }
-
+    /**
+     * Класс присваивает значения полям класса {@link TaskDocument}
+     */
+    public static class TaskDocumentBuilder extends DocumentBuilder<TaskDocument, TaskDocumentBuilder>{
+        TaskDocument taskDocument = new TaskDocument();
         public TaskDocumentBuilder issueDate(String issueDate) {
-            TaskDocument.this.issueDate = issueDate;
+            taskDocument.issueDate = issueDate;
             return this;
         }
 
         public TaskDocumentBuilder executionTerm(String executionTerm) {
-            TaskDocument.this.executionTerm = executionTerm;
+            taskDocument.executionTerm = executionTerm;
             return this;
         }
 
-        public TaskDocumentBuilder responsibleExecutive(String responsibleExecutive) {
-            TaskDocument.this.responsibleExecutive = responsibleExecutive;
+        public TaskDocumentBuilder responsibleExecutive(Employee responsibleExecutive) {
+            taskDocument.responsibleExecutive = responsibleExecutive;
             return this;
         }
 
         public TaskDocumentBuilder controlMark(boolean controlMark) {
-            TaskDocument.this.controlMark = controlMark;
+            taskDocument.controlMark = controlMark;
             return this;
         }
 
-        public TaskDocumentBuilder controller(String controller) {
-            TaskDocument.this.controller = controller;
+        public TaskDocumentBuilder controller(Employee controller) {
+            taskDocument.controller = controller;
             return this;
         }
 
+        @Override
+        protected TaskDocument getDocument() {
+            return taskDocument;
+        }
+
+        @Override
         public TaskDocument build() {
-            return TaskDocument.this;
+            return taskDocument;
         }
     }
 }
