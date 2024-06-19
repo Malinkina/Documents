@@ -1,0 +1,187 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="1" author="Julia">
+        <createTable tableName="organization">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="manager" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="department">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_numbers" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="manager" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_organization_department"
+                             references="organization(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="position">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="employee">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="surname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="organization_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_organization_employee"
+                             references="organization(id)"/>
+            </column>
+            <column name="department_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_department_employee"
+                             references="department(id)"/>
+            </column>
+            <column name="position_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_position_employee"
+                             references="position(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="document">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="document_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reg_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reg_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_author_document"
+                             references="employee(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="incoming_document">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"
+                             foreignKeyName="fk_document_inc_doc"
+                             references="document(id)"/>
+            </column>
+            <column name="outgoing_number" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="outgoing_reg_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_sender_inc_doc"
+                             references="employee(id)"/>
+            </column>
+            <column name="recipient_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_recipient_inc_doc"
+                             references="employee(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="outgoing_document">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"
+                             foreignKeyName="fk_document_outgoing_doc"
+                             references="document(id)"/>
+            </column>
+            <column name="delivery_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_recipient_outgoing_doc"
+                             references="employee(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="task_document">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" unique="true"
+                             foreignKeyName="fk_document_task_doc"
+                             references="document(id)"/>
+            </column>
+            <column name="control_mark" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="issue_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="execution_term" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="controller_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_controller_task_doc"
+                             references="employee(id)"/>
+            </column>
+            <column name="responsible_executive_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_responsible_executive_task_doc"
+                             references="employee(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
