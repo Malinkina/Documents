@@ -1,7 +1,5 @@
 package ru.julia.controller.dto.request;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -13,8 +11,6 @@ public abstract class DocumentRequestDto {
     @Pattern(regexp = "[a-zA-Z\\s]+")
     private String name;
     @NotNull
-    @Min(1)
-    @Max(500)
     private String text;
     @NotNull
     private UUID authorId;

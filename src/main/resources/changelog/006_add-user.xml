@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="6" author="Julia">
+        <sql dbms="postgresql">
+            insert into users (id, username, password)
+            values ('c87174e5-4e12-47f3-927f-7737a0dc7508',
+            'user1',
+            '$2a$10$QFwbMjdCIlL90wqulvElpu.yKO7FQYIwZV/GH.s044vYkQkd1LQB.'),
+            ('46ba2ca1-1cce-4a5e-a0fe-748b12f12a9c',
+            'user2',
+            '$2a$10$DdrQot8xiInFpwoZaPye2ujv.ioi4eVLkFU8Igtl9VkowtDyF.Uj2'),
+            ('8af8ec9b-a453-4f1e-aaa0-6b32597c5b13',
+             'user3',
+             '$2a$10$KQUBQUzm02ATRCD6/39ofu2xBXv10Q2F1rajoZIUaaFqASLMLN3EC')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

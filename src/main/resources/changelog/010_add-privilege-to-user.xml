@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="10" author="Julia">
+        <sql dbms="postgresql">
+            insert into role_privilege (role_id, privilege)
+            values
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'READ_DOCUMENT'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'CREATE_DOCUMENT'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'UPDATE_DOCUMENT'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'DELETE_DOCUMENT'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'READ_ORGANIZATION'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'READ_DEPARTMENT'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'READ_POSITION'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823', 'READ_EMPLOYEE')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

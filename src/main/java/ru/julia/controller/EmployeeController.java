@@ -3,6 +3,7 @@ package ru.julia.controller;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.julia.controller.dto.request.EmployeeRequestDto;
 import ru.julia.controller.dto.response.EmployeeResponseDto;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
     private EmployeeService service;
@@ -22,30 +23,35 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void create(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
-        service.create(mapper.toModel(employeeRequestDto));
+    @PreAuthorize("hasAuthority('CREATE_EMPLOYEE')")
+    public UUID create(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
+        return service.create(mapper.toModel(employeeRequestDto));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
     public List<EmployeeResponseDto> readAll() {
         return service.readAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
     public EmployeeResponseDto read(@PathVariable("id") UUID id) {
         return service.read(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE')")
     public void update(@PathVariable("id") UUID id, @RequestBody EmployeeRequestDto employeeRequestDto) {
         service.update(id, mapper.toModel(employeeRequestDto));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
     public void delete(@PathVariable("id") UUID id) {
         service.delete(id);
     }

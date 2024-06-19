@@ -2,6 +2,7 @@ package ru.julia.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,5 +35,12 @@ public class ErrorControllerAdvice {
         }
         errorDto.setErrors(stringErrors);
         return errorDto;
+    }
+
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    public String handleOtherException(HttpRequestMethodNotSupportedException e) {
+        return e.getBody().getDetail();
     }
 }

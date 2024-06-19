@@ -1,0 +1,20 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="7" author="Julia">
+        <sql dbms="postgresql">
+            insert into role (id, code)
+            values
+                ('cabbbc4f-c397-415d-8e84-145224fda540',
+                 'ADMIN'),
+                ('089ea480-6ec0-4028-b0d5-737786a52823',
+                 'USER'),
+                ('0405eb29-79e0-4cea-8d86-2379473e03a4',
+                 'HELP_DESK')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

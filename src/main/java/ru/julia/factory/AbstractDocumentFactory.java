@@ -9,8 +9,8 @@ import ru.julia.infogenerator.DocumentInfoGenerator;
 public abstract class AbstractDocumentFactory<T extends Document, B extends Document.DocumentBuilder<T, B>> implements DocumentFactory<T> {
     @Autowired
     private DocumentInfoGenerator documentInfoGenerator;
-    public abstract B createBuilder();
-    public abstract void fill(B builder);
+    protected abstract B createBuilder();
+    protected abstract void fill(B builder);
     public T create() {
         B builder = createBuilder();
         builder

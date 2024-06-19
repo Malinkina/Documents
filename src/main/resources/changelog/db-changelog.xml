@@ -5,5 +5,15 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
                                        http://www.liquibase.org/xml/ns/dbchangelog-ext
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="init.xml" relativeToChangelogFile="true"/>
+    <include file="001_init.xml" relativeToChangelogFile="true"/>
+    <include file="002_add-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="003_add-role-table.xml" relativeToChangelogFile="true"/>
+    <include file="004_add-user-role-table.xml" relativeToChangelogFile="true"/>
+    <include file="005_add-role-privilege-table.xml" relativeToChangelogFile="true"/>
+    <include file="006_add-user.xml" relativeToChangelogFile="true"/>
+    <include file="007_add-role.xml" relativeToChangelogFile="true"/>
+    <include file="008_add-role-to-user.xml" relativeToChangelogFile="true"/>
+    <include file="009_add-privilege-to-admin.xml" relativeToChangelogFile="true"/>
+    <include file="010_add-privilege-to-user.xml" relativeToChangelogFile="true"/>
+    <include file="011_add-privilege-to-help-desk.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
