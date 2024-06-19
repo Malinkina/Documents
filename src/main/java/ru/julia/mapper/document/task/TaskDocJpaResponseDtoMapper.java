@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
-import ru.julia.dto.response.TaskDocResponseDto;
+import ru.julia.controller.dto.response.TaskDocResponseDto;
 import ru.julia.orm.jpamodel.EmployeeJpa;
 import ru.julia.orm.jpamodel.TaskDocJpa;
 
@@ -16,7 +16,7 @@ public interface TaskDocJpaResponseDtoMapper {
     TaskDocResponseDto toResponseDto(TaskDocJpa taskDocJpa);
 
     @Named("employeeToString")
-    static String mapAuthor(EmployeeJpa employee) {
+    default String mapEmployee(EmployeeJpa employee) {
         return employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic();
     }
 }

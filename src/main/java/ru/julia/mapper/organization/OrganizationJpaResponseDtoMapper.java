@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
-import ru.julia.dto.response.OrganizationResponseDto;
+import ru.julia.controller.dto.response.OrganizationResponseDto;
 import ru.julia.orm.jpamodel.OrganizationJpa;
 
 import java.util.Arrays;

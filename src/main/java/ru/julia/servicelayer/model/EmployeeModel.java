@@ -1,5 +1,6 @@
 package ru.julia.servicelayer.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class EmployeeModel {
@@ -8,7 +9,7 @@ public class EmployeeModel {
     private String name;
     private String patronymic;
     private String photo;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String phoneNumber;
     private UUID departmentId;
     private UUID organizationId;
@@ -54,11 +55,11 @@ public class EmployeeModel {
         this.photo = photo;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

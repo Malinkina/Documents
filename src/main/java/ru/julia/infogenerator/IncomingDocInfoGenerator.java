@@ -6,7 +6,6 @@ import ru.julia.document.IncomingDocument;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Класс генерирует значения для полей класса {@link IncomingDocument}
@@ -14,19 +13,21 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class IncomingDocInfoGenerator {
     @Autowired
-    EmployeeInfoGenerator employeeInfoGenerator;
+    private EmployeeInfoGenerator employeeInfoGenerator;
+
     public EmployeeXml generateSender() {
         return employeeInfoGenerator.generateEmployee();
     }
+
     public EmployeeXml generateRecipient() {
         return employeeInfoGenerator.generateEmployee();
     }
+
     public Integer generateOutgoingNumber() {
-        return (Integer) ((int) (Math.random() * 100));
+        return (Integer) ((int) ((Math.random() * 100) + 1));
     }
-    public String generateRegDate() {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return localDate.format(formatter);
+
+    public LocalDate generateOutgoingRegDate() {
+        return LocalDate.now();
     }
 }

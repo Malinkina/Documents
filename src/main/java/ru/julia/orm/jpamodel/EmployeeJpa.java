@@ -2,7 +2,7 @@ package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -15,7 +15,7 @@ public class EmployeeJpa {
     private String patronymic;
     private String photo;
     @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     @Column(name = "phone_number")
     private String phoneNumber;
     @ManyToOne
@@ -68,11 +68,11 @@ public class EmployeeJpa {
         this.photo = photo;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -106,41 +106,5 @@ public class EmployeeJpa {
 
     public void setPositionJpa(PositionJpa positionJPA) {
         this.positionJpa = positionJPA;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        EmployeeJpa that = (EmployeeJpa) o;
-
-        if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(surname, that.surname)) return false;
-        if (!Objects.equals(name, that.name)) return false;
-        if (!Objects.equals(patronymic, that.patronymic)) return false;
-        if (!Objects.equals(photo, that.photo)) return false;
-        if (!Objects.equals(dateOfBirth, that.dateOfBirth)) return false;
-        if (!Objects.equals(phoneNumber, that.phoneNumber)) return false;
-        if (!Objects.equals(departmentJpa, that.departmentJpa))
-            return false;
-        if (!Objects.equals(organizationJpa, that.organizationJpa))
-            return false;
-        return Objects.equals(positionJpa, that.positionJpa);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + (photo != null ? photo.hashCode() : 0);
-        result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + (departmentJpa != null ? departmentJpa.hashCode() : 0);
-        result = 31 * result + (organizationJpa != null ? organizationJpa.hashCode() : 0);
-        result = 31 * result + (positionJpa != null ? positionJpa.hashCode() : 0);
-        return result;
     }
 }

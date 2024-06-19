@@ -13,6 +13,7 @@ import java.util.Random;
  */
 @Component
 public class OutgoingDocInfoGenerator {
+
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
 

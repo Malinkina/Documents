@@ -1,27 +1,28 @@
 package ru.julia.servicelayer.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class TaskDocModel extends DocumentModel {
-    private String issueDate;
-    private String executionTerm;
+    private LocalDate issueDate;
+    private LocalDate executionTerm;
     private UUID responsibleExecutiveId;
     private Boolean controlMark;
     private UUID controllerId;
 
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
-    public String getExecutionTerm() {
+    public LocalDate getExecutionTerm() {
         return executionTerm;
     }
 
-    public void setExecutionTerm(String executionTerm) {
+    public void setExecutionTerm(LocalDate executionTerm) {
         this.executionTerm = executionTerm;
     }
 
@@ -33,7 +34,7 @@ public class TaskDocModel extends DocumentModel {
         this.responsibleExecutiveId = responsibleExecutiveId;
     }
 
-    public Boolean isControlMark() {
+    public Boolean getControlMark() {
         return controlMark;
     }
 

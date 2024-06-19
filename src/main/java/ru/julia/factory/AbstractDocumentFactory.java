@@ -14,7 +14,7 @@ public abstract class AbstractDocumentFactory<T extends Document, B extends Docu
     public T create() {
         B builder = createBuilder();
         builder
-                .id(documentInfoGenerator.generateId())
+                .documentId(documentInfoGenerator.generateId())
                 .name(documentInfoGenerator.generateName())
                 .text(documentInfoGenerator.generateText())
                 .regNumber(documentInfoGenerator.generateRegNumber())

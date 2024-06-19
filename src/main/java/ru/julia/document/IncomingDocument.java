@@ -2,6 +2,8 @@ package ru.julia.document;
 
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
+import java.time.LocalDate;
+
 /**
  * Класс описывает входящий документ
  **/
@@ -9,7 +11,7 @@ public class IncomingDocument extends Document {
     private EmployeeXml sender;
     private EmployeeXml recipient;
     private Integer outgoingNumber;
-    private String outgoingRegDate;
+    private LocalDate outgoingRegDate;
 
     private IncomingDocument() {
     }
@@ -26,7 +28,7 @@ public class IncomingDocument extends Document {
         return outgoingNumber;
     }
 
-    public String getOutgoingRegDate() {
+    public LocalDate getOutgoingRegDate() {
         return outgoingRegDate;
     }
 
@@ -56,7 +58,7 @@ public class IncomingDocument extends Document {
             return this;
         }
 
-        public IncomingDocumentBuilder outgoingRegDate(String outgoingRegDate) {
+        public IncomingDocumentBuilder outgoingRegDate(LocalDate outgoingRegDate) {
             incomingDocument.outgoingRegDate = outgoingRegDate;
             return this;
         }

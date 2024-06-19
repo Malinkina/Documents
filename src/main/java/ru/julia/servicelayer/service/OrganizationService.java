@@ -2,7 +2,7 @@
 package ru.julia.servicelayer.service;
 
 import org.springframework.stereotype.Component;
-import ru.julia.dto.response.OrganizationResponseDto;
+import ru.julia.controller.dto.response.OrganizationResponseDto;
 import ru.julia.mapper.organization.OrganizationJpaResponseDtoMapper;
 import ru.julia.mapper.organization.OrganizationModelJpaMapper;
 import ru.julia.orm.jpamodel.OrganizationJpa;

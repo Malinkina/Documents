@@ -17,7 +17,7 @@ public interface IncomingDocToModelMapper {
     @Mapping(source = "sender", target = "senderId", qualifiedByName = "employeeToUUID")
     IncomingDocModel toModel(IncomingDocument incomingDocument);
     @Named("employeeToUUID")
-    static UUID mapEmployee(EmployeeXml employee) {
+    default UUID mapEmployee(EmployeeXml employee) {
         return employee.getId();
     }
 

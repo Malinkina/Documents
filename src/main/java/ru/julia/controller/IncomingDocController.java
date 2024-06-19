@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.dto.request.IncomingDocRequestDto;
-import ru.julia.dto.response.IncomingDocResponseDto;
+import ru.julia.controller.dto.request.IncomingDocRequestDto;
+import ru.julia.controller.dto.response.IncomingDocResponseDto;
 import ru.julia.mapper.document.incoming.IncomingDocRequestDtoModelMapper;
 import ru.julia.servicelayer.service.IncomingDocumentService;
 
@@ -21,7 +21,7 @@ public class IncomingDocController {
     private IncomingDocRequestDtoModelMapper mapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void create(@Valid @RequestBody IncomingDocRequestDto incomingDocRequestDto) {
         service.create(mapper.toModel(incomingDocRequestDto));
     }
@@ -45,7 +45,7 @@ public class IncomingDocController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") UUID id) {
         service.delete(id);
     }

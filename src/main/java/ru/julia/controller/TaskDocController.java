@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.dto.request.TaskDocRequestDto;
-import ru.julia.dto.response.TaskDocResponseDto;
+import ru.julia.controller.dto.request.TaskDocRequestDto;
+import ru.julia.controller.dto.response.TaskDocResponseDto;
 import ru.julia.mapper.document.task.TaskDocRequestDtoModelMapper;
 import ru.julia.servicelayer.service.TaskDocumentService;
 
@@ -21,7 +21,7 @@ public class TaskDocController {
     private TaskDocRequestDtoModelMapper mapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void create(@Valid @RequestBody TaskDocRequestDto taskDocRequestDto) {
         service.create(mapper.toModel(taskDocRequestDto));
     }
@@ -44,7 +44,7 @@ public class TaskDocController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") UUID id) {
         service.delete(id);
     }

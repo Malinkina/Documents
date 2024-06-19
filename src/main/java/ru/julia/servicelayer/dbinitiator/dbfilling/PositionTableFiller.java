@@ -4,7 +4,7 @@ package ru.julia.servicelayer.dbinitiator.dbfilling;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
-import ru.julia.mapper.position.PositionXMLModelMapper;
+import ru.julia.mapper.position.PositionXmlModelMapper;
 import ru.julia.servicelayer.service.PositionService;
 import ru.julia.xml.XmlReader;
 
@@ -15,7 +15,7 @@ public class PositionTableFiller implements TableFiller, Ordered {
     @Autowired
     private PositionService service;
     @Autowired
-    private PositionXMLModelMapper mapper;
+    private PositionXmlModelMapper mapper;
     @Override
     public void fill() {
         reader

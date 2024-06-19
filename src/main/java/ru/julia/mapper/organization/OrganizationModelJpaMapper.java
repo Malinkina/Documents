@@ -5,6 +5,7 @@ import ru.julia.orm.jpamodel.OrganizationJpa;
 import ru.julia.servicelayer.model.OrganizationModel;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrganizationModelJpaMapper {
@@ -17,7 +18,7 @@ public interface OrganizationModelJpaMapper {
                             @MappingTarget OrganizationJpa organizationJpa);
 
     @Named("listPhoneNumbersToString")
-    static String listPhoneNumbersToString(List<String> phoneNumbers) {
-        return String.join(",", phoneNumbers);
+    default String listPhoneNumbersToString(List<String> phoneNumbers) {
+        return phoneNumbers.stream().map(String::trim).collect(Collectors.joining(","));
     }
 }

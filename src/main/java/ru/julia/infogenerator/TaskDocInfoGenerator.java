@@ -6,7 +6,6 @@ import ru.julia.document.TaskDocument;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 /**
  * Класс создает и возвращает объект класса {@link TaskDocument}
@@ -15,20 +14,16 @@ import java.util.Random;
 public class TaskDocInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public String generateIssueDate() {
-        LocalDate localDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return localDate.format(formatter);
+    public LocalDate generateIssueDate() {
+        return LocalDate.now().plusDays(1);
     }
-    public String generateExecutionTerm() {
-        LocalDate localDate = LocalDate.now().plusDays(31);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return localDate.format(formatter);
+    public LocalDate generateExecutionTerm() {
+        return LocalDate.now().plusDays(31);
     }
     public EmployeeXml generateResponsibleExecutive() {
         return employeeInfoGenerator.generateEmployee();
     }
-    public boolean generateControlMark() {
+    public Boolean generateControlMark() {
         return new Random().nextBoolean();
     }
     public EmployeeXml generateController() {

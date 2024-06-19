@@ -2,6 +2,8 @@ package ru.julia.orm.jpamodel;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "incoming_document")
 public class IncomingDocJpa extends DocumentJpa {
@@ -14,7 +16,7 @@ public class IncomingDocJpa extends DocumentJpa {
     @Column(name = "outgoing_number")
     private Integer outgoingNumber;
     @Column(name = "outgoing_reg_date")
-    private String outgoingRegDate;
+    private LocalDate outgoingRegDate;
 
     public EmployeeJpa getSender() {
         return sender;
@@ -40,11 +42,11 @@ public class IncomingDocJpa extends DocumentJpa {
         this.outgoingNumber = outgoingNumber;
     }
 
-    public String getOutgoingRegDate() {
+    public LocalDate getOutgoingRegDate() {
         return outgoingRegDate;
     }
 
-    public void setOutgoingRegDate(String outgoingRegDate) {
+    public void setOutgoingRegDate(LocalDate outgoingRegDate) {
         this.outgoingRegDate = outgoingRegDate;
     }
 }

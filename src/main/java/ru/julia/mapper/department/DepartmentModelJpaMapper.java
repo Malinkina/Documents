@@ -13,11 +13,11 @@ public interface DepartmentModelJpaMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "phoneNumbers", target = "phoneNumbers", qualifiedByName = "listPhoneNumbersToString")
-    void updateDepartmentJpaFromModel(DepartmentModel departmentModel,
-                                        @MappingTarget DepartmentJpa departmentJpa);
+    void updateJpaFromModel(DepartmentModel departmentModel,
+                            @MappingTarget DepartmentJpa departmentJpa);
 
     @Named("listPhoneNumbersToString")
-    static String listPhoneNumbersToString(List<String> phoneNumbers) {
+    default String listPhoneNumbersToString(List<String> phoneNumbers) {
         return String.join(",", phoneNumbers);
     }
 }

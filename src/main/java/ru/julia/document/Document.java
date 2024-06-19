@@ -3,7 +3,7 @@ package ru.julia.document;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
@@ -72,18 +72,50 @@ public abstract class Document implements Comparable<Document> {
                 regDateComparison : this.regNumber.compareTo(document.getRegNumber());
     }
 
+    @Override
     public String toString() {
-        return getRegNumber()
-                + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                + ". " + getName();
+        return "Document{" +
+                "docId=" + docId +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", regNumber='" + regNumber + '\'' +
+                ", regDate=" + regDate +
+                '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Document document = (Document) o;
+
+        if (!Objects.equals(docId, document.docId)) return false;
+        if (!Objects.equals(name, document.name)) return false;
+        if (!Objects.equals(text, document.text)) return false;
+        if (!Objects.equals(regNumber, document.regNumber)) return false;
+        if (!Objects.equals(regDate, document.regDate)) return false;
+        return Objects.equals(author, document.author);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = docId != null ? docId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (regNumber != null ? regNumber.hashCode() : 0);
+        result = 31 * result + (regDate != null ? regDate.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        return result;
+    }
+
     public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder<?, ?>> {
 
         protected abstract T getDocument();
-        public B id(int id) {
+        /*public B id(int id) {
             getDocument().setDocId(id);
             return (B) this;
-        }
+        }*/
         public B documentId(int id) {
             getDocument().setDocId(id);
             return (B) this;
