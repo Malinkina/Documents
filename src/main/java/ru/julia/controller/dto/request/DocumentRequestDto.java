@@ -12,6 +12,4 @@ public abstract class DocumentRequestDto {
     private String name;
     @NotNull
     private String text;
-    @NotNull
-    private UUID authorId;
 }

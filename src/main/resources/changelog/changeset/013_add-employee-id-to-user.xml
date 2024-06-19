@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="11" author="Julia">
+        <sql dbms="postgresql">
+            update users
+            set employee_id = 'e6bc8ca4-e2f3-40ac-a218-126a54aeb510'
+            where users.id = 'c87174e5-4e12-47f3-927f-7737a0dc7508';
+            update users
+            set employee_id = '8d673582-47ba-41bc-9571-71715a15a85b'
+            where users.id = '46ba2ca1-1cce-4a5e-a0fe-748b12f12a9c'
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -24,6 +24,8 @@ public class UserJpa {
             joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private RoleJpa role;
+    @Column(name = "employee_id")
+    private UUID employeeId;
 
     @PrePersist
     private void setPk() {

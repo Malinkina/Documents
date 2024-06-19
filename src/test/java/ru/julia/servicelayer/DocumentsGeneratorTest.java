@@ -42,7 +42,7 @@ class DocumentsGeneratorTest {
     @Spy
     private List<DocumentFactory<?>> factories = new ArrayList<>();
     @Mock
-    private RegNumbersStorage storage;
+    private RegNumbersCheck storage;
     public static final int QUANTITY = 1;
 
     @BeforeEach
@@ -63,7 +63,7 @@ class DocumentsGeneratorTest {
         verify(factories, times(1)).indexOf(incomingDocumentFactory);
         verify(factories, times(1)).get(0);
         verify(incomingDocumentFactory, times(QUANTITY)).create();
-        verify(storage, times(1)).add(REG_NUMBER);
+        verify(storage, times(1)).check(REG_NUMBER);
         IncomingDocument expectedDoc = new IncomingDocument.IncomingDocumentBuilder().regNumber(REG_NUMBER).build();
         List<Document> expectedList = List.of(expectedDoc);
         assertEquals(expectedList, actual);
@@ -80,7 +80,7 @@ class DocumentsGeneratorTest {
         verify(factories, times(1)).indexOf(outgoingDocumentFactory);
         verify(factories, times(1)).get(1);
         verify(outgoingDocumentFactory, times(QUANTITY)).create();
-        verify(storage, times(1)).add(REG_NUMBER);
+        verify(storage, times(1)).check(REG_NUMBER);
         OutgoingDocument expectedDoc = new OutgoingDocument.OutgoingDocumentBuilder().regNumber(REG_NUMBER).build();
         List<Document> expectedList = List.of(expectedDoc);
         assertEquals(expectedList, actual);
@@ -97,7 +97,7 @@ class DocumentsGeneratorTest {
         verify(factories, times(1)).indexOf(taskDocumentFactory);
         verify(factories, times(1)).get(2);
         verify(taskDocumentFactory, times(QUANTITY)).create();
-        verify(storage, times(1)).add(REG_NUMBER);
+        verify(storage, times(1)).check(REG_NUMBER);
         TaskDocument expectedDoc = new TaskDocument.TaskDocumentBuilder().regNumber(REG_NUMBER).build();
         List<Document> expectedList = List.of(expectedDoc);
         assertEquals(expectedList, actual);
@@ -106,7 +106,7 @@ class DocumentsGeneratorTest {
     @Test
     void regNumberAlreadyExists() throws DocumentExistsException {
         //GIVEN
-        doThrow(new DocumentExistsException()).when(storage).add(REG_NUMBER);
+        doThrow(new DocumentExistsException()).when(storage).check(REG_NUMBER);
         IncomingDocument document = new IncomingDocument.IncomingDocumentBuilder().regNumber(REG_NUMBER).build();
         when(incomingDocumentFactory.create()).thenReturn(document);
         //WHEN & THEN

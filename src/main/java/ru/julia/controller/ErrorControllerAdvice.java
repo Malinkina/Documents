@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.julia.controller.dto.response.ErrorDto;
+import ru.julia.exception.DocumentExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +43,12 @@ public class ErrorControllerAdvice {
     @ResponseBody
     public String handleOtherException(HttpRequestMethodNotSupportedException e) {
         return e.getBody().getDetail();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DocumentExistsException.class)
+    @ResponseBody
+    public String handleRegNumberExistsException(DocumentExistsException e) {
+        return e.getMessage();
     }
 }
