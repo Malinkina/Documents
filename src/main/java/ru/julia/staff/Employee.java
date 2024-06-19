@@ -1,80 +1,72 @@
 package ru.julia.staff;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * Класс описывает персонал
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Employee extends Staff {
-    @XmlElement
-    private String id;
-    @XmlElement
     private String surname;
-    @XmlElement
     private String name;
-    @XmlElement
     private String patronymic;
-    @XmlElement
     private String photo;
-    @XmlElement
+    private Position position;
     private String dateOfBirth;
-    @XmlElement
-    private String phoneNumber;
-    @XmlElement
-    private String positionId;
-    @XmlElement
-    private String departmentId;
-    @XmlElement
-    private String organizationId;
-
-
-    public String getId() {
-        return id;
-    }
+    private List<String> phoneNumbers;
 
     public String getSurname() {
         return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPatronymic() {
         return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 
     public String getPhoto() {
         return photo;
     }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPositionId() {
-        return positionId;
+    public List<String> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public String getOrganizationId() {
-        return organizationId;
-    }
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    @Override
-    public String toString() {
-        return surname + " " + name + " " + patronymic;
+    public void setPhoneNumbers(List<String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 }

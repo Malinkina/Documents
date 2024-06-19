@@ -6,18 +6,20 @@
             <fullName>ЦИТРОС</fullName>
             <shortName>ЦТРС</shortName>
             <manager>Соколов</manager>
-            <contactPhoneNumbers>
-                <contactPhoneNumber>+7999999999</contactPhoneNumber>
-            </contactPhoneNumbers>
+            <phoneNumbers>
+                <phoneNumber>+7999999999</phoneNumber>
+                <phoneNumber>+7999992323</phoneNumber>
+            </phoneNumbers>
         </organization>
         <organization>
             <id>f0ca9f90-bf19-453d-aa38-b85e5aff2da7</id>
             <fullName>НЕЦИТРОС</fullName>
             <shortName>НЦТРС</shortName>
             <manager>Пустовойт</manager>
-            <contactPhoneNumbers>
-                <contactPhoneNumber>+7999999991</contactPhoneNumber>
-            </contactPhoneNumbers>
+            <phoneNumbers>
+                <phoneNumber>+7999999991</phoneNumber>
+                <phoneNumber>+7999124351</phoneNumber>
+            </phoneNumbers>
         </organization>
     </organizations>
 </staff>

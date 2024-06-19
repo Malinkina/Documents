@@ -1,8 +1,6 @@
 package ru.julia.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,63 +9,61 @@ import java.time.format.DateTimeFormatter;
  * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
  * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
  */
-@Data
 public abstract class Document implements Comparable<Document> {
-    private int id;
+    private Integer docId;
     private String name;
     private String text;
     private String regNumber;
-    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate regDate;
-    private Employee author;
+    private EmployeeXml author;
 
-    /*public int getId() {
-        return id;
+    public Integer getDocId() {
+        return docId;
+    }
+
+    public void setDocId(Integer docId) {
+        this.docId = docId;
     }
 
     public String getName() {
         return name;
     }
 
+    protected void setName(String name) {
+        this.name = name;
+    }
+
     public String getText() {
         return text;
+    }
+
+    protected void setText(String text) {
+        this.text = text;
     }
 
     public String getRegNumber() {
         return regNumber;
     }
 
+    protected void setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
+    }
+
     public LocalDate getRegDate() {
         return regDate;
     }
 
-    public Employee getAuthor() {
-        return author;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setRegNumber(String regNumber) {
-        this.regNumber = regNumber;
-    }
-
-    public void setRegDate(LocalDate regDate) {
+    protected void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
-    public void setAuthor(Employee author) {
+    public EmployeeXml getAuthor() {
+        return author;
+    }
+
+    protected void setAuthor(EmployeeXml author) {
         this.author = author;
-    }*/
+    }
 
     @Override
     public int compareTo(Document document) {
@@ -81,12 +77,15 @@ public abstract class Document implements Comparable<Document> {
                 + " от " + getRegDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                 + ". " + getName();
     }
-    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder> {
+    public abstract static class DocumentBuilder <T extends Document, B extends DocumentBuilder<?, ?>> {
 
         protected abstract T getDocument();
-
         public B id(int id) {
-            getDocument().setId(id);
+            getDocument().setDocId(id);
+            return (B) this;
+        }
+        public B documentId(int id) {
+            getDocument().setDocId(id);
             return (B) this;
         }
 
@@ -110,7 +109,7 @@ public abstract class Document implements Comparable<Document> {
             return (B) this;
         }
 
-        public B author(Employee author) {
+        public B author(EmployeeXml author) {
             getDocument().setAuthor(author);
             return (B) this;
         }

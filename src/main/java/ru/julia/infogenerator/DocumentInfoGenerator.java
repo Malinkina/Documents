@@ -4,7 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.Document;
-import ru.julia.staff.Employee;
+import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class DocumentInfoGenerator {
     @Autowired
     EmployeeInfoGenerator employeeInfoGenerator;
-    public int generateId() {
+    public Integer generateId() {
         return ((int) (Math.random() * 100));
     }
 
@@ -35,7 +35,7 @@ public class DocumentInfoGenerator {
         return LocalDate.now();
     }
 
-    public Employee generateAuthor() {
+    public EmployeeXml generateAuthor() {
         return employeeInfoGenerator.generateEmployee();
     }
 }

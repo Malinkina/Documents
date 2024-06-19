@@ -3,7 +3,7 @@ package ru.julia.factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.document.IncomingDocument;
-import ru.julia.infogenerator.IncomingDocumentInfoGenerator;
+import ru.julia.infogenerator.IncomingDocInfoGenerator;
 
 /**
  * Класс создает объект класса {@link IncomingDocument}
@@ -11,7 +11,7 @@ import ru.julia.infogenerator.IncomingDocumentInfoGenerator;
 @Component
 public class IncomingDocumentFactory extends AbstractDocumentFactory<IncomingDocument, IncomingDocument.IncomingDocumentBuilder> {
     @Autowired
-    private IncomingDocumentInfoGenerator incomingDocumentInfoGenerator;
+    private IncomingDocInfoGenerator incomingDocInfoGenerator;
 
 
     @Override
@@ -22,9 +22,9 @@ public class IncomingDocumentFactory extends AbstractDocumentFactory<IncomingDoc
     @Override
     public void fill(IncomingDocument.IncomingDocumentBuilder builder) {
         builder
-                .sender(incomingDocumentInfoGenerator.generateSender())
-                .recipient(incomingDocumentInfoGenerator.generateRecipient())
-                .outgoingNumber(incomingDocumentInfoGenerator.generateOutgoingNumber())
-                .outgoingRegDate(incomingDocumentInfoGenerator.generateRegDate());
+                .sender(incomingDocInfoGenerator.generateSender())
+                .recipient(incomingDocInfoGenerator.generateRecipient())
+                .outgoingNumber(incomingDocInfoGenerator.generateOutgoingNumber())
+                .outgoingRegDate(incomingDocInfoGenerator.generateRegDate());
     }
 }

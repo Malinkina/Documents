@@ -1,42 +1,52 @@
 package ru.julia.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.julia.domain.Employee;
-import ru.julia.service.EmployeeService;
+import ru.julia.dto.request.EmployeeRequestDto;
+import ru.julia.dto.response.EmployeeResponseDto;
+import ru.julia.mapper.employee.EmployeeRequestDtoModelMapper;
+import ru.julia.servicelayer.service.EmployeeService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
     @Autowired
-    public EmployeeService employeeService;
+    private EmployeeService service;
+    @Autowired
+    private EmployeeRequestDtoModelMapper mapper;
 
-    @PostMapping("/new")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Employee employee) {
-        employeeService.create(employee);
+    public void create(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
+        service.create(mapper.toModel(employeeRequestDto));
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> list() {
-        return employeeService.readAll();
+    public List<EmployeeResponseDto> readAll() {
+        return service.readAll();
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee read(@PathVariable("id") String id) {
-        return employeeService.read(id);
+    public EmployeeResponseDto read(@PathVariable("id") UUID id) {
+        return service.read(id);
     }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") String id, @RequestBody Employee employee) {
-        employeeService.update(id, employee);
+    public void update(@PathVariable("id") UUID id, @RequestBody EmployeeRequestDto employeeRequestDto) {
+        service.update(id, mapper.toModel(employeeRequestDto));
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") String id) {
-        employeeService.delete(id);
+    public void delete(@PathVariable("id") UUID id) {
+        service.delete(id);
     }
 }
