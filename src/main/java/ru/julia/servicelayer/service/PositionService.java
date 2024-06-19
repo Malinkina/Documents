@@ -28,12 +28,14 @@ public class PositionService {
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;
     }
 
-    public void create(PositionModel positionModel) {
+    public UUID create(PositionModel positionModel) {
         if (positionModel.getId() == null) {
             positionModel.setId(UUID.randomUUID());
             positionModel.setPositionId((int) (Math.random() * 100));
         }
-        positionRepository.save(modelJpaMapper.toJpa(positionModel));
+        PositionJpa positionJpa = modelJpaMapper.toJpa(positionModel);
+        positionRepository.save(positionJpa);
+        return positionJpa.getId();
     }
 
     public PositionResponseDto read(UUID id) {

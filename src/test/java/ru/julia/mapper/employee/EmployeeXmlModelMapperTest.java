@@ -5,6 +5,7 @@ import org.mapstruct.factory.Mappers;
 import ru.julia.servicelayer.model.EmployeeModel;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ class EmployeeXmlModelMapperTest {
     private static final String NAME = "Ivan";
     private static final String PATRONYMIC = "Ivanovich";
     private static final String PHOTO = "Photo";
-    private static final String DATE_OF_BIRTH = "01.01.1990";
+    private static final LocalDate DATE_OF_BIRTH = LocalDate.of(1990, 1, 1);
     private static final String PHONE_NUMBER = "+799999999";
     private static final UUID DEPARTMENT_ID = UUID.fromString("fa140557-ebae-4ee8-94c3-10673025da5e");
     private static final UUID ORGANIZATION_ID = UUID.fromString("dbff19cd-7311-4ebf-ba76-613d7aed5945");
@@ -30,7 +31,7 @@ class EmployeeXmlModelMapperTest {
         xml.setName(NAME);
         xml.setPatronymic(PATRONYMIC);
         xml.setPhoto(PHOTO);
-        xml.setDateOfBirth(DATE_OF_BIRTH);
+        xml.setDateOfBirth("01.01.1990");
         xml.setPhoneNumber(PHONE_NUMBER);
         xml.setDepartmentId(DEPARTMENT_ID);
         xml.setOrganizationId(ORGANIZATION_ID);

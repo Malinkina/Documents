@@ -10,8 +10,8 @@ import ru.julia.mapper.position.PositionXmlModelMapper;
 import ru.julia.servicelayer.model.PositionModel;
 import ru.julia.servicelayer.service.PositionService;
 import ru.julia.xml.XmlReader;
-import ru.julia.xml.xmlmodel.OrgUnits;
 import ru.julia.xml.xmlmodel.PositionXml;
+import ru.julia.xml.xmlmodel.wrapper.PositionWrapper;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ class PositionTableFillerTest {
 
     @Test
     void fill() {
-        OrgUnits orgUnits = new OrgUnits();
-        when(reader.readPosition()).thenReturn(orgUnits);
-        List<PositionXml> positions = orgUnits.getPositions();
+        PositionWrapper wrappedPosition = new PositionWrapper();
+        when(reader.readPosition()).thenReturn(wrappedPosition);
+        List<PositionXml> positions = wrappedPosition.getPositions();
         PositionXml positionXml = new PositionXml();
         positions.add(positionXml);
         positions.add(positionXml);

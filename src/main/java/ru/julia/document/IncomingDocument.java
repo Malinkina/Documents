@@ -1,5 +1,7 @@
 package ru.julia.document;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
@@ -7,42 +9,16 @@ import java.time.LocalDate;
 /**
  * Класс описывает входящий документ
  **/
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class IncomingDocument extends Document {
     private EmployeeXml sender;
     private EmployeeXml recipient;
     private Integer outgoingNumber;
     private LocalDate outgoingRegDate;
-
-    private IncomingDocument() {
-    }
-
-    public EmployeeXml getSender() {
-        return sender;
-    }
-
-    public EmployeeXml getRecipient() {
-        return recipient;
-    }
-
-    public Integer getOutgoingNumber() {
-        return outgoingNumber;
-    }
-
-    public LocalDate getOutgoingRegDate() {
-        return outgoingRegDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Входящий № " + super.toString();
-    }
-
-    /**
-     * Класс присваивает значения полям класса {@link IncomingDocument}
-     */
     public static class IncomingDocumentBuilder extends DocumentBuilder<IncomingDocument, IncomingDocumentBuilder> {
         private IncomingDocument incomingDocument = new IncomingDocument();
-       
+
         public IncomingDocumentBuilder sender(EmployeeXml sender) {
             incomingDocument.sender = sender;
             return this;

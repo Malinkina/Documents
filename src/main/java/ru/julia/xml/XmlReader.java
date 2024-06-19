@@ -4,8 +4,18 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.springframework.stereotype.Component;
-import ru.julia.staff.*;
-import ru.julia.xml.xmlmodel.*;
+import ru.julia.staff.Department;
+import ru.julia.staff.Employee;
+import ru.julia.staff.Organization;
+import ru.julia.staff.Position;
+import ru.julia.xml.xmlmodel.DepartmentXml;
+import ru.julia.xml.xmlmodel.EmployeeXml;
+import ru.julia.xml.xmlmodel.OrganizationXml;
+import ru.julia.xml.xmlmodel.PositionXml;
+import ru.julia.xml.xmlmodel.wrapper.DepartmentWrapper;
+import ru.julia.xml.xmlmodel.wrapper.EmployeeWrapper;
+import ru.julia.xml.xmlmodel.wrapper.OrganizationWrapper;
+import ru.julia.xml.xmlmodel.wrapper.PositionWrapper;
 
 import java.net.URL;
 
@@ -14,12 +24,12 @@ import java.net.URL;
  */
 @Component
 public class XmlReader {
-    public OrgUnits readEmployee() {
+    public EmployeeWrapper readEmployee() {
         try {
-            JAXBContext context = JAXBContext.newInstance(EmployeeXml.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(EmployeeXml.class, EmployeeWrapper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XmlReader.class.getClassLoader().getResource("employee.xml");
-            OrgUnits employees = (OrgUnits) unmarshaller.unmarshal(resource);
+            EmployeeWrapper employees = (EmployeeWrapper) unmarshaller.unmarshal(resource);
             return employees;
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -27,12 +37,12 @@ public class XmlReader {
         return null;
     }
 
-    public OrgUnits readOrganization() {
+    public OrganizationWrapper readOrganization() {
         try {
-            JAXBContext context = JAXBContext.newInstance(OrganizationXml.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(OrganizationXml.class, OrganizationWrapper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XmlReader.class.getClassLoader().getResource("organization.xml");
-            OrgUnits organizations = (OrgUnits) unmarshaller.unmarshal(resource);
+            OrganizationWrapper organizations = (OrganizationWrapper) unmarshaller.unmarshal(resource);
             return organizations;
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -40,24 +50,24 @@ public class XmlReader {
         return null;
     }
 
-    public OrgUnits readDepartment() {
+    public DepartmentWrapper readDepartment() {
         try {
-            JAXBContext context = JAXBContext.newInstance(DepartmentXml.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(DepartmentXml.class, DepartmentWrapper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XmlReader.class.getClassLoader().getResource("department.xml");
-            OrgUnits departments = (OrgUnits) unmarshaller.unmarshal(resource);
+            DepartmentWrapper departments = (DepartmentWrapper) unmarshaller.unmarshal(resource);
             return departments;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public OrgUnits readPosition() {
+    public PositionWrapper readPosition() {
         try {
-            JAXBContext context = JAXBContext.newInstance(PositionXml.class, OrgUnits.class);
+            JAXBContext context = JAXBContext.newInstance(PositionXml.class, PositionWrapper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XmlReader.class.getClassLoader().getResource("position.xml");
-            OrgUnits positions = (OrgUnits) unmarshaller.unmarshal(resource);
+            PositionWrapper positions = (PositionWrapper) unmarshaller.unmarshal(resource);
             return positions;
         } catch (JAXBException e) {
             e.printStackTrace();

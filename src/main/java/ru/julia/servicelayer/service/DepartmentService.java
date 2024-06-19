@@ -33,7 +33,7 @@ public class DepartmentService {
         this.modelJpaMapper = modelJpaMapper;
     }
 
-    public void create(DepartmentModel departmentModel) {
+    public UUID create(DepartmentModel departmentModel) {
         UUID organizationId = departmentModel.getOrganizationId();
         OrganizationJpa organizationJpa = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new RuntimeException(
@@ -45,6 +45,7 @@ public class DepartmentService {
         DepartmentJpa departmentJpa = modelJpaMapper.toJpa(departmentModel);
         departmentJpa.setOrganizationJpa(organizationJpa);
         departmentRepository.save(departmentJpa);
+        return departmentJpa.getId();
     }
 
     public DepartmentResponseDto read(UUID id) {

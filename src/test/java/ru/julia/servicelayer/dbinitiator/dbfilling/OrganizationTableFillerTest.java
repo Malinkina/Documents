@@ -10,8 +10,8 @@ import ru.julia.mapper.organization.OrganizationXmlModelMapper;
 import ru.julia.servicelayer.model.OrganizationModel;
 import ru.julia.servicelayer.service.OrganizationService;
 import ru.julia.xml.XmlReader;
-import ru.julia.xml.xmlmodel.OrgUnits;
 import ru.julia.xml.xmlmodel.OrganizationXml;
+import ru.julia.xml.xmlmodel.wrapper.OrganizationWrapper;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ class OrganizationTableFillerTest {
 
     @Test
     void fill() {
-        OrgUnits orgUnits = new OrgUnits();
-        when(reader.readOrganization()).thenReturn(orgUnits);
-        List<OrganizationXml> organizations = orgUnits.getOrganizations();
+        OrganizationWrapper organizationWrapper = new OrganizationWrapper();
+        when(reader.readOrganization()).thenReturn(organizationWrapper);
+        List<OrganizationXml> organizations = organizationWrapper.getOrganizations();
         OrganizationXml organizationXml = new OrganizationXml();
         organizations.add(organizationXml);
         organizations.add(organizationXml);

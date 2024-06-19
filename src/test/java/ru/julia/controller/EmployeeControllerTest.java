@@ -16,11 +16,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.julia.controller.dto.request.EmployeeRequestDto;
 import ru.julia.controller.dto.response.EmployeeResponseDto;
+import ru.julia.controller.dto.response.ErrorDto;
 import ru.julia.mapper.employee.EmployeeRequestDtoModelMapper;
 import ru.julia.servicelayer.model.EmployeeModel;
 import ru.julia.servicelayer.service.EmployeeService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -67,97 +69,29 @@ class EmployeeControllerTest {
 
         @ParameterizedTest
         @MethodSource("provideEmployeeWithNullField")
-        void createInvalidEmployee(EmployeeRequestDto employee) throws Exception {
+        void createInvalidEmployee(EmployeeRequestDto employee, ErrorDto errorDto) throws Exception {
             String inputJson = mapToJson(employee);
+            String errorJson = mapToJson(errorDto);
             mockMvc.perform(post(URL)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(inputJson))
-                    .andExpect(status().isBadRequest());
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().json(errorJson));
         }
 
         private static Stream<Arguments> provideEmployeeWithNullField() {
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setErrors(new ArrayList<>());
+            errorDto.getErrors().add("surname must not be null");
+            errorDto.getErrors().add("name must not be null");
+            errorDto.getErrors().add("patronymic must not be null");
+            errorDto.getErrors().add("dateOfBirth must not be null");
+            errorDto.getErrors().add("phoneNumber must not be null");
+            errorDto.getErrors().add("departmentId must not be null");
+            errorDto.getErrors().add("organizationId must not be null");
+            errorDto.getErrors().add("positionId must not be null");
             return Stream.of(
-                    Arguments.of(new EmployeeRequestDto(
-                            null,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            ID,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            null,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            ID,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            null,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            ID,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            null,
-                            PHONE_NUMBER,
-                            ID,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            null,
-                            ID,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            null,
-                            ID,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            ID,
-                            null,
-                            ID)
-                    ), Arguments.of(new EmployeeRequestDto(
-                            SURNAME,
-                            NAME,
-                            PATRONYMIC,
-                            PHOTO,
-                            DATE_OF_BIRTH,
-                            PHONE_NUMBER,
-                            ID,
-                            ID,
-                            null)
-                    )
+                    Arguments.of(new EmployeeRequestDto(), errorDto)
             );
         }
     }
@@ -232,9 +166,9 @@ class EmployeeControllerTest {
         return employeeModel;
     }
 
-    private String mapToJson(EmployeeRequestDto employeeRequestDto) throws JsonProcessingException {
+    private String mapToJson(Object o) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper.writeValueAsString(employeeRequestDto);
+        return objectMapper.writeValueAsString(o);
     }
 }

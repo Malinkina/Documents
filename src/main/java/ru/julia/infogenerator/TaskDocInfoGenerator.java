@@ -7,9 +7,7 @@ import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 import java.util.Random;
-/**
- * Класс создает и возвращает объект класса {@link TaskDocument}
- */
+
 @Component
 public class TaskDocInfoGenerator {
     @Autowired

@@ -8,9 +8,6 @@ import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.util.Random;
 
-/**
- * Класс создает и возвращает объект класса {@link OutgoingDocument}
- */
 @Component
 public class OutgoingDocInfoGenerator {
 

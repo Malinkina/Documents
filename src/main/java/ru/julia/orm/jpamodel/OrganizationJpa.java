@@ -4,11 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "organization")
+@Data
+@NoArgsConstructor
 public class OrganizationJpa {
     @Id
     private UUID id;
@@ -19,44 +23,4 @@ public class OrganizationJpa {
     private String manager;
     @Column(name = "phone_number")
     private String phoneNumbers;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getManager() {
-        return manager;
-    }
-
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
-
-    public String getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(String phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
 }

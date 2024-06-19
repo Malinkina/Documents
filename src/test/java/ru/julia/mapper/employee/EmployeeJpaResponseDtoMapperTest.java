@@ -3,7 +3,10 @@ package ru.julia.mapper.employee;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import ru.julia.controller.dto.response.EmployeeResponseDto;
+import ru.julia.orm.jpamodel.DepartmentJpa;
 import ru.julia.orm.jpamodel.EmployeeJpa;
+import ru.julia.orm.jpamodel.OrganizationJpa;
+import ru.julia.orm.jpamodel.PositionJpa;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -22,21 +25,45 @@ class EmployeeJpaResponseDtoMapperTest {
 
     @Test
     void toResponseDto() {
-        EmployeeJpa jpa = new EmployeeJpa();
-        jpa.setId(ID);
-        jpa.setSurname(SURNAME);
-        jpa.setName(NAME);
-        jpa.setPatronymic(PATRONYMIC);
-        jpa.setPhoto(PHOTO);
-        jpa.setDateOfBirth(DATE_OF_BIRTH);
-        jpa.setPhoneNumber(PHONE_NUMBER);
-        EmployeeResponseDto responseDto = MAPPER.toResponseDto(jpa);
-        assertEquals(ID, responseDto.getId());
-        assertEquals(SURNAME, responseDto.getSurname());
-        assertEquals(NAME, responseDto.getName());
-        assertEquals(PATRONYMIC, responseDto.getPatronymic());
-        assertEquals(PHOTO, responseDto.getPhoto());
-        assertEquals(DATE_OF_BIRTH, responseDto.getDateOfBirth());
-        assertEquals(PHONE_NUMBER, responseDto.getPhoneNumber());
+        DepartmentJpa departmentJpa = new DepartmentJpa();
+        departmentJpa.setId(ID);
+        OrganizationJpa organizationJpa = new OrganizationJpa();
+        organizationJpa.setId(ID);
+        PositionJpa positionJpa = new PositionJpa();
+        positionJpa.setId(ID);
+        EmployeeJpa jpa = new EmployeeJpa(
+                ID, SURNAME, NAME, PATRONYMIC, PHOTO, DATE_OF_BIRTH, PHONE_NUMBER,
+                departmentJpa, positionJpa, organizationJpa
+        );
+        EmployeeResponseDto actual = MAPPER.toResponseDto(jpa);
+        EmployeeResponseDto expected = new EmployeeResponseDto(
+                ID, SURNAME, NAME, PATRONYMIC, PHOTO, DATE_OF_BIRTH, PHONE_NUMBER, ID, ID, ID
+        );
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void getOrganizationIdFromOrganizationJpa() {
+        OrganizationJpa organizationJpa = new OrganizationJpa();
+        organizationJpa.setId(ID);
+        UUID id = MAPPER.getOrganizationIdFromOrganizationJpa(organizationJpa);
+        assertEquals(ID, id);
+    }
+
+    @Test
+    void getDepartmentIdFromDepartmentJpa() {
+        DepartmentJpa departmentJpa = new DepartmentJpa();
+        departmentJpa.setId(ID);
+        UUID id = MAPPER.getDepartmentIdFromDepartmentJpa(departmentJpa);
+        assertEquals(ID, id);
+    }
+
+    @Test
+    void getPositionIdFromPositionJpa() {
+        PositionJpa positionJpa = new PositionJpa();
+        positionJpa.setId(ID);
+        UUID id = MAPPER.getPositionIdFromPositionJpa(positionJpa);
+        assertEquals(ID, id);
     }
 }

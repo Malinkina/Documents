@@ -41,7 +41,7 @@ public class OutgoingDocumentService {
         this.storage = storage;
     }
 
-    public void create(OutgoingDocModel outgoingDocModel) {
+    public UUID create(OutgoingDocModel outgoingDocModel) {
         if (outgoingDocModel.getId() == null) {
             setDTOMissingFields(outgoingDocModel);
         }
@@ -55,6 +55,7 @@ public class OutgoingDocumentService {
             outgoingDocJpa.setRecipient(recipient);
         }
         outgoingDocRepository.save(outgoingDocJpa);
+        return outgoingDocJpa.getId();
     }
 
     public OutgoingDocResponseDto read(UUID id) {

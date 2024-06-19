@@ -7,9 +7,6 @@ import ru.julia.xml.xmlmodel.EmployeeXml;
 
 import java.time.LocalDate;
 
-/**
- * Класс генерирует значения для полей класса {@link IncomingDocument}
- */
 @Component
 public class IncomingDocInfoGenerator {
     @Autowired

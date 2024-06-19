@@ -45,7 +45,7 @@ public class TaskDocumentService {
         this.storage = storage;
     }
 
-    public void create(TaskDocModel taskDocModel) {
+    public UUID create(TaskDocModel taskDocModel) {
         if (taskDocModel.getId() == null) {
             setDTOMissingFields(taskDocModel);
         }
@@ -66,6 +66,7 @@ public class TaskDocumentService {
         }
 
         taskDocRepository.save(taskDocJpa);
+        return taskDocJpa.getId();
     }
     public TaskDocResponseDto read(UUID id) {
         Optional<TaskDocJpa> taskDocumentJPA = taskDocRepository.findById(id);

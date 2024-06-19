@@ -50,7 +50,7 @@ class TaskDocJpaResponseDtoMapperTest {
         assertEquals(TEXT, responseDto.getText());
         assertEquals(REG_DATE, responseDto.getRegDate());
         assertEquals(ISSUE_DATE, responseDto.getIssueDate());
-        assertEquals(CONTROL_MARK, responseDto.getControlMark());
+        assertEquals(CONTROL_MARK, responseDto.isControlMark());
     }
 
     @Test

@@ -42,7 +42,7 @@ public class EmployeeService {
         this.jpaResponseDtoMapper = jpaResponseDtoMapper;
     }
 
-    public void create(EmployeeModel employeeModel) {
+    public UUID create(EmployeeModel employeeModel) {
         UUID organizationId = employeeModel.getOrganizationId();
         OrganizationJpa organizationJpa = organizationRepository.findById(organizationId)
                         .orElseThrow(() -> new RuntimeException(
@@ -66,6 +66,7 @@ public class EmployeeService {
         employeeJpa.setDepartmentJpa(departmentJpa);
         employeeJpa.setPositionJpa(positionJpa);
         employeeRepository.save(employeeJpa);
+        return employeeJpa.getId();
     }
 
     public EmployeeResponseDto read(UUID id) {

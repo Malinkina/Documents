@@ -1,5 +1,6 @@
 package ru.julia.mapper.department;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import ru.julia.controller.dto.request.DepartmentRequestDto;
@@ -7,8 +8,6 @@ import ru.julia.servicelayer.model.DepartmentModel;
 
 import java.util.List;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DepartmentRequestDtoModelMapperTest {
     private static final DepartmentRequestDtoModelMapper MAPPER = Mappers.getMapper(DepartmentRequestDtoModelMapper.class);
@@ -20,17 +19,13 @@ class DepartmentRequestDtoModelMapperTest {
 
     @Test
     void toModel() {
-        DepartmentRequestDto requestDto = new DepartmentRequestDto();
-        requestDto.setFullName(FULL_NAME);
-        requestDto.setShortName(SHORT_NAME);
-        requestDto.setManager(MANAGER);
-        requestDto.setPhoneNumbers(PHONE_NUMBERS);
-        requestDto.setOrganizationId(ORGANIZATION_ID);
-        DepartmentModel model = MAPPER.toModel(requestDto);
-        assertEquals(FULL_NAME, model.getFullName());
-        assertEquals(SHORT_NAME, model.getShortName());
-        assertEquals(MANAGER, model.getManager());
-        assertEquals(PHONE_NUMBERS, model.getPhoneNumbers());
-        assertEquals(ORGANIZATION_ID, model.getOrganizationId());
+        DepartmentRequestDto requestDto = new DepartmentRequestDto(
+                FULL_NAME, SHORT_NAME, MANAGER, PHONE_NUMBERS, ORGANIZATION_ID
+        );
+        DepartmentModel actual = MAPPER.toModel(requestDto);
+        DepartmentModel expected = new DepartmentModel(
+                null, FULL_NAME, SHORT_NAME, MANAGER, PHONE_NUMBERS, ORGANIZATION_ID
+        );
+        Assertions.assertEquals(expected, actual);
     }
 }

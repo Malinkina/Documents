@@ -46,7 +46,7 @@ public class IncomingDocumentService {
         this.storage = storage;
     }
 
-    public void create(IncomingDocModel incomingDocModel) {
+    public UUID create(IncomingDocModel incomingDocModel) {
         if (incomingDocModel.getId() == null) {
             setDtoMissingFields(incomingDocModel);
         }
@@ -64,6 +64,7 @@ public class IncomingDocumentService {
             incomingDocJpa.setSender(sender);
         }
         incomingDocRepository.save(incomingDocJpa);
+        return incomingDocJpa.getId();
     }
 
     public IncomingDocResponseDto read(UUID id) {

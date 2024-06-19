@@ -11,7 +11,7 @@ import ru.julia.servicelayer.model.EmployeeModel;
 import ru.julia.servicelayer.service.EmployeeService;
 import ru.julia.xml.XmlReader;
 import ru.julia.xml.xmlmodel.EmployeeXml;
-import ru.julia.xml.xmlmodel.OrgUnits;
+import ru.julia.xml.xmlmodel.wrapper.EmployeeWrapper;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ class EmployeeTableFillerTest {
 
     @Test
     void fill() {
-        OrgUnits orgUnits = new OrgUnits();
+        EmployeeWrapper orgUnits = new EmployeeWrapper();
         when(reader.readEmployee()).thenReturn(orgUnits);
         List<EmployeeXml> employees = orgUnits.getEmployees();
         EmployeeXml employeeXml = new EmployeeXml();
