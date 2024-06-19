@@ -1,4 +1,4 @@
-package ru.julia.infogenerators;
+package ru.julia.infogenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,6 @@ public class EmployeeInfoGenerator {
     XMLReader xmlReader;
 
     public Employee generateEmployee() {
-        Employee employee = xmlReader.readEmployee().getEmployeeList().get((int) (Math.random() * 2));
-        return employee;
+        return xmlReader.readEmployee().getEmployeeList().get((int) (Math.random() * 2));
     }
 }

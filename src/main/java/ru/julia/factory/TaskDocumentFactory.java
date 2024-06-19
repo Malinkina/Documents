@@ -1,9 +1,9 @@
-package ru.julia.factories;
+package ru.julia.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.TaskDocument;
-import ru.julia.infogenerators.TaskDocumentInfoGenerator;
+import ru.julia.document.TaskDocument;
+import ru.julia.infogenerator.TaskDocumentInfoGenerator;
 
 /**
  * Класс создает объект класса {@link TaskDocument}

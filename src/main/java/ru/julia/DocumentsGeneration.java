@@ -2,8 +2,8 @@ package ru.julia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.Document;
-import ru.julia.factories.DocumentFactory;
+import ru.julia.document.Document;
+import ru.julia.factory.DocumentFactory;
 
 import java.util.ArrayList;
 import java.util.List;

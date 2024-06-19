@@ -1,9 +1,9 @@
-package ru.julia.infogenerators;
+package ru.julia.infogenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.julia.DeliveryTypes;
-import ru.julia.documents.OutgoingDocument;
+import ru.julia.document.OutgoingDocument;
 import ru.julia.staff.Employee;
 
 import java.util.Random;

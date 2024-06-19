@@ -1,6 +1,7 @@
-package ru.julia.documents;
+package ru.julia.document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import ru.julia.staff.Employee;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Класс-родитель для классов {@link IncomingDocument}, {@link OutgoingDocument}, {@link TaskDocument}
  * Реализует класс Comparable для сортировки документов по полям регистрационный номер и дата регистрации {@link #regNumber}, {@link #regDate}
  */
+@Data
 public abstract class Document implements Comparable<Document> {
     private int id;
     private String name;
@@ -19,7 +21,7 @@ public abstract class Document implements Comparable<Document> {
     private LocalDate regDate;
     private Employee author;
 
-    public int getId() {
+    /*public int getId() {
         return id;
     }
 
@@ -65,7 +67,7 @@ public abstract class Document implements Comparable<Document> {
 
     public void setAuthor(Employee author) {
         this.author = author;
-    }
+    }*/
 
     @Override
     public int compareTo(Document document) {

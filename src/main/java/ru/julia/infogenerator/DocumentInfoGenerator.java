@@ -1,9 +1,9 @@
-package ru.julia.infogenerators;
+package ru.julia.infogenerator;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.julia.documents.Document;
+import ru.julia.document.Document;
 import ru.julia.staff.Employee;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package ru.julia.documents;
+package ru.julia.document;
 
 import ru.julia.staff.Employee;
 
