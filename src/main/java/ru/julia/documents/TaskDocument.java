@@ -15,6 +15,26 @@ public class TaskDocument extends Document {
     private TaskDocument() {
     }
 
+    public String getIssueDate() {
+        return issueDate;
+    }
+
+    public String getExecutionTerm() {
+        return executionTerm;
+    }
+
+    public Employee getResponsibleExecutive() {
+        return responsibleExecutive;
+    }
+
+    public boolean isControlMark() {
+        return controlMark;
+    }
+
+    public Employee getController() {
+        return controller;
+    }
+
     public String toString() {
         return "Поручение № " + super.toString();
     }

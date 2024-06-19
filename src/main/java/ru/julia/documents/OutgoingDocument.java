@@ -12,6 +12,14 @@ public class OutgoingDocument extends Document {
     private OutgoingDocument() {
     }
 
+    public Employee getRecipient() {
+        return recipient;
+    }
+
+    public String getDeliveryType() {
+        return deliveryType;
+    }
+
     public String toString() {
         return "Исходящий № " + super.toString();
     }

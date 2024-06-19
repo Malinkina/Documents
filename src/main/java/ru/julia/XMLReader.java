@@ -1,7 +1,11 @@
 package ru.julia;
 
 import org.springframework.stereotype.Component;
-import ru.julia.staff.*;
+import ru.julia.staff.Department;
+import ru.julia.staff.Employee;
+import ru.julia.staff.OrgUnits;
+import ru.julia.staff.Organization;
+import ru.julia.staff.Position;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -31,8 +35,8 @@ public class XMLReader {
             JAXBContext context = JAXBContext.newInstance(Organization.class, OrgUnits.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             URL resource = XMLReader.class.getClassLoader().getResource("organization.xml");
-            OrgUnits organizationList = (OrgUnits) unmarshaller.unmarshal(resource);
-            return organizationList;
+            OrgUnits orgList = (OrgUnits) unmarshaller.unmarshal(resource);
+            return orgList;
         } catch (JAXBException e) {
             e.printStackTrace();
         }

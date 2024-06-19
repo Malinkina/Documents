@@ -15,15 +15,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Position {
     @XmlElement
-    private int id;
+    private String id;
+    @XmlElement
+    private int positionId;
     @XmlElement
     private String name;
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public int getId() {
-        return id;
+    public int getPositionId() {
+        return positionId;
+    }
+
+    public String getName() {
+        return name;
     }
 }

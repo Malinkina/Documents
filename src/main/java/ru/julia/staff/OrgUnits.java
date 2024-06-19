@@ -1,5 +1,7 @@
 package ru.julia.staff;
 
+import org.springframework.stereotype.Component;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс описывает оргштатную единицу
+ * Класс содержит списки оргштатных единиц
  */
+@Component
 @XmlRootElement(name = "staff")
 public class OrgUnits {
     @XmlElementWrapper(name = "persons")
@@ -25,7 +28,6 @@ public class OrgUnits {
     @XmlElementWrapper(name = "positions")
     @XmlElement(name = "position")
     List<Position> positionList = new ArrayList<>();
-
 
     public List<Organization> getOrgList() {
         return orgList;

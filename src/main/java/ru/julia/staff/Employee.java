@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Employee extends Staff {
     @XmlElement
+    private String id;
+    @XmlElement
     private String surname;
     @XmlElement
     private String name;
@@ -24,22 +26,15 @@ public class Employee extends Staff {
     @XmlElement
     private String phoneNumber;
     @XmlElement
-    private Position position;
+    private String positionId;
     @XmlElement
-    private Department department;
+    private String departmentId;
     @XmlElement
-    private Organization organization;
+    private String organizationId;
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+    public String getId() {
+        return id;
     }
 
     public String getSurname() {
@@ -66,16 +61,16 @@ public class Employee extends Staff {
         return phoneNumber;
     }
 
-    public Position getPosition() {
-        return position;
+    public String getPositionId() {
+        return positionId;
     }
 
-    public Department getDepartment() {
-        return department;
+    public String getOrganizationId() {
+        return organizationId;
     }
 
-    public Organization getOrganization() {
-        return organization;
+    public String getDepartmentId() {
+        return departmentId;
     }
 
     @Override
